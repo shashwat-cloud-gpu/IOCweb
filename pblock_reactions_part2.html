@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-Block Reactions Megacopy | JEE Advanced | Part 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --bg2: #080d1a;
+    --panel: #0c1220;
+    --border: #1a2540;
+    --g13: #00e5ff;
+    --g14: #69ff47;
+    --g15: #ff6b35;
+    --g16: #ffd700;
+    --g17: #c77dff;
+    --g18: #ff4dff;
+    --white: #e8eef8;
+    --muted: #7a8ba8;
+    --accent: #0ff;
+    --red: #ff4444;
+    --glow13: 0 0 18px #00e5ff55;
+    --glow14: 0 0 18px #69ff4755;
+    --glow15: 0 0 18px #ff6b3555;
+    --glow16: 0 0 18px #ffd70055;
+    --glow17: 0 0 18px #c77dff55;
+    --glow18: 0 0 18px #ff4dff55;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #050810 0%, #0c1835 50%, #050810 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 32px 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 40px, #00e5ff08 40px, #00e5ff08 41px),
+                repeating-linear-gradient(90deg, transparent, transparent 80px, #00e5ff06 80px, #00e5ff06 81px);
+  }
+  .header-badge {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 16px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(22px, 5vw, 42px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 30px #00e5ff88, 0 0 60px #00e5ff44;
+    position: relative;
+    z-index: 1;
+  }
+  .header h1 span { color: var(--accent); }
+  .header-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 18px 24px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 16px 60px; }
+
+  /* ── GROUP SECTION ── */
+  .group-section { margin-bottom: 44px; }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .group-header::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Orbitron', monospace;
+    font-size: 36px;
+    font-weight: 900;
+    opacity: 0.07;
+    letter-spacing: 2px;
+  }
+  .gh-g13 { background: linear-gradient(135deg, #002a33 0%, #001f2a 100%); border-left: 4px solid var(--g13); box-shadow: var(--glow13); }
+  .gh-g14 { background: linear-gradient(135deg, #0d2200 0%, #071a00 100%); border-left: 4px solid var(--g14); box-shadow: var(--glow14); }
+  .gh-g15 { background: linear-gradient(135deg, #2a1500 0%, #1e0d00 100%); border-left: 4px solid var(--g15); box-shadow: var(--glow15); }
+  .gh-g16 { background: linear-gradient(135deg, #2a2200 0%, #1a1500 100%); border-left: 4px solid var(--g16); box-shadow: var(--glow16); }
+  .gh-g17 { background: linear-gradient(135deg, #1a0a2e 0%, #120620 100%); border-left: 4px solid var(--g17); box-shadow: var(--glow17); }
+  .gh-g18 { background: linear-gradient(135deg, #2e0a2e 0%, #200620 100%); border-left: 4px solid var(--g18); box-shadow: var(--glow18); }
+
+  .group-icon {
+    font-size: 26px;
+    line-height: 1;
+  }
+  .group-title-block { display: flex; flex-direction: column; }
+  .group-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .group-elements {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+  .group-count {
+    margin-left: auto;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    opacity: 0.9;
+  }
+  .gc13 { color: var(--g13); }
+  .gc14 { color: var(--g14); }
+  .gc15 { color: var(--g15); }
+  .gc16 { color: var(--g16); }
+  .gc17 { color: var(--g17); }
+  .gc18 { color: var(--g18); }
+  .bg13 { background: #00e5ff22; border: 1px solid #00e5ff44; color: var(--g13); }
+  .bg14 { background: #69ff4722; border: 1px solid #69ff4744; color: var(--g14); }
+  .bg15 { background: #ff6b3522; border: 1px solid #ff6b3544; color: var(--g15); }
+  .bg16 { background: #ffd70022; border: 1px solid #ffd70044; color: var(--g16); }
+  .bg17 { background: #c77dff22; border: 1px solid #c77dff44; color: var(--g17); }
+  .bg18 { background: #ff4dff22; border: 1px solid #ff4dff44; color: var(--g18); }
+
+  /* Sub-section */
+  .subsection {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 0;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+  .subsection-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 9px 20px 8px;
+    background: #ffffff07;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .subsection-title span {
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  /* ── REACTION CARD ── */
+  .rxn {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    border-bottom: 1px solid #ffffff08;
+    transition: background 0.15s;
+  }
+  .rxn:last-child { border-bottom: none; }
+  .rxn:hover { background: #ffffff05; }
+
+  .rxn-num {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 14px 0 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: #3a4a60;
+    border-right: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .rxn-body { padding: 12px 18px 12px 16px; }
+
+  .rxn-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    opacity: 0.6;
+  }
+
+  .rxn-eq {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13.5px;
+    color: var(--white);
+    line-height: 1.7;
+    word-break: break-all;
+  }
+
+  /* colored arrow */
+  .arrow { color: #ff9d00; font-weight: bold; margin: 0 4px; }
+  .arrow-delta { color: #ff6b35; }
+  .arrow-eq { color: #00e5ff; }
+
+  /* condition pills */
+  .cond {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin: 0 3px;
+    vertical-align: middle;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .cond-heat { background: #ff440033; border: 1px solid #ff440066; color: #ff8855; }
+  .cond-conc { background: #ff000022; border: 1px solid #ff000044; color: #ff5555; }
+  .cond-dil  { background: #00aaff22; border: 1px solid #00aaff44; color: #55aaff; }
+  .cond-cat  { background: #00ff8822; border: 1px solid #00ff8844; color: #55ffaa; }
+  .cond-elec { background: #ffd70022; border: 1px solid #ffd70044; color: #ffd700; }
+  .cond-uv   { background: #ff00ff22; border: 1px solid #ff00ff44; color: #ff88ff; }
+  .cond-pres { background: #8888ff22; border: 1px solid #8888ff44; color: #aaaaff; }
+
+  /* subscript/superscript in mono */
+  .rxn-eq sub, .rxn-eq sup {
+    font-size: 9px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  /* note block */
+  .rxn-note {
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    font-family: 'Rajdhani', sans-serif;
+    padding-left: 4px;
+    border-left: 2px solid #ffffff20;
+    line-height: 1.4;
+  }
+
+  /* product highlight */
+  .prod { font-weight: 700; }
+  .prod13 { color: var(--g13); }
+  .prod14 { color: var(--g14); }
+  .prod15 { color: var(--g15); }
+  .prod16 { color: var(--g16); }
+  .prod17 { color: var(--g17); }
+  .prod18 { color: var(--g18); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    letter-spacing: 1px;
+  }
+  .footer span { color: var(--accent); }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; color: #111; }
+    .header { background: #f0f0f0; border-bottom: 2px solid #000; }
+    .group-header { background: #f5f5f5 !important; }
+    .panel, .subsection { background: #fff; }
+    .rxn-eq { color: #111; }
+    .cond { border: 1px solid #999; color: #333; background: #eee; }
+  }
+
+  @media (max-width: 600px) {
+    .rxn-eq { font-size: 11.5px; }
+    .group-name { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<div class="header">
+  <div class="header-badge">JEE ADVANCED · INORGANIC CHEMISTRY</div>
+  <h1>P-BLOCK <span>REACTIONS</span> MEGACOPY</h1>
+  <div class="header-sub">PART 2 · GROUPS 13 → 18 · 120+ REACTIONS · SEQUENTIAL ORDER</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--g13)"></div><span>Group 13 · B, Al</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--g14)"></div><span>Group 14 · C, Si, Sn, Pb</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--g15)"></div><span>Group 15 · N, P, As</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--g16)"></div><span>Group 16 · O, S, Se</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--g17)"></div><span>Group 17 · Halogens</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--g18)"></div><span>Group 18 · Noble Gases</span></div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════
+     GROUP 13 — BORON & ALUMINIUM
+═══════════════════════════════════════════════════ -->
+<div class="group-section">
+  <div class="group-header gh-g13" data-label="GROUP 13">
+    <div class="group-icon">⬡</div>
+    <div class="group-title-block">
+      <div class="group-name gc13">GROUP 13 — BORON & ALUMINIUM</div>
+      <div class="group-elements gc13">B · Al · Ga · In · Tl</div>
+    </div>
+    <div class="group-count bg13">R01–R22</div>
+  </div>
+  <div class="subsection">
+
+    <!-- Boron sub -->
+    <div class="subsection-title"><span class="gc13">▸ BORON (B)</span> — Borax · Boric Acid · Diborane · BX₃</div>
+
+    <div class="rxn">
+      <div class="rxn-num">R01</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Borax → Boric Acid (acidification)</div>
+        <div class="rxn-eq">Na<sub>2</sub>B<sub>4</sub>O<sub>7</sub> + H<sub>2</sub>SO<sub>4</sub> + 5H<sub>2</sub>O <span class="arrow">→</span> Na<sub>2</sub>SO<sub>4</sub> + 4<span class="prod prod13">H<sub>3</sub>BO<sub>3</sub></span></div>
+        <div class="rxn-note">Borax = Na₂B₄O₇·10H₂O; boric acid = weak monobasic acid; Lewis acid (accepts OH⁻)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R02</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Borax Bead Test — Coloured Metaborates</div>
+        <div class="rxn-eq">Na<sub>2</sub>B<sub>4</sub>O<sub>7</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> 2NaBO<sub>2</sub> + B<sub>2</sub>O<sub>3</sub> (glassy bead) <span class="arrow">+</span> MO <span class="arrow">→</span> <span class="prod prod13">M(BO<sub>2</sub>)<sub>2</sub></span> (coloured)</div>
+        <div class="rxn-note">Cu → blue/green; Co → deep blue; Ni → grey; Fe → yellow/brown; Mn → violet</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R03</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Boric Acid — Lewis Acid Action with Water</div>
+        <div class="rxn-eq">H<sub>3</sub>BO<sub>3</sub> + H<sub>2</sub>O <span class="arrow-eq">⇌</span> [B(OH)<sub>4</sub>]<sup>–</sup> + H<sup>+</sup></div>
+        <div class="rxn-note">Does NOT donate H⁺; it accepts OH⁻ from water — acts as Lewis acid, not Brønsted acid</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R04</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Boric Acid → Metaboric Acid → Boron Trioxide</div>
+        <div class="rxn-eq">H<sub>3</sub>BO<sub>3</sub> <span class="cond cond-heat">373K</span> <span class="arrow">→</span> <span class="prod prod13">HBO<sub>2</sub></span> + H<sub>2</sub>O ; &nbsp; HBO<sub>2</sub> <span class="cond cond-heat">red hot</span> <span class="arrow">→</span> <span class="prod prod13">B<sub>2</sub>O<sub>3</sub></span> + H<sub>2</sub>O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R05</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Diborane Preparation (Lab)</div>
+        <div class="rxn-eq">3LiAlH<sub>4</sub> + 4BF<sub>3</sub> <span class="cond cond-cat">ether</span> <span class="arrow">→</span> 2<span class="prod prod13">B<sub>2</sub>H<sub>6</sub></span> + 3LiF + 3AlF<sub>3</sub></div>
+        <div class="rxn-note">Also: 2NaBH₄ + I₂ → B₂H₆ + 2NaI + H₂</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R06</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Diborane Hydrolysis</div>
+        <div class="rxn-eq">B<sub>2</sub>H<sub>6</sub> + 6H<sub>2</sub>O <span class="arrow">→</span> 2<span class="prod prod13">H<sub>3</sub>BO<sub>3</sub></span> + 6H<sub>2</sub></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R07</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Diborane + NH₃ → Borazine (Inorganic Benzene)</div>
+        <div class="rxn-eq">B<sub>2</sub>H<sub>6</sub> + 2NH<sub>3</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod13">B<sub>3</sub>N<sub>3</sub>H<sub>6</sub></span> + 3H<sub>2</sub></div>
+        <div class="rxn-note">Borazine (borazole) — isoelectronic with benzene; structure alternates B–N bonds</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R08</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Diborane + O₂ — Combustion</div>
+        <div class="rxn-eq">B<sub>2</sub>H<sub>6</sub> + 3O<sub>2</sub> <span class="arrow">→</span> <span class="prod prod13">B<sub>2</sub>O<sub>3</sub></span> + 3H<sub>2</sub>O &nbsp; &nbsp; (ΔH = −2165 kJ mol⁻¹)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R09</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">BCl₃ Hydrolysis (vs AlCl₃)</div>
+        <div class="rxn-eq">BCl<sub>3</sub> + 3H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod13">H<sub>3</sub>BO<sub>3</sub></span> + 3HCl</div>
+        <div class="rxn-note">BCl₃ hydrolyses completely (no d-orbitals to back-bond); AlCl₃ gives Al(OH)₃ or Al₂O₃</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R10</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">BF₃ + F⁻ → Tetrafluoroborate (Lewis Acid-Base)</div>
+        <div class="rxn-eq">BF<sub>3</sub> + F<sup>–</sup> <span class="arrow">→</span> <span class="prod prod13">[BF<sub>4</sub>]<sup>–</sup></span> &nbsp; (sp³, tetrahedral)</div>
+      </div>
+    </div>
+
+    <!-- Aluminium -->
+    <div class="subsection-title"><span class="gc13">▸ ALUMINIUM (Al)</span> — Extraction · Amphoteric · Alum · AlCl₃</div>
+
+    <div class="rxn">
+      <div class="rxn-num">R11</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Al + Dil H₂SO₄</div>
+        <div class="rxn-eq">2Al + 3H<sub>2</sub>SO<sub>4</sub>(dil) <span class="arrow">→</span> <span class="prod prod13">Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub></span> + 3H<sub>2</sub>↑</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R12</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Al — Passivation with Conc. HNO₃</div>
+        <div class="rxn-eq">Al + Conc. HNO<sub>3</sub> <span class="arrow">→</span> <span class="prod prod13">No reaction</span> (passivation; oxide layer)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R13</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Al Amphoteric — Reaction with NaOH</div>
+        <div class="rxn-eq">2Al + 2NaOH + 2H<sub>2</sub>O <span class="arrow">→</span> 2<span class="prod prod13">NaAlO<sub>2</sub></span> + 3H<sub>2</sub>↑</div>
+        <div class="rxn-note">Al₂O₃ + 2NaOH → 2NaAlO₂ + H₂O (oxide also amphoteric)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R14</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Alum — Preparation & Formula</div>
+        <div class="rxn-eq">Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + K<sub>2</sub>SO<sub>4</sub> + 24H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod13">K<sub>2</sub>SO<sub>4</sub>·Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>·24H<sub>2</sub>O</span></div>
+        <div class="rxn-note">Potash alum = KAl(SO₄)₂·12H₂O; used as mordant; Al³⁺ in [Al(H₂O)₆]³⁺</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R15</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Thermite Reaction</div>
+        <div class="rxn-eq">Fe<sub>2</sub>O<sub>3</sub> + 2Al <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod13">Al<sub>2</sub>O<sub>3</sub></span> + 2Fe &nbsp; (ΔH = −852 kJ)</div>
+        <div class="rxn-note">Aluminothermy — used to weld railway tracks; Al reduces metal oxide</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R16</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">AlCl₃ Hydrolysis</div>
+        <div class="rxn-eq">AlCl<sub>3</sub> + 3H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod13">Al(OH)<sub>3</sub></span> + 3HCl &nbsp; (fumes in moist air)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R17</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Al(OH)₃ — Amphoteric</div>
+        <div class="rxn-eq">Al(OH)<sub>3</sub> + 3HCl <span class="arrow">→</span> AlCl<sub>3</sub> + 3H<sub>2</sub>O &nbsp; ; &nbsp; Al(OH)<sub>3</sub> + NaOH <span class="arrow">→</span> <span class="prod prod13">Na[Al(OH)<sub>4</sub>]</span></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R18</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Cryolite Formation (Hall-Héroult)</div>
+        <div class="rxn-eq">AlF<sub>3</sub> + 3NaF <span class="arrow">→</span> <span class="prod prod13">Na<sub>3</sub>AlF<sub>6</sub></span> (cryolite) &nbsp; — solvent for Al₂O₃ in electrolysis</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R19</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Hall-Héroult — Cathodic & Anodic</div>
+        <div class="rxn-eq">Cathode: Al<sup>3+</sup> + 3e<sup>–</sup> <span class="arrow">→</span> <span class="prod prod13">Al</span> &nbsp; ; &nbsp; Anode: 2O<sup>2–</sup> – 4e<sup>–</sup> <span class="arrow">→</span> O<sub>2</sub> &nbsp; (C anode burns)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R20</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Baeyer's Process — Bauxite Purification</div>
+        <div class="rxn-eq">Al<sub>2</sub>O<sub>3</sub> + 2NaOH <span class="arrow">→</span> 2NaAlO<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> dilute &amp; CO<sub>2</sub> → <span class="prod prod13">Al(OH)<sub>3</sub>↓</span> → calcine → Al<sub>2</sub>O<sub>3</sub></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R21</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Al + Cl₂</div>
+        <div class="rxn-eq">2Al + 3Cl<sub>2</sub> <span class="arrow">→</span> <span class="prod prod13">2AlCl<sub>3</sub></span> &nbsp; (exists as Al₂Cl₆ dimer in solid/vapour)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R22</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc13">Al + Fe₃O₄ (Thermite variant)</div>
+        <div class="rxn-eq">8Al + 3Fe<sub>3</sub>O<sub>4</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod13">4Al<sub>2</sub>O<sub>3</sub></span> + 9Fe</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     GROUP 14 — C, Si, Sn, Pb
+═══════════════════════════════════════════════════ -->
+<div class="group-section">
+  <div class="group-header gh-g14" data-label="GROUP 14">
+    <div class="group-icon">◆</div>
+    <div class="group-title-block">
+      <div class="group-name gc14">GROUP 14 — CARBON, SILICON, TIN & LEAD</div>
+      <div class="group-elements gc14">C · Si · Ge · Sn · Pb</div>
+    </div>
+    <div class="group-count bg14">R23–R42</div>
+  </div>
+  <div class="subsection">
+
+    <div class="subsection-title"><span class="gc14">▸ CARBON</span> — CO · CO₂ · Carbonate · Diamond · Fullerene</div>
+
+    <div class="rxn">
+      <div class="rxn-num">R23</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">CO — Reducing Agent (Fe₂O₃)</div>
+        <div class="rxn-eq">Fe<sub>2</sub>O<sub>3</sub> + 3CO <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod14">2Fe</span> + 3CO<sub>2</sub></div>
+        <div class="rxn-note">Blast furnace reaction; CO is principal reductant above 983 K</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R24</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Water Gas Shift Reaction</div>
+        <div class="rxn-eq">CO + H<sub>2</sub>O <span class="cond cond-heat">Δ</span><span class="cond cond-cat">cat</span> <span class="arrow-eq">⇌</span> <span class="prod prod14">CO<sub>2</sub></span> + H<sub>2</sub></div>
+        <div class="rxn-note">Used in Bosch process; increases H₂ yield from water gas</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R25</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">CO — Toxic Reaction (Haemoglobin)</div>
+        <div class="rxn-eq">Hb(O<sub>2</sub>)<sub>4</sub> + 4CO <span class="arrow">→</span> <span class="prod prod14">Hb(CO)<sub>4</sub></span> + 4O<sub>2</sub> &nbsp; (CO binds 200× stronger)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R26</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">CO + Cl₂ — Phosgene</div>
+        <div class="rxn-eq">CO + Cl<sub>2</sub> <span class="cond cond-uv">hν / charcoal</span> <span class="arrow">→</span> <span class="prod prod14">COCl<sub>2</sub></span> &nbsp; (phosgene, war gas)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R27</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">CO₂ + H₂O ⇌ H₂CO₃</div>
+        <div class="rxn-eq">CO<sub>2</sub> + H<sub>2</sub>O <span class="arrow-eq">⇌</span> H<sub>2</sub>CO<sub>3</sub> <span class="arrow-eq">⇌</span> H<sup>+</sup> + HCO<sub>3</sub><sup>–</sup> <span class="arrow-eq">⇌</span> 2H<sup>+</sup> + CO<sub>3</sub><sup>2–</sup></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R28</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">CO₂ + NaOH (excess)</div>
+        <div class="rxn-eq">CO<sub>2</sub> + 2NaOH(excess) <span class="arrow">→</span> <span class="prod prod14">Na<sub>2</sub>CO<sub>3</sub></span> + H<sub>2</sub>O &nbsp; ; &nbsp; CO₂ (excess) → NaHCO₃</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R29</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Na₂CO₃ + CO₂ + H₂O</div>
+        <div class="rxn-eq">Na<sub>2</sub>CO<sub>3</sub> + CO<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod14">2NaHCO<sub>3</sub></span></div>
+        <div class="rxn-note">Reverse: 2NaHCO₃ →(Δ) Na₂CO₃ + H₂O + CO₂ (baking soda decomposition)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R30</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Solvay Process — Key Step</div>
+        <div class="rxn-eq">NaCl(sat.) + NH<sub>3</sub> + CO<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod14">NaHCO<sub>3</sub>↓</span> + NH<sub>4</sub>Cl &nbsp; (NaHCO₃ calc. → Na₂CO₃)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R31</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">C + H₂O — Water Gas</div>
+        <div class="rxn-eq">C + H<sub>2</sub>O <span class="cond cond-heat">1270K</span> <span class="arrow">→</span> <span class="prod prod14">CO + H<sub>2</sub></span> (water gas / syngas)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R32</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">CS₂ — Carbon Disulfide Preparation</div>
+        <div class="rxn-eq">C + 2S <span class="cond cond-heat">1200K</span> <span class="arrow">→</span> <span class="prod prod14">CS<sub>2</sub></span></div>
+      </div>
+    </div>
+
+    <!-- Silicon -->
+    <div class="subsection-title"><span class="gc14">▸ SILICON</span> — SiO₂ · Silicates · SiCl₄ · Silicones</div>
+
+    <div class="rxn">
+      <div class="rxn-num">R33</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">SiO₂ + HF (only acid to attack)</div>
+        <div class="rxn-eq">SiO<sub>2</sub> + 4HF <span class="arrow">→</span> <span class="prod prod14">SiF<sub>4</sub></span>↑ + 2H<sub>2</sub>O &nbsp; ; &nbsp; SiF<sub>4</sub> + 2HF → H<sub>2</sub>SiF<sub>6</sub> (hexafluorosilicic acid)</div>
+        <div class="rxn-note">Used to etch glass; SiO₂ does NOT react with HCl, H₂SO₄, HNO₃</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R34</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">SiO₂ + NaOH (fused)</div>
+        <div class="rxn-eq">SiO<sub>2</sub> + 2NaOH <span class="cond cond-heat">fused</span> <span class="arrow">→</span> <span class="prod prod14">Na<sub>2</sub>SiO<sub>3</sub></span> + H<sub>2</sub>O &nbsp; (water glass)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R35</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Na₂SiO₃ + CO₂ + H₂O</div>
+        <div class="rxn-eq">Na<sub>2</sub>SiO<sub>3</sub> + CO<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod14">H<sub>2</sub>SiO<sub>3</sub>↓</span> + Na<sub>2</sub>CO<sub>3</sub></div>
+        <div class="rxn-note">Silicic acid ppt; stronger acid displaces weaker; CO₂ stronger than H₂SiO₃</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R36</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">SiCl₄ Hydrolysis</div>
+        <div class="rxn-eq">SiCl<sub>4</sub> + 4H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod14">Si(OH)<sub>4</sub></span> + 4HCl &nbsp; (via d-orbital expansion)</div>
+        <div class="rxn-note">CCl₄ does NOT hydrolyse (no d-orbitals in C); SiCl₄ does (3d available)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R37</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Silicon — Preparation of Silicones</div>
+        <div class="rxn-eq">(CH<sub>3</sub>)<sub>2</sub>SiCl<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod14">[(CH<sub>3</sub>)<sub>2</sub>Si–O]<sub>n</sub></span> (silicone polymer) + HCl</div>
+        <div class="rxn-note">Silicones = organosilicon polymers; water repellent, thermally stable</div>
+      </div>
+    </div>
+
+    <!-- Sn, Pb -->
+    <div class="subsection-title"><span class="gc14">▸ TIN & LEAD</span> — Sn · Pb Reactions</div>
+
+    <div class="rxn">
+      <div class="rxn-num">R38</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Sn + Conc. HCl</div>
+        <div class="rxn-eq">Sn + 2HCl <span class="arrow">→</span> <span class="prod prod14">SnCl<sub>2</sub></span> + H<sub>2</sub> &nbsp; ; &nbsp; SnCl₂ + 2HCl → H₂[SnCl₄]</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R39</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">PbO₂ — Strong Oxidising Agent</div>
+        <div class="rxn-eq">PbO<sub>2</sub> + 4HCl <span class="arrow">→</span> <span class="prod prod14">PbCl<sub>2</sub></span> + Cl<sub>2</sub> + 2H<sub>2</sub>O</div>
+        <div class="rxn-note">Pb⁴⁺ is oxidising; Pb prefers +2 due to inert pair effect</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R40</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Pb + Dil H₂SO₄ — No Reaction</div>
+        <div class="rxn-eq">Pb + H<sub>2</sub>SO<sub>4</sub>(dil) <span class="arrow">→</span> PbSO<sub>4</sub>↓ (insoluble protective layer) <span class="arrow">→</span> <span class="prod prod14">No further reaction</span></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R41</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">Pb + Conc. HNO₃</div>
+        <div class="rxn-eq">Pb + 4HNO<sub>3</sub>(conc.) <span class="arrow">→</span> <span class="prod prod14">Pb(NO<sub>3</sub>)<sub>2</sub></span> + 2NO<sub>2</sub> + 2H<sub>2</sub>O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R42</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc14">SnCl₂ as Reducing Agent</div>
+        <div class="rxn-eq">SnCl<sub>2</sub> + 2FeCl<sub>3</sub> <span class="arrow">→</span> <span class="prod prod14">SnCl<sub>4</sub></span> + 2FeCl<sub>2</sub> &nbsp; ; &nbsp; SnCl₂ + 2HgCl₂(excess) → SnCl₄ + Hg₂Cl₂↓</div>
+        <div class="rxn-note">SnCl₂ excess → Hg₂Cl₂ further → Hg (black) — used to distinguish Hg²⁺</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     GROUP 15 — N, P, As
+═══════════════════════════════════════════════════ -->
+<div class="group-section">
+  <div class="group-header gh-g15" data-label="GROUP 15">
+    <div class="group-icon">★</div>
+    <div class="group-title-block">
+      <div class="group-name gc15">GROUP 15 — NITROGEN & PHOSPHORUS</div>
+      <div class="group-elements gc15">N · P · As · Sb · Bi</div>
+    </div>
+    <div class="group-count bg15">R43–R78</div>
+  </div>
+  <div class="subsection">
+
+    <div class="subsection-title"><span class="gc15">▸ NITROGEN — N₂ · NH₃ · HNO₂ · HNO₃</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R43</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Haber Process — NH₃ Synthesis</div>
+        <div class="rxn-eq">N<sub>2</sub> + 3H<sub>2</sub> <span class="cond cond-cat">Fe cat / 450°C / 200 atm</span> <span class="arrow-eq">⇌</span> <span class="prod prod15">2NH<sub>3</sub></span> &nbsp; ΔH = −92 kJ</div>
+        <div class="rxn-note">Promoter: K₂O, Al₂O₃; high P, low T (but low T = slow kinetics); compromise at 450°C</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R44</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">NH₃ — Basic Character (Brønsted)</div>
+        <div class="rxn-eq">NH<sub>3</sub> + H<sub>2</sub>O <span class="arrow-eq">⇌</span> <span class="prod prod15">NH<sub>4</sub><sup>+</sup></span> + OH<sup>–</sup> &nbsp; &nbsp; Kb = 1.8×10⁻⁵</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R45</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">NH₃ + HCl → NH₄Cl (White Fumes)</div>
+        <div class="rxn-eq">NH<sub>3</sub>(g) + HCl(g) <span class="arrow">→</span> <span class="prod prod15">NH<sub>4</sub>Cl(s)</span> ↑ (dense white fumes)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R46</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">NH₃ — Reducing Action (O₂ excess)</div>
+        <div class="rxn-eq">4NH<sub>3</sub> + 3O<sub>2</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">2N<sub>2</sub></span> + 6H<sub>2</sub>O &nbsp; (no catalyst)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R47</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Ostwald Process — NH₃ Oxidation</div>
+        <div class="rxn-eq">4NH<sub>3</sub> + 5O<sub>2</sub> <span class="cond cond-cat">Pt/Rh / 800°C</span> <span class="arrow">→</span> <span class="prod prod15">4NO</span> + 6H<sub>2</sub>O &nbsp; ; &nbsp; 2NO + O₂ → 2NO₂ &nbsp; ; &nbsp; 3NO₂ + H₂O → <span class="prod prod15">2HNO₃</span> + NO</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R48</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">HNO₃ (Dil) + Cu → Blue Solution</div>
+        <div class="rxn-eq">3Cu + 8HNO<sub>3</sub>(dil) <span class="arrow">→</span> <span class="prod prod15">3Cu(NO<sub>3</sub>)<sub>2</sub></span> + 2NO↑ + 4H<sub>2</sub>O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R49</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">HNO₃ (Conc) + Cu</div>
+        <div class="rxn-eq">Cu + 4HNO<sub>3</sub>(conc.) <span class="arrow">→</span> <span class="prod prod15">Cu(NO<sub>3</sub>)<sub>2</sub></span> + 2NO<sub>2</sub>↑ + 2H<sub>2</sub>O</div>
+        <div class="rxn-note">Conc → NO₂ (brown); Dil → NO (colourless); both nitric acid reactions</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R50</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">HNO₃ + S / C / P (Conc, Non-metals)</div>
+        <div class="rxn-eq">S + 2HNO<sub>3</sub>(conc.) <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">H<sub>2</sub>SO<sub>4</sub></span> + 2NO &nbsp; ; &nbsp; C + 4HNO₃ → CO₂ + 4NO₂ + 2H₂O &nbsp; ; &nbsp; P + 5HNO₃ → H₃PO₄ + 5NO₂ + H₂O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R51</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">HNO₃ — Passivation of Fe, Al, Cr</div>
+        <div class="rxn-eq">Fe / Al / Cr + Conc. HNO<sub>3</sub> <span class="arrow">→</span> <span class="prod prod15">No reaction</span> (oxide protective film — passivation)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R52</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">NO₂ + H₂O → HNO₃ + HNO₂</div>
+        <div class="rxn-eq">2NO<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod15">HNO<sub>3</sub></span> + HNO<sub>2</sub></div>
+        <div class="rxn-note">HNO₂ unstable: 3HNO₂ → HNO₃ + 2NO + H₂O (disproportionation)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R53</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">N₂O₅ — Anhydride of HNO₃</div>
+        <div class="rxn-eq">N<sub>2</sub>O<sub>5</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod15">2HNO<sub>3</sub></span> &nbsp; ; &nbsp; 2HNO₃ → N₂O₅ + H₂O (drying with P₂O₅)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R54</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Brown Ring Test — NO Detection</div>
+        <div class="rxn-eq">FeSO<sub>4</sub> + NO <span class="arrow">→</span> <span class="prod prod15">[Fe(NO)]SO<sub>4</sub></span> (brown ring, nitrosoferrous)</div>
+        <div class="rxn-note">NO₃⁻ + 3Fe²⁺ + 4H⁺ → NO + 3Fe³⁺ + 2H₂O → brown ring with FeSO₄</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R55</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Nitrogen Oxides — Summary of Preparations</div>
+        <div class="rxn-eq">N₂O: NH₄NO₃ <span class="cond cond-heat">Δ</span>→ N<sub>2</sub>O+2H₂O &nbsp;|&nbsp; NO: 3Cu+8HNO₃(dil)→3Cu(NO₃)₂+2NO+4H₂O &nbsp;|&nbsp; NO₂: Cu+4HNO₃(conc)→NO₂ &nbsp;|&nbsp; N₂O₅: 2HNO₃+P₂O₅→N₂O₅</div>
+      </div>
+    </div>
+
+    <!-- PHOSPHORUS -->
+    <div class="subsection-title"><span class="gc15">▸ PHOSPHORUS — P₄ · PH₃ · PCl₃ · PCl₅ · Oxyacids</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R56</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">P₄ Combustion</div>
+        <div class="rxn-eq">P<sub>4</sub> + 3O<sub>2</sub>(limited) <span class="arrow">→</span> <span class="prod prod15">P<sub>4</sub>O<sub>6</sub></span> &nbsp; ; &nbsp; P₄ + 5O₂(excess) → <span class="prod prod15">P<sub>4</sub>O<sub>10</sub></span></div>
+        <div class="rxn-note">White phosphorus: reactive, glows in dark (phosphorescence), stored in water</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R57</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">P₄O₆ + H₂O → H₃PO₃ (Phosphorous Acid)</div>
+        <div class="rxn-eq">P<sub>4</sub>O<sub>6</sub> + 6H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod15">4H<sub>3</sub>PO<sub>3</sub></span></div>
+        <div class="rxn-note">H₃PO₃ is dibasic (two OH groups, one P-H); good reducing agent</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R58</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">P₄O₁₀ + H₂O → H₃PO₄ (Orthophosphoric)</div>
+        <div class="rxn-eq">P<sub>4</sub>O<sub>10</sub> + 6H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod15">4H<sub>3</sub>PO<sub>4</sub></span> &nbsp; ; &nbsp; P₄O₁₀ is strongest known desiccant</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R59</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">PCl₃ — Preparation & Hydrolysis</div>
+        <div class="rxn-eq">P<sub>4</sub> + 6Cl<sub>2</sub>(limited) <span class="arrow">→</span> <span class="prod prod15">4PCl<sub>3</sub></span> &nbsp; ; &nbsp; PCl₃ + 3H₂O → H₃PO₃ + 3HCl</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R60</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">PCl₅ — Preparation & Hydrolysis</div>
+        <div class="rxn-eq">PCl<sub>3</sub> + Cl<sub>2</sub> <span class="arrow">→</span> <span class="prod prod15">PCl<sub>5</sub></span> &nbsp; ; &nbsp; PCl₅ + H₂O → POCl₃ + 2HCl &nbsp; ; &nbsp; PCl₅ + 4H₂O → H₃PO₄ + 5HCl</div>
+        <div class="rxn-note">PCl₅: sp³d, trigonal bipyramidal; dissociates to PCl₃ + Cl₂ on heating</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R61</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Phosphine PH₃ — Preparation</div>
+        <div class="rxn-eq">P<sub>4</sub> + 3KOH + 3H<sub>2</sub>O <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">PH<sub>3</sub></span>↑ + 3KH₂PO₂</div>
+        <div class="rxn-note">PH₃ = phosphine; very poisonous; ignites spontaneously in air (P₂H₄ traces)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R62</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">H₃PO₂ (Hypophosphorous) — Strong Reducing Agent</div>
+        <div class="rxn-eq">H<sub>3</sub>PO<sub>2</sub> + 2AgNO<sub>3</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod15">2Ag↓</span> + H₃PO₃ + 2HNO₃</div>
+        <div class="rxn-note">H₃PO₂ monobasic (one OH, two P–H); strongest reducing oxyacid of P</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R63</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">H₃PO₃ — Disproportionation</div>
+        <div class="rxn-eq">4H<sub>3</sub>PO<sub>3</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">3H<sub>3</sub>PO<sub>4</sub></span> + PH<sub>3</sub>↑</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R64</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">P — Reaction with Conc. HNO₃</div>
+        <div class="rxn-eq">P<sub>4</sub> + 20HNO<sub>3</sub>(conc.) + 8H<sub>2</sub>O <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">4H<sub>3</sub>PO<sub>4</sub></span> + 20NO<sub>2</sub></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R65</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Pyrophosphoric Acid Formation</div>
+        <div class="rxn-eq">2H<sub>3</sub>PO<sub>4</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">H<sub>4</sub>P<sub>2</sub>O<sub>7</sub></span> + H<sub>2</sub>O &nbsp; (tetrabasic; further → HPO₃ metaphosphoric)</div>
+      </div>
+    </div>
+
+    <!-- More N reactions -->
+    <div class="subsection-title"><span class="gc15">▸ MORE NITROGEN — Diazotisation · N-compounds</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R66</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">N₂H₄ (Hydrazine) — Reducing Agent</div>
+        <div class="rxn-eq">N<sub>2</sub>H<sub>4</sub> + 2H<sub>2</sub>O<sub>2</sub> <span class="arrow">→</span> <span class="prod prod15">N<sub>2</sub></span> + 4H<sub>2</sub>O &nbsp; ; &nbsp; N₂H₄ + Br₂ → N₂ + 4HBr</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R67</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">NH₄NO₂ — Decomposition</div>
+        <div class="rxn-eq">NH<sub>4</sub>NO<sub>2</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">N<sub>2</sub></span> + 2H<sub>2</sub>O &nbsp; (lab preparation of N₂)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R68</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">NH₄NO₃ — Decomposition</div>
+        <div class="rxn-eq">NH<sub>4</sub>NO<sub>3</sub> <span class="cond cond-heat">~200°C</span> <span class="arrow">→</span> <span class="prod prod15">N<sub>2</sub>O</span> + 2H<sub>2</sub>O &nbsp; (laughing gas)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R69</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">N₂ + O₂ — Birkeland-Eyde (Arc)</div>
+        <div class="rxn-eq">N<sub>2</sub> + O<sub>2</sub> <span class="cond cond-elec">electric arc / 3000°C</span> <span class="arrow-eq">⇌</span> <span class="prod prod15">2NO</span> &nbsp; ΔH = +180 kJ (endothermic)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R70</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Nitric Oxide — Dimerisation & Oxidation</div>
+        <div class="rxn-eq">2NO + O<sub>2</sub> <span class="arrow">→</span> <span class="prod prod15">2NO<sub>2</sub></span> &nbsp; (rapid at RT) &nbsp; ; &nbsp; 2NO + Cl₂ → 2NOCl (nitrosyl chloride)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R71</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Nitrogen Trihalide NF₃ vs NCl₃</div>
+        <div class="rxn-eq">NCl<sub>3</sub> + 3H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod15">NH<sub>3</sub></span> + 3HOCl &nbsp; (N acts as Lewis base donor)</div>
+        <div class="rxn-note">NF₃ barely hydrolyses (F withdraws e-density from N); NCl₃ hydrolyses easily</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R72</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">NO + KMnO₄ (acidic) — Oxidation of NO</div>
+        <div class="rxn-eq">5NO + KMnO<sub>4</sub> + 4H<sub>2</sub>SO<sub>4</sub> <span class="arrow">→</span> 5NO<sub>3</sub><sup>–</sup> + 2Mn<sup>2+</sup> + K<sup>+</sup> + 4H<sub>2</sub>O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R73</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Aqua Regia — Gold Dissolution</div>
+        <div class="rxn-eq">Au + 4HCl + HNO<sub>3</sub> <span class="arrow">→</span> <span class="prod prod15">H[AuCl<sub>4</sub>]</span> + NO + 2H₂O &nbsp; (3:1 HCl:HNO₃ by volume)</div>
+        <div class="rxn-note">NO₃⁻ oxidises Au to Au³⁺; Cl⁻ complexes as [AuCl₄]⁻; also dissolves Pt</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R74</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Sodium Nitrite vs Nitrate — Thermal</div>
+        <div class="rxn-eq">2NaNO<sub>3</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod15">2NaNO<sub>2</sub></span> + O<sub>2</sub> &nbsp; ; &nbsp; 2NaNO₂ →(Δ) Na₂O + 2NO + ½O₂</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R75</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">HNO₃ — Ring Nitration (Conc H₂SO₄)</div>
+        <div class="rxn-eq">HNO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="arrow">→</span> <span class="prod prod15">NO<sub>2</sub><sup>+</sup></span>(nitronium) + HSO<sub>4</sub><sup>–</sup> + H<sub>2</sub>O &nbsp; [electrophile]</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R76</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">As₂O₃ — Amphoteric Oxide</div>
+        <div class="rxn-eq">As<sub>2</sub>O<sub>3</sub> + 6HCl <span class="arrow">→</span> <span class="prod prod15">2AsCl<sub>3</sub></span> + 3H<sub>2</sub>O &nbsp; ; &nbsp; As₂O₃ + 6NaOH → 2Na₃AsO₃ + 3H₂O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R77</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Marsh Test — As Detection</div>
+        <div class="rxn-eq">As<sub>2</sub>O<sub>3</sub> + 6Zn + 6H<sub>2</sub>SO<sub>4</sub> <span class="arrow">→</span> <span class="prod prod15">2AsH<sub>3</sub></span>↑ + 6ZnSO<sub>4</sub> + 3H<sub>2</sub>O &nbsp; (arsine gas → As mirror)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R78</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc15">Bi(OH)₃ — Basic Only (No Acidic Behaviour)</div>
+        <div class="rxn-eq">Bi(OH)<sub>3</sub> + 3HCl <span class="arrow">→</span> <span class="prod prod15">BiCl<sub>3</sub></span> + 3H<sub>2</sub>O &nbsp; (NO reaction with NaOH — basic only)</div>
+        <div class="rxn-note">Metallic character increases down group 15: N&lt;P&lt;As&lt;Sb&lt;Bi</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     GROUP 16 — O, S
+═══════════════════════════════════════════════════ -->
+<div class="group-section">
+  <div class="group-header gh-g16" data-label="GROUP 16">
+    <div class="group-icon">◉</div>
+    <div class="group-title-block">
+      <div class="group-name gc16">GROUP 16 — OXYGEN & SULPHUR</div>
+      <div class="group-elements gc16">O · S · Se · Te · Po</div>
+    </div>
+    <div class="group-count bg16">R79–R102</div>
+  </div>
+  <div class="subsection">
+
+    <div class="subsection-title"><span class="gc16">▸ OXYGEN — O₃ · H₂O₂ · Oxides</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R79</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">Ozone — Preparation</div>
+        <div class="rxn-eq">3O<sub>2</sub> <span class="cond cond-elec">silent electric discharge</span> <span class="arrow-eq">⇌</span> <span class="prod prod16">2O<sub>3</sub></span> &nbsp; ΔH = +142 kJ mol⁻¹</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R80</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">Ozone — Iodide Oxidation (Test)</div>
+        <div class="rxn-eq">O<sub>3</sub> + 2KI + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod16">I<sub>2</sub></span> + 2KOH + O<sub>2</sub> &nbsp; (I₂ turns starch blue)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R81</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">Ozone + Ag₂S (oxidising action)</div>
+        <div class="rxn-eq">Ag<sub>2</sub>S + O<sub>3</sub> <span class="arrow">→</span> <span class="prod prod16">Ag<sub>2</sub>SO<sub>4</sub></span> &nbsp; (converts sulphide → sulphate — not done by O₂)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R82</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂O₂ — Preparation (Lab)</div>
+        <div class="rxn-eq">BaO<sub>2</sub> + H<sub>2</sub>SO<sub>4</sub>(dil.) <span class="arrow">→</span> <span class="prod prod16">H<sub>2</sub>O<sub>2</sub></span> + BaSO<sub>4</sub>↓ &nbsp; ; &nbsp; Industrial: 2-ethylanthraquinol + O₂</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R83</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂O₂ as Oxidant — KMnO₄ (Acidic)</div>
+        <div class="rxn-eq">2KMnO<sub>4</sub> + 5H<sub>2</sub>O<sub>2</sub> + 3H<sub>2</sub>SO<sub>4</sub> <span class="arrow">→</span> 2MnSO<sub>4</sub> + K<sub>2</sub>SO<sub>4</sub> + <span class="prod prod16">5O<sub>2</sub></span> + 8H<sub>2</sub>O</div>
+        <div class="rxn-note">H₂O₂ acts as reductant here (oxidised to O₂); acts as oxidant with PbS→PbSO₄</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R84</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂O₂ as Reductant — AgNO₃</div>
+        <div class="rxn-eq">2AgNO<sub>3</sub> + H<sub>2</sub>O<sub>2</sub> <span class="arrow">→</span> <span class="prod prod16">2Ag↓</span> + 2HNO<sub>3</sub> + O<sub>2</sub> (Ag⁺ reduced; H₂O₂ oxidised)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R85</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂O₂ Decomposition (catalysed)</div>
+        <div class="rxn-eq">2H<sub>2</sub>O<sub>2</sub> <span class="cond cond-cat">MnO₂ / I⁻</span> <span class="arrow">→</span> <span class="prod prod16">2H<sub>2</sub>O</span> + O<sub>2</sub> &nbsp; (disproportionation; cat. raises rate)</div>
+      </div>
+    </div>
+
+    <!-- SULPHUR -->
+    <div class="subsection-title"><span class="gc16">▸ SULPHUR — H₂S · SO₂ · SO₃ · H₂SO₄ · Thiosulphate</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R86</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂S — Acidic + Reducing Agent</div>
+        <div class="rxn-eq">H<sub>2</sub>S + 2FeCl<sub>3</sub> <span class="arrow">→</span> <span class="prod prod16">2FeCl<sub>2</sub></span> + S↓ + 2HCl &nbsp; ; &nbsp; H₂S + Cl₂ → S↓ + 2HCl</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R87</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">SO₂ — Bleaching (Reducing)</div>
+        <div class="rxn-eq">SO<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> H<sub>2</sub>SO<sub>3</sub> &nbsp; ; &nbsp; Coloured matter + H₂SO₃ <span class="arrow">→</span> <span class="prod prod16">Colourless</span> (reversible — not permanent bleach)</div>
+        <div class="rxn-note">SO₂ bleaches by reduction; Cl₂ bleaches by oxidation (permanent)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R88</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">SO₂ — Reducing Agent (KMnO₄ Decolourises)</div>
+        <div class="rxn-eq">2KMnO<sub>4</sub> + 5SO<sub>2</sub> + 2H<sub>2</sub>O <span class="arrow">→</span> K<sub>2</sub>SO<sub>4</sub> + 2MnSO<sub>4</sub> + <span class="prod prod16">2H<sub>2</sub>SO<sub>4</sub></span></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R89</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">SO₂ + Cl₂ → Sulphuryl Chloride</div>
+        <div class="rxn-eq">SO<sub>2</sub> + Cl<sub>2</sub> <span class="cond cond-cat">charcoal</span> <span class="arrow">→</span> <span class="prod prod16">SO<sub>2</sub>Cl<sub>2</sub></span> (sulphuryl chloride; sp³ pyramidal)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R90</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">Contact Process — SO₃ Manufacturing</div>
+        <div class="rxn-eq">2SO<sub>2</sub> + O<sub>2</sub> <span class="cond cond-cat">V₂O₅ / 450°C / 1–2 atm</span> <span class="arrow-eq">⇌</span> <span class="prod prod16">2SO<sub>3</sub></span> &nbsp; ΔH = −197 kJ</div>
+        <div class="rxn-note">SO₃ absorbed in 98% H₂SO₄ → oleum (H₂S₂O₇); diluted to give H₂SO₄</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R91</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂SO₄ (Conc) + Cu</div>
+        <div class="rxn-eq">Cu + 2H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod16">CuSO<sub>4</sub></span> + SO<sub>2</sub>↑ + 2H<sub>2</sub>O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R92</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂SO₄ (Conc) + C / S / P</div>
+        <div class="rxn-eq">C + 2H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod16">CO<sub>2</sub></span> + 2SO<sub>2</sub> + 2H₂O &nbsp; ; &nbsp; S + 2H₂SO₄ → 3SO₂ + 2H₂O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R93</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂SO₄ + HI/HBr — Oxidising Action</div>
+        <div class="rxn-eq">2HI + H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="arrow">→</span> <span class="prod prod16">I<sub>2</sub></span> + SO<sub>2</sub> + 2H<sub>2</sub>O &nbsp; (H₂SO₄ oxidises HI; doesn't oxidise HCl/HF)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R94</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">Thiosulphate — Na₂S₂O₃ + I₂</div>
+        <div class="rxn-eq">2Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> + I<sub>2</sub> <span class="arrow">→</span> <span class="prod prod16">Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub></span> + 2NaI &nbsp; (sodium tetrathionate; key iodometric titration)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R95</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">Na₂S₂O₃ + Cl₂ (Excess Halogen)</div>
+        <div class="rxn-eq">Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> + 4Cl<sub>2</sub> + 5H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod16">Na<sub>2</sub>SO<sub>4</sub></span> + H<sub>2</sub>SO<sub>4</sub> + 8HCl &nbsp; (oxidised to sulphate)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R96</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">S + Na₂SO₃ → Thiosulphate</div>
+        <div class="rxn-eq">Na<sub>2</sub>SO<sub>3</sub> + S <span class="cond cond-heat">boil</span> <span class="arrow">→</span> <span class="prod prod16">Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></span> &nbsp; (preparation of sodium thiosulphate)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R97</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">S + Conc. H₂SO₄</div>
+        <div class="rxn-eq">S + 2H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod16">3SO<sub>2</sub></span> + 2H<sub>2</sub>O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R98</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂SO₄ (Dil) — Salt Displacement</div>
+        <div class="rxn-eq">Na<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub>(dil.) <span class="arrow">→</span> <span class="prod prod16">Na<sub>2</sub>SO<sub>4</sub></span> + H<sub>2</sub>O + CO<sub>2</sub>↑ &nbsp; ; &nbsp; BaCl₂ + H₂SO₄ → BaSO₄↓(white insol.) + 2HCl</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R99</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">SO₂ + Br₂(aq) — Decolourisation</div>
+        <div class="rxn-eq">SO<sub>2</sub> + Br<sub>2</sub> + 2H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod16">H<sub>2</sub>SO<sub>4</sub></span> + 2HBr &nbsp; (red-brown Br₂ decolourised)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R100</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">Oleum (Fuming H₂SO₄) — Dilution</div>
+        <div class="rxn-eq">H<sub>2</sub>S<sub>2</sub>O<sub>7</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod16">2H<sub>2</sub>SO<sub>4</sub></span> &nbsp; ; &nbsp; SO₃ + H₂SO₄ → H₂S₂O₇</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R101</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">SF₆ — Inertness (Excess F oxidation)</div>
+        <div class="rxn-eq">S + 3F<sub>2</sub>(excess) <span class="arrow">→</span> <span class="prod prod16">SF<sub>6</sub></span> &nbsp; (sp³d², octahedral; kinetically inert to hydrolysis)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R102</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc16">H₂S + SO₂ — Wackenroder Reaction</div>
+        <div class="rxn-eq">2H<sub>2</sub>S + SO<sub>2</sub> <span class="arrow">→</span> <span class="prod prod16">3S↓</span> + 2H<sub>2</sub>O &nbsp; (sulphur milk; used to test SO₂)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     GROUP 17 — HALOGENS
+═══════════════════════════════════════════════════ -->
+<div class="group-section">
+  <div class="group-header gh-g17" data-label="GROUP 17">
+    <div class="group-icon">✦</div>
+    <div class="group-title-block">
+      <div class="group-name gc17">GROUP 17 — HALOGENS</div>
+      <div class="group-elements gc17">F · Cl · Br · I · At</div>
+    </div>
+    <div class="group-count bg17">R103–R128</div>
+  </div>
+  <div class="subsection">
+
+    <div class="subsection-title"><span class="gc17">▸ FLUORINE (F₂)</span> — Most Electronegatve; Unique Reactions</div>
+
+    <div class="rxn">
+      <div class="rxn-num">R103</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">F₂ + H₂O — Explosive</div>
+        <div class="rxn-eq">2F<sub>2</sub> + 2H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod17">4HF</span> + O<sub>2</sub> &nbsp; (vigorous; F₂ oxidises water)</div>
+        <div class="rxn-note">Only halogen to oxidise water; Cl₂ disproportionates; Br₂/I₂ do not react</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R104</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">F₂ + NaOH</div>
+        <div class="rxn-eq">2F<sub>2</sub> + 2NaOH <span class="arrow">→</span> <span class="prod prod17">2NaF</span> + OF<sub>2</sub> + H<sub>2</sub>O &nbsp; (gives oxygen difluoride, not hypofluorite)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R105</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">HF — Special Reactions</div>
+        <div class="rxn-eq">HF + SiO<sub>2</sub> <span class="arrow">→</span> <span class="prod prod17">SiF<sub>4</sub></span>↑ + H<sub>2</sub>O &nbsp; ; &nbsp; 2HF + SiF₄ → H₂SiF₆ (glass etching)</div>
+        <div class="rxn-note">HF: weakest hydrohalic acid (H-bonded); stored in wax or PTFE bottles</div>
+      </div>
+    </div>
+
+    <!-- CHLORINE -->
+    <div class="subsection-title"><span class="gc17">▸ CHLORINE (Cl₂)</span> — Preparation · Bleach · HOCl · Disproportionation</div>
+
+    <div class="rxn">
+      <div class="rxn-num">R106</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Cl₂ — Lab Preparation</div>
+        <div class="rxn-eq">MnO<sub>2</sub> + 4HCl(conc.) <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod17">Cl<sub>2</sub></span>↑ + MnCl<sub>2</sub> + 2H<sub>2</sub>O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R107</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Cl₂ + H₂O — Disproportionation</div>
+        <div class="rxn-eq">Cl<sub>2</sub> + H<sub>2</sub>O <span class="arrow-eq">⇌</span> <span class="prod prod17">HOCl</span> + HCl &nbsp; (Cl₂ water acidic; HOCl is oxidising bleach)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R108</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Cl₂ + Cold Dil. NaOH</div>
+        <div class="rxn-eq">Cl<sub>2</sub> + 2NaOH(cold dil.) <span class="arrow">→</span> <span class="prod prod17">NaCl + NaOCl</span> + H<sub>2</sub>O &nbsp; (sodium hypochlorite)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R109</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Cl₂ + Hot Conc. NaOH</div>
+        <div class="rxn-eq">3Cl<sub>2</sub> + 6NaOH(hot conc.) <span class="arrow">→</span> <span class="prod prod17">5NaCl + NaClO<sub>3</sub></span> + 3H<sub>2</sub>O &nbsp; (sodium chlorate)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R110</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Bleaching Powder — Preparation</div>
+        <div class="rxn-eq">Ca(OH)<sub>2</sub> + Cl<sub>2</sub> <span class="arrow">→</span> <span class="prod prod17">Ca(OCl)Cl</span> &nbsp; (bleaching powder = calcium chlorohypochlorite; ~35% avail Cl₂)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R111</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Bleaching Powder + CO₂ / H₂SO₄</div>
+        <div class="rxn-eq">Ca(OCl)Cl + CO<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> CaCO<sub>3</sub> + <span class="prod prod17">Cl<sub>2</sub></span> + H<sub>2</sub>O &nbsp; ; &nbsp; + dil. H₂SO₄ → CaSO₄ + 2Cl₂ + H₂O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R112</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Cl₂ + NH₃ (Excess)</div>
+        <div class="rxn-eq">8NH<sub>3</sub>(excess) + 3Cl<sub>2</sub> <span class="arrow">→</span> <span class="prod prod17">6NH<sub>4</sub>Cl</span> + N<sub>2</sub></div>
+        <div class="rxn-note">Cl₂ excess + NH₃: NCl₃ + 3HCl (trichloroamine); NH₃ excess → N₂</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R113</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Cl₂ + Na₂S₂O₃ (Reducing Cl₂)</div>
+        <div class="rxn-eq">Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> + Cl<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod17">Na<sub>2</sub>SO<sub>4</sub></span> + S↓ + 2HCl &nbsp; (Cl₂ limited)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R114</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">KClO₃ Thermal Decomposition</div>
+        <div class="rxn-eq">2KClO<sub>3</sub> <span class="cond cond-cat">MnO₂ / Δ</span> <span class="arrow">→</span> <span class="prod prod17">2KCl</span> + 3O<sub>2</sub>↑ &nbsp; (lab O₂); alone → KClO₄ + KCl</div>
+      </div>
+    </div>
+
+    <!-- HX acids -->
+    <div class="subsection-title"><span class="gc17">▸ HYDROHALIDES — HF · HCl · HBr · HI</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R115</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">HCl — Lab Preparation</div>
+        <div class="rxn-eq">NaCl + H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod17">NaHSO<sub>4</sub></span> + HCl↑ &nbsp; ; &nbsp; NaHSO₄ + NaCl →(Δ,higher) Na₂SO₄ + HCl</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R116</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">HBr — Preparation (from NaBr + H₂SO₄ fails)</div>
+        <div class="rxn-eq">PBr<sub>3</sub> + 3H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod17">3HBr</span>↑ + H<sub>3</sub>PO<sub>3</sub> &nbsp; (red P + Br₂ → PBr₃; then + H₂O)</div>
+        <div class="rxn-note">H₂SO₄ cannot be used for HBr/HI as it oxidises them; use H₃PO₄ instead</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R117</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">HI — NaI + H₃PO₄</div>
+        <div class="rxn-eq">NaI + H<sub>3</sub>PO<sub>4</sub> <span class="cond cond-heat">Δ</span> <span class="arrow">→</span> <span class="prod prod17">HI</span>↑ + NaH₂PO₄ &nbsp; (H₃PO₄ doesn't oxidise HI)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R118</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">HI — Reducing Strength</div>
+        <div class="rxn-eq">2HI + H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="arrow">→</span> <span class="prod prod17">I<sub>2</sub></span> + SO<sub>2</sub> + 2H<sub>2</sub>O &nbsp; (HI > HBr > HCl as reducing agents)</div>
+      </div>
+    </div>
+
+    <!-- INTERHALOGENS -->
+    <div class="subsection-title"><span class="gc17">▸ INTERHALOGENS — ClF₃ · BrF₅ · IF₇ · ICl</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R119</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">ICl + KI — Triiodide Complex</div>
+        <div class="rxn-eq">ICl + KI <span class="arrow">→</span> KCl + <span class="prod prod17">I<sub>2</sub></span> &nbsp; ; &nbsp; ICl acts as Cl⁺ donor (electrophilic halogenation)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R120</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Cl₂ + F₂ (Excess Cl) → ClF</div>
+        <div class="rxn-eq">Cl<sub>2</sub> + F<sub>2</sub>(eql) → <span class="prod prod17">2ClF</span> &nbsp; ; &nbsp; Cl₂ + 3F₂ → 2ClF₃ (T-shaped, sp³d) &nbsp; ; &nbsp; BrF₅ (square pyramidal)</div>
+        <div class="rxn-note">General formula XY₂n+1; bond angles deviate due to lone pairs</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R121</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">ClF₃ Hydrolysis</div>
+        <div class="rxn-eq">ClF<sub>3</sub> + 2H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod17">HClO<sub>2</sub></span> + 3HF &nbsp; (vigorous; fuming)</div>
+      </div>
+    </div>
+
+    <!-- OXYACIDS of HALOGENS -->
+    <div class="subsection-title"><span class="gc17">▸ OXYACIDS OF HALOGENS — HOCl · HClO₂ · HClO₃ · HClO₄</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R122</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">HOCl — Bleaching/Oxidising</div>
+        <div class="rxn-eq">HOCl <span class="cond cond-uv">hν</span> <span class="arrow">→</span> HCl + <span class="prod prod17">[O]</span> (nascent oxygen → oxidises dyes)</div>
+        <div class="rxn-note">Acid strength order: HOCl &lt; HClO₂ &lt; HClO₃ &lt; HClO₄ (more O → more electron withdrawal)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R123</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">HClO₄ — Preparation</div>
+        <div class="rxn-eq">KClO<sub>4</sub> + H<sub>2</sub>SO<sub>4</sub>(conc.) <span class="arrow">→</span> <span class="prod prod17">HClO<sub>4</sub></span> + KHSO<sub>4</sub> &nbsp; (perchloric acid — strongest oxyacid)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R124</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Iodine — Reaction with Na₂SO₃</div>
+        <div class="rxn-eq">I<sub>2</sub> + Na<sub>2</sub>SO<sub>3</sub> + H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod17">Na<sub>2</sub>SO<sub>4</sub></span> + 2HI &nbsp; (I₂ oxidises sulphite)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R125</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">I₂ + NaOH (cold) — Hypoiodite</div>
+        <div class="rxn-eq">I<sub>2</sub> + 2NaOH(cold) <span class="arrow">→</span> <span class="prod prod17">NaI + NaOI</span> + H<sub>2</sub>O &nbsp; (unstable, decomposes rapidly to NaIO₃)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R126</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Pseudohalide — Reaction of CN⁻</div>
+        <div class="rxn-eq">2Ag<sup>+</sup> + 2CN<sup>–</sup> <span class="arrow">→</span> AgCN↓ <span class="arrow">→</span> [Ag(CN)<sub>2</sub>]<sup>–</sup> &nbsp; ; &nbsp; 2CN⁻ → (oxidise) → (CN)₂ (cyanogen, like Cl₂)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R127</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">Halogen Displacement — Reactivity Order</div>
+        <div class="rxn-eq">Cl<sub>2</sub> + 2KBr <span class="arrow">→</span> <span class="prod prod17">Br<sub>2</sub></span> + 2KCl &nbsp; ; &nbsp; Cl₂ + 2KI → I₂ + 2KCl &nbsp; ; &nbsp; Br₂ + 2KI → I₂ + 2KBr</div>
+        <div class="rxn-note">F₂ > Cl₂ > Br₂ > I₂ in oxidising power; more reactive displaces less reactive</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R128</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc17">I₂ + KI → KI₃ (Triiodide Complex)</div>
+        <div class="rxn-eq">I<sub>2</sub> + I<sup>–</sup> <span class="arrow-eq">⇌</span> <span class="prod prod17">[I<sub>3</sub>]<sup>–</sup></span> (triiodide; brown solution; linear, sp³d)</div>
+        <div class="rxn-note">Reason why I₂ is dissolved in KI solution (not in pure water due to low solubility)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     GROUP 18 — NOBLE GASES (XeF₂, XeF₄, XeF₆)
+═══════════════════════════════════════════════════ -->
+<div class="group-section">
+  <div class="group-header gh-g18" data-label="GROUP 18">
+    <div class="group-icon">⬬</div>
+    <div class="group-title-block">
+      <div class="group-name gc18">GROUP 18 — NOBLE GASES (XENON)</div>
+      <div class="group-elements gc18">He · Ne · Ar · Kr · Xe · Rn</div>
+    </div>
+    <div class="group-count bg18">R129–R138</div>
+  </div>
+  <div class="subsection">
+
+    <div class="subsection-title"><span class="gc18">▸ XENON FLUORIDES & OXYFLUORIDES</span></div>
+
+    <div class="rxn">
+      <div class="rxn-num">R129</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₂ — Preparation</div>
+        <div class="rxn-eq">Xe + F<sub>2</sub> <span class="cond cond-uv">200°C / hν (Ni vessel)</span> <span class="arrow">→</span> <span class="prod prod18">XeF<sub>2</sub></span> &nbsp; (linear, sp³d, 3 LPs)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R130</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₄ — Preparation</div>
+        <div class="rxn-eq">Xe + 2F<sub>2</sub> <span class="cond cond-heat">400°C / 6 atm / Ni</span> <span class="arrow">→</span> <span class="prod prod18">XeF<sub>4</sub></span> &nbsp; (square planar, sp³d², 2 LPs)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R131</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₆ — Preparation</div>
+        <div class="rxn-eq">Xe + 3F<sub>2</sub> <span class="cond cond-heat">300°C / 50–60 atm</span> <span class="arrow">→</span> <span class="prod prod18">XeF<sub>6</sub></span> &nbsp; (distorted octahedral, sp³d³, 1 LP)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R132</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₂ Hydrolysis</div>
+        <div class="rxn-eq">2XeF<sub>2</sub> + 2H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod18">2Xe</span> + 4HF + O<sub>2</sub></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R133</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₄ Hydrolysis (partial)</div>
+        <div class="rxn-eq">6XeF<sub>4</sub> + 12H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod18">4Xe + 2XeO<sub>3</sub></span> + 24HF + 3O<sub>2</sub> (disproportionation)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R134</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₆ Hydrolysis</div>
+        <div class="rxn-eq">XeF<sub>6</sub> + 3H<sub>2</sub>O <span class="arrow">→</span> <span class="prod prod18">XeO<sub>3</sub></span> + 6HF &nbsp; ; &nbsp; XeO₃ (pyramidal, sp³, highly explosive)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R135</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₆ + SiO₂</div>
+        <div class="rxn-eq">2XeF<sub>6</sub> + SiO<sub>2</sub> <span class="arrow">→</span> <span class="prod prod18">2XeOF<sub>4</sub></span> + SiF<sub>4</sub> &nbsp; (XeOF₄: square pyramidal)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R136</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₆ + Na₂SiF₆</div>
+        <div class="rxn-eq">XeF<sub>6</sub> + Na<sub>2</sub>SiF<sub>6</sub> <span class="arrow">→</span> <span class="prod prod18">Na<sub>2</sub>XeF<sub>8</sub></span> + SiF<sub>4</sub></div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R137</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeF₂ — Oxidising Agent</div>
+        <div class="rxn-eq">XeF<sub>2</sub> + 2HCl <span class="arrow">→</span> <span class="prod prod18">Xe + 2HF + Cl<sub>2</sub></span> &nbsp; (XeF₂ oxidises Cl⁻ → Cl₂)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R138</div>
+      <div class="rxn-body">
+        <div class="rxn-label gc18">XeO₄ — Perxenic Acid Formation</div>
+        <div class="rxn-eq">Ba<sub>2</sub>XeO<sub>6</sub> + 2H<sub>2</sub>SO<sub>4</sub> <span class="arrow">→</span> <span class="prod prod18">H<sub>4</sub>XeO<sub>6</sub></span> + 2BaSO<sub>4</sub>↓ &nbsp; (perxenic acid; Xe in +8 state)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     BONUS — GENERAL REACTIONS (Disproportionation, Amphoteric, etc.)
+═══════════════════════════════════════════════════ -->
+<div class="group-section">
+  <div class="group-header" style="background:linear-gradient(135deg,#1a0a00 0%,#0a0500 100%);border-left:4px solid #ff9d00;box-shadow:0 0 18px #ff9d0044;" data-label="BONUS">
+    <div class="group-icon">⚡</div>
+    <div class="group-title-block">
+      <div class="group-name" style="color:#ff9d00">BONUS — DISPROPORTIONATION & SPECIAL P-BLOCK</div>
+      <div class="group-elements" style="color:#ff9d00">Key reactions that appear in JEE every year</div>
+    </div>
+    <div class="group-count" style="background:#ff9d0022;border:1px solid #ff9d0044;color:#ff9d00">R139–R148</div>
+  </div>
+  <div class="subsection">
+
+    <div class="rxn">
+      <div class="rxn-num">R139</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">Cl₂ Disproportionation in Base Summary</div>
+        <div class="rxn-eq">Cl<sub>2</sub> + 2OH<sup>–</sup>(cold) <span class="arrow">→</span> Cl<sup>–</sup> + OCl<sup>–</sup> + H<sub>2</sub>O &nbsp; ; &nbsp; 3Cl₂ + 6OH⁻(hot) → 5Cl⁻ + ClO₃⁻ + 3H₂O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R140</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">H₂O₂ Disproportionation</div>
+        <div class="rxn-eq">2H<sub>2</sub>O<sub>2</sub> <span class="arrow">→</span> 2H<sub>2</sub>O + O<sub>2</sub> &nbsp; (O is −1 in H₂O₂; becomes −2 in H₂O and 0 in O₂)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R141</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">P₄ Disproportionation in NaOH</div>
+        <div class="rxn-eq">P<sub>4</sub> + 3NaOH + 3H<sub>2</sub>O <span class="arrow">→</span> PH<sub>3</sub>↑ + 3NaH<sub>2</sub>PO<sub>2</sub></div>
+        <div class="rxn-note">P is both oxidised (−1 → +1 in hypophosphite) and reduced (0 → −3 in PH₃)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R142</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">HNO₂ Disproportionation</div>
+        <div class="rxn-eq">3HNO<sub>2</sub> <span class="arrow">→</span> HNO<sub>3</sub> + 2NO + H<sub>2</sub>O &nbsp; (unstable; N is +3; → +5 and +2)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R143</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">SO₂Cl₂ Hydrolysis</div>
+        <div class="rxn-eq">SO<sub>2</sub>Cl<sub>2</sub> + 2H<sub>2</sub>O <span class="arrow">→</span> H<sub>2</sub>SO<sub>4</sub> + 2HCl</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R144</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">PCl₅ Thermal Dissociation</div>
+        <div class="rxn-eq">PCl<sub>5</sub> <span class="cond cond-heat">Δ (gas phase)</span> <span class="arrow-eq">⇌</span> PCl<sub>3</sub> + Cl<sub>2</sub> &nbsp; (high P favours PCl₅; inert gas increases dissociation)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R145</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">Al₂O₃ — Amphoteric</div>
+        <div class="rxn-eq">Al<sub>2</sub>O<sub>3</sub> + 6HCl <span class="arrow">→</span> 2AlCl<sub>3</sub> + 3H<sub>2</sub>O &nbsp; ; &nbsp; Al₂O₃ + 2NaOH → 2NaAlO₂ + H₂O</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R146</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">Ozone Layer Depletion (NO catalytic)</div>
+        <div class="rxn-eq">NO + O<sub>3</sub> <span class="arrow">→</span> NO<sub>2</sub> + O<sub>2</sub> &nbsp; ; &nbsp; NO₂ + O → NO + O₂ &nbsp; (net: O₃ + O → 2O₂; NO regenerated)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R147</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">KrF₂ — Oxidising Agent</div>
+        <div class="rxn-eq">2KrF<sub>2</sub> + 2H<sub>2</sub>O <span class="arrow">→</span> 2Kr + 4HF + O<sub>2</sub> &nbsp; (only Kr compound of note in JEE)</div>
+      </div>
+    </div>
+
+    <div class="rxn">
+      <div class="rxn-num">R148</div>
+      <div class="rxn-body">
+        <div class="rxn-label" style="color:#ff9d00">Fluorine — No Positive Oxidation State</div>
+        <div class="rxn-eq">F<sub>2</sub> + H<sub>2</sub>O <span class="arrow">→</span> 2HF + ½O<sub>2</sub> &nbsp; ; &nbsp; F has no oxoacids (most electronegative; no d-orbitals; no positive OS)</div>
+        <div class="rxn-note">Cl forms HOCl, HClO₂, HClO₃, HClO₄; F forms NONE — key JEE distinction</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <div>P-BLOCK REACTIONS MEGACOPY · PART 2 · JEE ADVANCED · <span>148 REACTIONS</span></div>
+  <div style="margin-top:6px;font-size:10px;">GROUPS 13 · 14 · 15 · 16 · 17 · 18 · IN SEQUENTIAL ORDER</div>
+</div>
+
+</body>
+</html>

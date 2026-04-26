@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salt Analysis — JEE Advanced</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --border: #242424;
+    --text: #d4d4d4;
+    --dim: #606060;
+    --accent: #f7c07e;
+    --check: #4ade80;
+    --tag: #2a2a2a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 32px 20px 80px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .meta { color: var(--dim); font-size: 11px; margin-top: 4px; }
+
+  .progress-bar-wrap {
+    margin-top: 14px;
+    background: var(--border);
+    border-radius: 2px;
+    height: 3px;
+    width: 100%;
+  }
+  .progress-bar {
+    height: 3px;
+    background: var(--check);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-label { font-size: 11px; color: var(--dim); margin-top: 6px; }
+
+  .section { margin-bottom: 36px; }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .subsection { margin-bottom: 20px; }
+
+  .subsection-title {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+
+  .rxn {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 4px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    transition: background 0.1s;
+    border: 1px solid transparent;
+  }
+
+  .rxn:hover { background: var(--surface); border-color: var(--border); }
+
+  .rxn.done { opacity: 0.4; }
+
+  .rxn input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 2px;
+    position: relative;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .rxn input[type="checkbox"]:checked {
+    background: var(--check);
+    border-color: var(--check);
+  }
+
+  .rxn input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: 1px;
+    width: 5px; height: 8px;
+    border: 2px solid #000;
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+
+  .rxn-text { flex: 1; color: var(--text); }
+  .rxn-text sub { font-size: 10px; }
+  .rxn-text sup { font-size: 10px; }
+
+  .note { color: var(--dim); font-size: 11px; margin-left: 4px; }
+
+  .obs {
+    color: #f7c07e;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--tag);
+    color: var(--dim);
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .reset-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--dim); color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Salt Analysis</h1>
+  <div class="meta">JEE Advanced · Inorganic Chemistry · Reaction Megacopy</div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="pbar"></div></div>
+  <div class="progress-label" id="plabel">0 / 0 done</div>
+</header>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Preliminary / Dry Tests</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Colour of Salt (Observation)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Blue → Cu²⁺ <span class="obs">(CuSO₄·5H₂O)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Green → Fe²⁺ (pale green) or Cr³⁺ or Ni²⁺</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Yellow/orange → Fe³⁺ or Cr⁶⁺ (CrO₄²⁻)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Violet/dark purple → KMnO₄ or I₂</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pink → Co²⁺ or Mn²⁺</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Black → CuS, FeS, Ag₂S, MnO₂, CuO, PbS, CoS, NiS</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">White → most common (Na⁺, Ca²⁺, Ba²⁺, Al³⁺, Zn²⁺, Pb²⁺)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Red → Pb₃O₄ (minium), Hg₂I₂, Cu₂O, HgI₂ (above 127°C orange)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Yellow → As₂S₃, CdS, Na₂CrO₄, PbCrO₄, SnS₂, AgI, PbI₂</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Orange → Sb₂S₃, Cr₂O₇²⁻</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Brick-red → Cu₂O, Fe₂O₃</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Heating / Action of Heat</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CaCO<sub>3</sub> → CaO + CO<sub>2</sub>↑ <span class="note">(CO₂ turns lime water milky)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>CO<sub>3</sub> → does not decompose easily on heating</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">MgCO<sub>3</sub> → MgO + CO<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KNO<sub>3</sub> → 2KNO<sub>2</sub> + O<sub>2</sub>↑ <span class="note">(glowing splint reignites)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">4KNO<sub>3</sub>(strong heat) → 2K<sub>2</sub>O + 4NO<sub>2</sub> + O<sub>2</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Pb(NO<sub>3</sub>)<sub>2</sub> → 2PbO + 4NO<sub>2</sub>↑(brown) + O<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2AgNO<sub>3</sub> → 2Ag + 2NO<sub>2</sub>↑ + O<sub>2</sub>↑ <span class="note">(leaves grey Ag)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Hg(NO<sub>3</sub>)<sub>2</sub> → 2HgO + 4NO<sub>2</sub>↑ + O<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2HgO → 2Hg(vapour) + O<sub>2</sub>↑ <span class="note">(black → silver drops on tube)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">4Fe(NO<sub>3</sub>)<sub>3</sub> → 2Fe<sub>2</sub>O<sub>3</sub> + 12NO<sub>2</sub>↑ + 3O<sub>2</sub>↑ <span class="note">(brown gas)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NH<sub>4</sub>Cl → NH<sub>3</sub>↑ + HCl↑ <span class="note">(sublimes, white ring on cool part)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NH<sub>4</sub>NO<sub>3</sub> → N<sub>2</sub>O + 2H<sub>2</sub>O <span class="note">(laughing gas)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NH<sub>4</sub>NO<sub>2</sub> → N<sub>2</sub> + 2H<sub>2</sub>O <span class="note">(on gentle heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">FeS + O<sub>2</sub>(heat) → FeO + SO<sub>2</sub>↑ <span class="note">(sulphur smell)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuSO<sub>4</sub>·5H<sub>2</sub>O → CuSO<sub>4</sub>(white) + 5H<sub>2</sub>O <span class="note">(blue → white, reversible)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">FeSO<sub>4</sub>·7H<sub>2</sub>O → FeSO<sub>4</sub>(white) then → Fe<sub>2</sub>O<sub>3</sub> + SO<sub>3</sub> <span class="note">(smells acid)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Flame Test</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Li → crimson red</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na → golden yellow (persistent)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K → lilac / pale violet (seen through blue glass)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Rb → red-violet</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ca → brick red</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Sr → scarlet/crimson red</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ba → apple green / yellowish green</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu → blue-green (without HCl) / emerald green (with HCl)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb → pale blue / whitish</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">As, Sb → pale blue</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Borax Bead Test</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>B<sub>4</sub>O<sub>7</sub>·10H<sub>2</sub>O → Na<sub>2</sub>B<sub>4</sub>O<sub>7</sub> → 2NaBO<sub>2</sub> + B<sub>2</sub>O<sub>3</sub> <span class="note">(molten bead)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CoO + B<sub>2</sub>O<sub>3</sub> → Co(BO<sub>2</sub>)<sub>2</sub> (blue, both flames)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuO + B<sub>2</sub>O<sub>3</sub> → Cu(BO<sub>2</sub>)<sub>2</sub> (green ox / red reducing)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe<sub>2</sub>O<sub>3</sub> + B<sub>2</sub>O<sub>3</sub> → Fe(BO<sub>2</sub>)<sub>3</sub> (yellow-brown ox / green red)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">MnO + B<sub>2</sub>O<sub>3</sub> → Mn(BO<sub>2</sub>)<sub>2</sub> (amethyst/violet ox)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr<sub>2</sub>O<sub>3</sub> + B<sub>2</sub>O<sub>3</sub> → 2Cr(BO<sub>2</sub>)<sub>3</sub> (green both flames)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NiO + B<sub>2</sub>O<sub>3</sub> → Ni(BO<sub>2</sub>)<sub>2</sub> (brown ox)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Anion Analysis — Group I (Dil. H₂SO₄)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Carbonate (CO₃²⁻) / Bicarbonate (HCO₃⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub>(dil) → Na<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>O + CO<sub>2</sub>↑ <span class="obs">(brisk effervescence)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CO<sub>2</sub> + Ca(OH)<sub>2</sub> → CaCO<sub>3</sub>↓(white, milky) + H<sub>2</sub>O <span class="note">(lime water test)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CaCO<sub>3</sub> + CO<sub>2</sub> + H<sub>2</sub>O → Ca(HCO<sub>3</sub>)<sub>2</sub> (soluble) <span class="note">(excess CO₂ — milkiness disappears)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2NaHCO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub>(dil) → Na<sub>2</sub>SO<sub>4</sub> + 2H<sub>2</sub>O + 2CO<sub>2</sub>↑</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Sulphite (SO₃²⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>SO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub>(dil) → Na<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>O + SO<sub>2</sub>↑ <span class="obs">(pungent, suffocating smell)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">SO<sub>2</sub> + K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>(acidified) → Cr<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> <span class="obs">(orange → green, confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">SO<sub>2</sub> + 2H<sub>2</sub>S → 3S + 2H<sub>2</sub>O <span class="note">(bleaches)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">BaCl<sub>2</sub> + Na<sub>2</sub>SO<sub>3</sub> → BaSO<sub>3</sub>↓(white, soluble in HCl) <span class="note">(distinguishes SO₃²⁻ from SO₄²⁻)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Sulphide (S²⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>S + H<sub>2</sub>SO<sub>4</sub>(dil) → Na<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>S↑ <span class="obs">(rotten egg smell)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">H<sub>2</sub>S + Pb(CH<sub>3</sub>COO)<sub>2</sub>(paper) → PbS↓(black) <span class="note">(confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">H<sub>2</sub>S + 2AgNO<sub>3</sub> → Ag<sub>2</sub>S↓(black) + 2HNO<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">H<sub>2</sub>S + CdSO<sub>4</sub> → CdS↓(yellow) + H<sub>2</sub>SO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>S + Na<sub>2</sub>[Fe(CN)<sub>5</sub>NO] → Na<sub>4</sub>[Fe(CN)<sub>5</sub>NOS] <span class="obs">(purple/violet — sodium nitroprusside test)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Nitrite (NO₂⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NaNO<sub>2</sub> + H<sub>2</sub>SO<sub>4</sub>(dil) → NaHSO<sub>4</sub> + HNO<sub>2</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3HNO<sub>2</sub> → HNO<sub>3</sub> + 2NO↑ + H<sub>2</sub>O <span class="obs">(colorless gas → brown in air)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">FeSO<sub>4</sub> + HNO<sub>2</sub> + H<sub>2</sub>SO<sub>4</sub> → [Fe(NO)]SO<sub>4</sub>(brown ring)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">KMnO<sub>4</sub>(acidified) + 5KNO<sub>2</sub> + 3H<sub>2</sub>SO<sub>4</sub> → 2MnSO<sub>4</sub> + 5KNO<sub>3</sub> + K<sub>2</sub>SO<sub>4</sub> + 3H<sub>2</sub>O <span class="note">(decolorises KMnO₄)</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Anion Analysis — Group II (Conc. H₂SO₄)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Chloride (Cl⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NaCl + H<sub>2</sub>SO<sub>4</sub>(conc) → NaHSO<sub>4</sub> + HCl↑ <span class="obs">(colourless pungent fumes)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">HCl + NH<sub>3</sub>(gas) → NH<sub>4</sub>Cl↑(white fumes) <span class="note">(hold NH₃ rod — white smoke)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cl<sup>−</sup> + AgNO<sub>3</sub> → AgCl↓(white, curdy) + NO<sub>3</sub><sup>−</sup></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgCl + 2NH<sub>3</sub> → [Ag(NH<sub>3</sub>)<sub>2</sub>]Cl(soluble) <span class="note">(soluble in dil NH₃ — distinguishes from AgBr/AgI)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">MnO<sub>2</sub> + 4HCl → MnCl<sub>2</sub> + Cl<sub>2</sub>↑ + 2H<sub>2</sub>O <span class="obs">(green-yellow Cl₂, bleaches)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Bromide (Br⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NaBr + H<sub>2</sub>SO<sub>4</sub>(conc) → NaHSO<sub>4</sub> + HBr↑; HBr + H<sub>2</sub>SO<sub>4</sub> → Br<sub>2</sub>↑(brown fumes) + SO<sub>2</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Br<sup>−</sup> + AgNO<sub>3</sub> → AgBr↓(pale yellow) <span class="note">(partially soluble in conc NH₃, insoluble in dil NH₃)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Br<sup>−</sup> + Cl<sub>2</sub>(water) → Br<sub>2</sub>(orange layer in CCl<sub>4</sub>/CHCl<sub>3</sub>)</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Iodide (I⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NaI + H<sub>2</sub>SO<sub>4</sub>(conc) → NaHSO<sub>4</sub> + HI↑; 2HI + H<sub>2</sub>SO<sub>4</sub> → I<sub>2</sub>(violet fumes) + SO<sub>2</sub> + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">I<sup>−</sup> + AgNO<sub>3</sub> → AgI↓(yellow) <span class="note">(insoluble in both dil and conc NH₃)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">I<sub>2</sub> + starch → blue-black complex <span class="note">(most sensitive I₂ test)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">I<sup>−</sup> + Cl<sub>2</sub>(water) → I<sub>2</sub>(violet layer in CCl<sub>4</sub>)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KI + Pb(NO<sub>3</sub>)<sub>2</sub> → PbI<sub>2</sub>↓(golden yellow) + 2KNO<sub>3</sub></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Nitrate (NO₃⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NaNO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub>(conc) → NaHSO<sub>4</sub> + HNO<sub>3</sub>↑ <span class="obs">(vapours turn Cu foil green)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text"><b>Brown Ring Test:</b> FeSO<sub>4</sub> + NO → [Fe(NO)]SO<sub>4</sub> (brown ring) in presence of conc H<sub>2</sub>SO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NO<sub>3</sub><sup>−</sup> + Fe²⁺ + 4H<sup>+</sup> → Fe³⁺ + NO↑ + 2H<sub>2</sub>O; NO + FeSO<sub>4</sub> → [Fe(NO)]SO<sub>4</sub> <span class="note">(brown ring at interface)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Diphenylamine test: NO<sub>3</sub><sup>−</sup> + diphenylamine + H<sub>2</sub>SO<sub>4</sub> → deep blue colour</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Acetate (CH₃COO⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CH<sub>3</sub>COONa + H<sub>2</sub>SO<sub>4</sub>(conc) → CH<sub>3</sub>COOH↑ <span class="obs">(vinegar smell)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CH<sub>3</sub>COONa + C<sub>2</sub>H<sub>5</sub>OH + H<sub>2</sub>SO<sub>4</sub> → CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub> + H<sub>2</sub>O <span class="obs">(fruity smell — esterification)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3CH<sub>3</sub>COO<sup>−</sup> + FeCl<sub>3</sub> → [Fe(CH<sub>3</sub>COO)<sub>3</sub>](blood red, hydrolyses on boiling → brown ppt)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Anion Analysis — Group III (Special Reagents)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Sulphate (SO₄²⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ba²⁺ + SO<sub>4</sub><sup>2−</sup> → BaSO<sub>4</sub>↓(white) <span class="note">(insoluble in dil HCl and HNO₃ — confirms SO₄²⁻)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">BaCl<sub>2</sub> + Na<sub>2</sub>SO<sub>4</sub> → BaSO<sub>4</sub>↓ + 2NaCl</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">BaSO<sub>3</sub> + 2HCl → BaCl<sub>2</sub> + SO<sub>2</sub>↑ + H<sub>2</sub>O <span class="note">(BaSO₃ dissolves in HCl, BaSO₄ does not)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Phosphate (PO₄³⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>3</sub>PO<sub>4</sub> + 3AgNO<sub>3</sub> → Ag<sub>3</sub>PO<sub>4</sub>↓(yellow) + 3NaNO<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">PO<sub>4</sub><sup>3−</sup> + 12MoO<sub>4</sub><sup>2−</sup> + 24H<sup>+</sup> + 3NH<sub>4</sub><sup>+</sup> → (NH<sub>4</sub>)<sub>3</sub>[P(Mo<sub>3</sub>O<sub>10</sub>)<sub>4</sub>]↓(canary yellow) <span class="note">(ammonium molybdate test)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">PO<sub>4</sub><sup>3−</sup> + Mg²⁺ + NH<sub>4</sub><sup>+</sup> + NH<sub>3</sub> → MgNH<sub>4</sub>PO<sub>4</sub>↓(white, crystalline)</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Oxalate (C₂O₄²⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>C<sub>2</sub>O<sub>4</sub> + H<sub>2</sub>SO<sub>4</sub>(dil) → Na<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>C<sub>2</sub>O<sub>4</sub> → 2CO<sub>2</sub>↑ + H<sub>2</sub>O (on warming)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">C<sub>2</sub>O<sub>4</sub><sup>2−</sup> + Ca²⁺ → CaC<sub>2</sub>O<sub>4</sub>↓(white) <span class="note">(insoluble in acetic acid, soluble in HCl)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">5C<sub>2</sub>O<sub>4</sub><sup>2−</sup> + 2MnO<sub>4</sub><sup>−</sup> + 16H<sup>+</sup> → 10CO<sub>2</sub> + 2Mn²⁺ + 8H<sub>2</sub>O <span class="note">(decolorises KMnO₄)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Borate (BO₃³⁻) / Borax</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>B<sub>4</sub>O<sub>7</sub> + H<sub>2</sub>SO<sub>4</sub>(dil) → Na<sub>2</sub>SO<sub>4</sub> + 4H<sub>3</sub>BO<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">H<sub>3</sub>BO<sub>3</sub> + CH<sub>3</sub>OH + H<sub>2</sub>SO<sub>4</sub> → B(OCH<sub>3</sub>)<sub>3</sub> <span class="obs">(burns with green flame — borate test)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Chromate/Dichromate (CrO₄²⁻ / Cr₂O₇²⁻)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CrO<sub>4</sub><sup>2−</sup> + Ba²⁺ → BaCrO<sub>4</sub>↓(yellow, soluble in HCl not in CH<sub>3</sub>COOH)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup> + H<sub>2</sub>O<sub>2</sub> + H<sup>+</sup> → CrO<sub>5</sub>(blue, in ether) <span class="note">(perchromic acid test)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2CrO<sub>4</sub><sup>2−</sup> + 2H<sup>+</sup> → Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup> + H<sub>2</sub>O <span class="note">(yellow → orange)</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cation Analysis — Group 0 · NH₄⁺</div>
+
+  <div class="subsection">
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NH<sub>4</sub><sup>+</sup> + NaOH(hot) → NH<sub>3</sub>↑ + Na<sup>+</sup> + H<sub>2</sub>O <span class="obs">(turns moist red litmus blue)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NH<sub>3</sub> + HCl → NH<sub>4</sub>Cl (white fumes — confirm NH₄⁺)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NH<sub>4</sub><sup>+</sup> + Nessler's reagent → Hg<sub>2</sub>INH<sub>2</sub>↓(brown ppt)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cation Analysis — Group I (dil. HCl) · Pb²⁺, Ag⁺, Hg₂²⁺</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Precipitating Reagent: dil HCl</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ag<sup>+</sup> + Cl<sup>−</sup> → AgCl↓(white, curdy)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgCl + 2NH<sub>3</sub> → [Ag(NH<sub>3</sub>)<sub>2</sub>]Cl (dissolves in NH₃) → acidify → AgCl reppt</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Hg<sub>2</sub><sup>2+</sup> + 2Cl<sup>−</sup> → Hg<sub>2</sub>Cl<sub>2</sub>↓(white)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Hg<sub>2</sub>Cl<sub>2</sub> + 2NH<sub>3</sub> → HgNH<sub>2</sub>Cl(white) + Hg↓(grey-black) <span class="obs">(turns grey-black)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb<sup>2+</sup> + 2Cl<sup>−</sup> → PbCl<sub>2</sub>↓(white)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">PbCl<sub>2</sub>(soluble in hot water) → Pb²⁺ + 2Cl⁻; + 2I⁻ → PbI<sub>2</sub>↓(golden yellow, on cooling)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb²⁺ + CrO<sub>4</sub><sup>2−</sup> → PbCrO<sub>4</sub>↓(yellow) <span class="note">(confirmatory for Pb²⁺)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb²⁺ + H<sub>2</sub>SO<sub>4</sub>(dil) → PbSO<sub>4</sub>↓(white) + 2H<sup>+</sup></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cation Analysis — Group II (H₂S in Acid) · Hg²⁺, Pb²⁺, Bi³⁺, Cu²⁺, Cd²⁺, As³⁺, Sb³⁺, Sn²⁺</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Group IIA (insoluble in yellow ammonium sulphide) — Hg²⁺, Pb²⁺, Bi³⁺, Cu²⁺, Cd²⁺</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Hg²⁺ + H<sub>2</sub>S → HgS↓(black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb²⁺ + H<sub>2</sub>S → PbS↓(black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Bi³⁺ + H<sub>2</sub>S → Bi<sub>2</sub>S<sub>3</sub>↓(black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Bi³⁺ + Na[Sn(OH)<sub>3</sub>] → Bi↓(black) <span class="note">(Bi confirmatory — stannite reduction)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu²⁺ + H<sub>2</sub>S → CuS↓(black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cd²⁺ + H<sub>2</sub>S → CdS↓(yellow)</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Group IIB (soluble in yellow ammonium sulphide) — As³⁺, Sb³⁺, Sn²⁺</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">As³⁺ + H<sub>2</sub>S → As<sub>2</sub>S<sub>3</sub>↓(yellow)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">As<sub>2</sub>S<sub>3</sub> + (NH<sub>4</sub>)<sub>2</sub>S<sub>2</sub> → (NH<sub>4</sub>)<sub>3</sub>AsS<sub>4</sub> (soluble thioarsenate)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Sb³⁺ + H<sub>2</sub>S → Sb<sub>2</sub>S<sub>3</sub>↓(orange)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Sn²⁺ + H<sub>2</sub>S → SnS↓(brown/dark brown)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Sn⁴⁺ + H<sub>2</sub>S → SnS<sub>2</sub>↓(yellow)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">SnCl<sub>2</sub> + 2HgCl<sub>2</sub> → Hg<sub>2</sub>Cl<sub>2</sub>↓(white) + SnCl<sub>4</sub> <span class="note">(Sn²⁺ confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">SnCl<sub>2</sub>(excess) + Hg<sub>2</sub>Cl<sub>2</sub> → 2Hg↓(grey-black) + SnCl<sub>4</sub></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cation Analysis — Group III (NH₃ / NH₄Cl) · Fe³⁺, Al³⁺, Cr³⁺</div>
+
+  <div class="subsection">
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe³⁺ + 3OH<sup>−</sup> → Fe(OH)<sub>3</sub>↓(reddish-brown)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Al³⁺ + 3OH<sup>−</sup> → Al(OH)<sub>3</sub>↓(white, gelatinous)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Al(OH)<sub>3</sub> + excess NaOH → [Al(OH)<sub>4</sub>]<sup>−</sup>(soluble) <span class="note">(Al³⁺ amphoteric)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Al³⁺ + aluminon(aurintricarboxylic acid) → red lake <span class="note">(confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr³⁺ + 3OH<sup>−</sup> → Cr(OH)<sub>3</sub>↓(green)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr(OH)<sub>3</sub> + excess NaOH → [Cr(OH)<sub>4</sub>]<sup>−</sup>(soluble, green)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr(OH)<sub>3</sub> + H<sub>2</sub>O<sub>2</sub> + 4NaOH → 2Na<sub>2</sub>CrO<sub>4</sub>(yellow) + H<sub>2</sub>O <span class="note">(Cr³⁺ confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>CrO<sub>4</sub> + BaCl<sub>2</sub> → BaCrO<sub>4</sub>↓(yellow, soluble in HCl)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe³⁺ + SCN<sup>−</sup> → [Fe(SCN)]²⁺ <span class="obs">(blood red — most imp. Fe³⁺ test)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe³⁺ + K<sub>4</sub>[Fe(CN)<sub>6</sub>] → Fe<sub>4</sub>[Fe(CN)<sub>6</sub>]<sub>3</sub>↓(Prussian blue)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cation Analysis — Group IV (H₂S in Alkaline) · Zn²⁺, Mn²⁺, Co²⁺, Ni²⁺</div>
+
+  <div class="subsection">
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn²⁺ + H<sub>2</sub>S(NH<sub>3</sub> medium) → ZnS↓(white)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">ZnS dissolves in dil HCl (distinguishes from CdS)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn²⁺ + K<sub>4</sub>[Fe(CN)<sub>6</sub>] → K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub>↓(white) <span class="note">(confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn²⁺ + dithizone → pink-red complex <span class="note">(extra confirmation)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mn²⁺ + H<sub>2</sub>S → MnS↓(cream/buff coloured)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mn²⁺ + NaBiO<sub>3</sub> + HNO<sub>3</sub> → MnO<sub>4</sub><sup>−</sup>(purple/violet) <span class="obs">(Mn confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mn²⁺ + 2NH<sub>3</sub> + 2H<sub>2</sub>O → Mn(OH)<sub>2</sub>↓(white) → MnO<sub>2</sub>(brown, on standing in air)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Co²⁺ + H<sub>2</sub>S → CoS↓(black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Co²⁺ + 4SCN<sup>−</sup> → [Co(SCN)<sub>4</sub>]²⁻(blue in amyl alcohol) <span class="note">(confirmatory Co)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Co²⁺ + 2NH<sub>4</sub>SCN + excess → blue complex in organic layer</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ni²⁺ + H<sub>2</sub>S → NiS↓(black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ni²⁺ + 2DMG(dimethylglyoxime) + 2NH<sub>3</sub> → [Ni(DMG)<sub>2</sub>]↓(rose red) <span class="obs">(most imp. Ni confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Borax bead Ni → brown (ox flame)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cation Analysis — Group V (NH₄)₂CO₃ · Ca²⁺, Sr²⁺, Ba²⁺</div>
+
+  <div class="subsection">
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ca²⁺ + CO<sub>3</sub><sup>2−</sup> → CaCO<sub>3</sub>↓(white)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ca²⁺ + (NH<sub>4</sub>)<sub>2</sub>C<sub>2</sub>O<sub>4</sub> → CaC<sub>2</sub>O<sub>4</sub>↓(white, insoluble in CH<sub>3</sub>COOH) <span class="note">(confirmatory Ca)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Sr²⁺ + CO<sub>3</sub><sup>2−</sup> → SrCO<sub>3</sub>↓(white)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Sr²⁺ + (NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub> → SrSO<sub>4</sub>↓(sparingly soluble, distinguishes from Ba)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ba²⁺ + CO<sub>3</sub><sup>2−</sup> → BaCO<sub>3</sub>↓(white)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ba²⁺ + CrO<sub>4</sub><sup>2−</sup> → BaCrO<sub>4</sub>↓(yellow, soluble in HCl but not in CH<sub>3</sub>COOH) <span class="note">(Ba confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ba²⁺ + SO<sub>4</sub><sup>2−</sup> → BaSO<sub>4</sub>↓(white, insoluble in HCl) <span class="note">(confirms both Ba²⁺ and SO₄²⁻)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Flame: Ca = brick red | Sr = scarlet | Ba = apple green</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cation Analysis — Group VI · Mg²⁺, Na⁺, K⁺</div>
+
+  <div class="subsection">
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mg²⁺ + 2NH<sub>3</sub> + HPO<sub>4</sub><sup>2−</sup> → MgNH<sub>4</sub>PO<sub>4</sub>↓(white, crystalline) <span class="note">(confirmatory Mg)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mg²⁺ + magneson reagent (NaOH) → blue lake <span class="note">(confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mg²⁺ + 2NaOH → Mg(OH)<sub>2</sub>↓(white, gelatinous)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na⁺ → golden yellow flame test</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na⁺ + zinc uranyl acetate → NaZn(UO<sub>2</sub>)<sub>3</sub>(CH<sub>3</sub>COO)<sub>9</sub>↓(yellow crystalline) <span class="note">(Na confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K⁺ → lilac/violet flame (seen through blue cobalt glass)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K⁺ + Na<sub>3</sub>[Co(NO<sub>2</sub>)<sub>6</sub>] → K<sub>2</sub>Na[Co(NO<sub>2</sub>)<sub>6</sub>]↓(yellow) <span class="note">(sodium cobaltinitrite — K confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K⁺ + ClO<sub>4</sub><sup>−</sup> → KClO<sub>4</sub>↓(white) <span class="note">(perchlorate test)</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Quick Ppt Colour Reference</div>
+
+  <div class="subsection">
+    <div class="subsection-title">White Precipitates</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgCl (soluble in NH₃), BaSO₄ (insol in HCl), PbCl₂ (sol in hot water), PbSO₄, BaCO₃, CaCO₃, SrCO₃, Zn(OH)₂, Al(OH)₃, Mg(OH)₂, MgNH₄PO₄, Hg₂Cl₂ (turns grey)</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Yellow Precipitates</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgI (insol in NH₃), PbI₂ (golden yellow), As₂S₃, CdS, BaCrO₄, PbCrO₄, Ag₃PO₄, (NH₄)₃[PMo₁₂O₄₀]</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Black Precipitates</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuS, PbS, HgS, Ag₂S, Bi₂S₃, CoS, NiS, FeS</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Coloured Precipitates (other)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe(OH)₃ → reddish-brown | Cu(OH)₂ → blue | Cr(OH)₃ → green | Mn(OH)₂ → white (→ brown) | Co(OH)₂ → pink | Ni(OH)₂ → pale green</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgBr → pale yellow | Sb₂S₃ → orange | SnS → brown | Cu₂I₂ → white | [Ni(DMG)₂] → rose red</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Prussian blue (Fe³⁺+K₄[Fe(CN)₆]) | Turnbull's blue (Fe²⁺+K₃[Fe(CN)₆]) | Cu₂[Fe(CN)₆] → chocolate brown | K₂Zn₃[Fe(CN)₆]₂ → white</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Solubility Rules (JEE Key Points)</div>
+
+  <div class="subsection">
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">All nitrates are soluble</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">All acetates are soluble (except basic acetates)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">All chlorides soluble EXCEPT AgCl, PbCl₂, Hg₂Cl₂</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">All sulphates soluble EXCEPT BaSO₄, SrSO₄, PbSO₄ (insoluble); CaSO₄ (sparingly soluble)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">All carbonates insoluble EXCEPT Na₂CO₃, K₂CO₃, (NH₄)₂CO₃</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">All sulphides insoluble EXCEPT Na₂S, K₂S, (NH₄)₂S, BaS, CaS, MgS</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">All hydroxides insoluble EXCEPT NaOH, KOH, Ba(OH)₂ (soluble); Ca(OH)₂ (sparingly soluble)</div></div>
+  </div>
+</div>
+
+<button class="reset-btn" onclick="resetAll()">reset all</button>
+
+<script>
+  const boxes = document.querySelectorAll('input[type="checkbox"]');
+  const pbar = document.getElementById('pbar');
+  const plabel = document.getElementById('plabel');
+
+  function updateProgress() {
+    const total = boxes.length;
+    const done = [...boxes].filter(b => b.checked).length;
+    const pct = total ? (done / total * 100) : 0;
+    pbar.style.width = pct + '%';
+    plabel.textContent = done + ' / ' + total + ' done';
+  }
+
+  boxes.forEach(cb => {
+    const rxn = cb.closest('.rxn');
+    cb.addEventListener('change', () => {
+      rxn.classList.toggle('done', cb.checked);
+      updateProgress();
+      saveState();
+    });
+    rxn.addEventListener('click', e => {
+      if (e.target !== cb) { cb.checked = !cb.checked; cb.dispatchEvent(new Event('change')); }
+    });
+  });
+
+  function saveState() {
+    const state = [...boxes].map(b => b.checked);
+    localStorage.setItem('salt_rxn', JSON.stringify(state));
+  }
+
+  function loadState() {
+    try {
+      const state = JSON.parse(localStorage.getItem('salt_rxn') || '[]');
+      boxes.forEach((cb, i) => {
+        if (state[i]) { cb.checked = true; cb.closest('.rxn').classList.add('done'); }
+      });
+    } catch(e) {}
+  }
+
+  function resetAll() {
+    boxes.forEach(cb => { cb.checked = false; cb.closest('.rxn').classList.remove('done'); });
+    updateProgress();
+    saveState();
+  }
+
+  loadState();
+  updateProgress();
+</script>
+</body>
+</html>

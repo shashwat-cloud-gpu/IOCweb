@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D-Block Reactions — JEE Advanced</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --border: #242424;
+    --text: #d4d4d4;
+    --dim: #606060;
+    --accent: #7eb8f7;
+    --check: #4ade80;
+    --tag: #2a2a2a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 32px 20px 80px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .meta { color: var(--dim); font-size: 11px; margin-top: 4px; }
+
+  .progress-bar-wrap {
+    margin-top: 14px;
+    background: var(--border);
+    border-radius: 2px;
+    height: 3px;
+    width: 100%;
+  }
+  .progress-bar {
+    height: 3px;
+    background: var(--check);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-label { font-size: 11px; color: var(--dim); margin-top: 6px; }
+
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .subsection {
+    margin-bottom: 20px;
+  }
+
+  .subsection-title {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+
+  .rxn {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 4px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    transition: background 0.1s;
+    border: 1px solid transparent;
+  }
+
+  .rxn:hover { background: var(--surface); border-color: var(--border); }
+
+  .rxn.done {
+    opacity: 0.4;
+  }
+
+  .rxn input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    border: 1px solid var(--dim);
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 2px;
+    position: relative;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .rxn input[type="checkbox"]:checked {
+    background: var(--check);
+    border-color: var(--check);
+  }
+
+  .rxn input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: 1px;
+    width: 5px; height: 8px;
+    border: 2px solid #000;
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+
+  .rxn-text {
+    flex: 1;
+    color: var(--text);
+  }
+
+  .rxn-text sub { font-size: 10px; }
+  .rxn-text sup { font-size: 10px; }
+
+  .note {
+    color: var(--dim);
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--tag);
+    color: var(--dim);
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .reset-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--dim); color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>D-Block Reactions</h1>
+  <div class="meta">JEE Advanced · Inorganic Chemistry · Reaction Megacopy</div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="pbar"></div></div>
+  <div class="progress-label" id="plabel">0 / 0 done</div>
+</header>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Chromium (Cr)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Basic Reactions</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Cr + 3Cl<sub>2</sub> → 2CrCl<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">4Cr + 3O<sub>2</sub> → 2Cr<sub>2</sub>O<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr + dil H<sub>2</sub>SO<sub>4</sub> → CrSO<sub>4</sub> + H<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr<sub>2</sub>O<sub>3</sub> + 2Al → Al<sub>2</sub>O<sub>3</sub> + 2Cr <span class="note">(aluminothermy)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">CrO<sub>3</sub> · Chromic Anhydride</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + H<sub>2</sub>SO<sub>4</sub>(conc) → 2CrO<sub>3</sub> + K<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CrO<sub>3</sub> + H<sub>2</sub>O → H<sub>2</sub>CrO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2CrO<sub>3</sub> + H<sub>2</sub>O → H<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">4CrO<sub>3</sub> → 2Cr<sub>2</sub>O<sub>3</sub> + 3O<sub>2</sub> <span class="note">(on strong heating)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Chromate ↔ Dichromate Interconversion</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2CrO<sub>4</sub><sup>2−</sup> + 2H<sup>+</sup> ⇌ Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup> + H<sub>2</sub>O <span class="note">(acidic → orange)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup> + 2OH<sup>−</sup> ⇌ 2CrO<sub>4</sub><sup>2−</sup> + H<sub>2</sub>O <span class="note">(basic → yellow)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + 2KOH → 2K<sub>2</sub>CrO<sub>4</sub> + H<sub>2</sub>O</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> as Oxidizing Agent</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + 14HCl(conc) → 2KCl + 2CrCl<sub>3</sub> + 3Cl<sub>2</sub> + 7H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + 6FeSO<sub>4</sub> + 7H<sub>2</sub>SO<sub>4</sub> → K<sub>2</sub>SO<sub>4</sub> + Cr<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + 3Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + 7H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + 3SO<sub>2</sub> + H<sub>2</sub>SO<sub>4</sub> → K<sub>2</sub>SO<sub>4</sub> + Cr<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + 3H<sub>2</sub>S + 4H<sub>2</sub>SO<sub>4</sub> → K<sub>2</sub>SO<sub>4</sub> + Cr<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + 3S + 7H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + 3SnCl<sub>2</sub> + 14HCl → 2CrCl<sub>3</sub> + 3SnCl<sub>4</sub> + 2KCl + 7H<sub>2</sub>O</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Chromyl Chloride Test</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> + 4KCl + 6H<sub>2</sub>SO<sub>4</sub> → 2CrO<sub>2</sub>Cl<sub>2</sub>(red vapour) + 6KHSO<sub>4</sub> + 3H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CrO<sub>2</sub>Cl<sub>2</sub> + 4NaOH → Na<sub>2</sub>CrO<sub>4</sub>(yellow) + 2NaCl + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Na<sub>2</sub>CrO<sub>4</sub> + Pb(CH<sub>3</sub>COO)<sub>2</sub> → PbCrO<sub>4</sub>↓(yellow) + 2CH<sub>3</sub>COONa <span class="note">(confirmatory)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Cr³⁺ Confirmatory</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr³⁺ + 3OH<sup>−</sup> → Cr(OH)<sub>3</sub>↓(green)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr(OH)<sub>3</sub> + NaOH(excess) → Na[Cr(OH)<sub>4</sub>] <span class="note">(amphoteric)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Cr(OH)<sub>3</sub> + 3H<sub>2</sub>O<sub>2</sub> + 4NaOH → 2Na<sub>2</sub>CrO<sub>4</sub>(yellow) + 8H<sub>2</sub>O <span class="note">(fusion ox.)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr(OH)<sub>3</sub> → Cr<sub>2</sub>O<sub>3</sub> + H<sub>2</sub>O <span class="note">(on heating)</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Manganese (Mn)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">MnO<sub>2</sub> Reactions</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">MnO<sub>2</sub> + 4HCl(conc) → MnCl<sub>2</sub> + Cl<sub>2</sub>↑ + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2MnO<sub>2</sub> + 2H<sub>2</sub>SO<sub>4</sub>(hot, conc) → 2MnSO<sub>4</sub> + O<sub>2</sub> + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">MnO<sub>2</sub> + 2KOH + O<sub>2</sub> → 2KMnO<sub>4</sub> (on fusion, used in KMnO<sub>4</sub> prep)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3MnO<sub>2</sub> + 6KOH(fusion) → 3K<sub>2</sub>MnO<sub>4</sub> + ... <span class="note">(actually: 2MnO<sub>2</sub> + 4KOH + O<sub>2</sub> → 2K<sub>2</sub>MnO<sub>4</sub> + 2H<sub>2</sub>O)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">KMnO<sub>4</sub> Preparation & Properties</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2K<sub>2</sub>MnO<sub>4</sub> + Cl<sub>2</sub> → 2KMnO<sub>4</sub> + 2KCl <span class="note">(electrolytic ox. or Cl<sub>2</sub>)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3K<sub>2</sub>MnO<sub>4</sub> + 2CO<sub>2</sub> → 2KMnO<sub>4</sub> + MnO<sub>2</sub> + 2K<sub>2</sub>CO<sub>3</sub> <span class="note">(disproportionation)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3MnO<sub>4</sub><sup>2−</sup> + 2H<sub>2</sub>O → 2MnO<sub>4</sub><sup>−</sup> + MnO<sub>2</sub> + 4OH<sup>−</sup></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> → K<sub>2</sub>MnO<sub>4</sub> + MnO<sub>2</sub> + O<sub>2</sub> <span class="note">(on heating ~513K)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">KMnO<sub>4</sub> in Acidic Medium (Mn⁷⁺ → Mn²⁺)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 10FeSO<sub>4</sub> + 8H<sub>2</sub>SO<sub>4</sub> → 2MnSO<sub>4</sub> + 5Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + K<sub>2</sub>SO<sub>4</sub> + 8H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 5H<sub>2</sub>O<sub>2</sub> + 3H<sub>2</sub>SO<sub>4</sub> → 2MnSO<sub>4</sub> + K<sub>2</sub>SO<sub>4</sub> + 5O<sub>2</sub> + 8H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 5(COOH)<sub>2</sub> + 3H<sub>2</sub>SO<sub>4</sub> → 2MnSO<sub>4</sub> + K<sub>2</sub>SO<sub>4</sub> + 10CO<sub>2</sub> + 8H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 5SO<sub>2</sub> + 2H<sub>2</sub>O → K<sub>2</sub>SO<sub>4</sub> + 2MnSO<sub>4</sub> + 2H<sub>2</sub>SO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 10KI + 8H<sub>2</sub>SO<sub>4</sub> → 2MnSO<sub>4</sub> + 5I<sub>2</sub> + 6K<sub>2</sub>SO<sub>4</sub> + 8H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 5KNO<sub>2</sub> + 3H<sub>2</sub>SO<sub>4</sub> → 2MnSO<sub>4</sub> + 5KNO<sub>3</sub> + K<sub>2</sub>SO<sub>4</sub> + 3H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 16HCl → 2KCl + 2MnCl<sub>2</sub> + 5Cl<sub>2</sub> + 8H<sub>2</sub>O</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">KMnO<sub>4</sub> in Neutral/Alkaline Medium (Mn⁷⁺ → Mn⁴⁺)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + H<sub>2</sub>O → 2MnO<sub>2</sub> + 2KOH + 3[O] <span class="note">(nascent O from alkaline)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2KMnO<sub>4</sub> + 3Na<sub>2</sub>SO<sub>3</sub> + H<sub>2</sub>O → 2MnO<sub>2</sub> + 3Na<sub>2</sub>SO<sub>4</sub> + 2KOH <span class="note">(neutral)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">MnO<sub>4</sub><sup>−</sup> + 2H<sub>2</sub>O + 3e<sup>−</sup> → MnO<sub>2</sub> + 4OH<sup>−</sup> <span class="note">(half reaction, neutral)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Mn²⁺ Confirmatory</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mn²⁺ + NaBiO<sub>3</sub>(s) + HNO<sub>3</sub> → MnO<sub>4</sub><sup>−</sup>(purple) + Bi³⁺ <span class="note">(confirmatory for Mn)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mn(OH)<sub>2</sub>(white) + O<sub>2</sub> → MnO(OH)(brown) → MnO<sub>2</sub> <span class="note">(air oxidation sequence)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">MnSO<sub>4</sub> + 2NaOH → Mn(OH)<sub>2</sub>↓(white) + Na<sub>2</sub>SO<sub>4</sub></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Borax Bead — Mn</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mn²⁺ borax bead → violet/amethyst (oxidizing flame)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Iron (Fe)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Fe with Acids</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe + 2HCl(dil) → FeCl<sub>2</sub> + H<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe + H<sub>2</sub>SO<sub>4</sub>(dil) → FeSO<sub>4</sub> + H<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Fe + 6H<sub>2</sub>SO<sub>4</sub>(hot, conc) → Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + 3SO<sub>2</sub> + 6H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe + cold conc HNO<sub>3</sub>/H<sub>2</sub>SO<sub>4</sub> → passivation (no reaction)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe + 4HNO<sub>3</sub>(dil) → Fe(NO<sub>3</sub>)<sub>3</sub> + NO↑ + 2H<sub>2</sub>O</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Fe with Non-metals & Steam</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3Fe + 4H<sub>2</sub>O(steam) → Fe<sub>3</sub>O<sub>4</sub> + 4H<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Fe + 3Cl<sub>2</sub> → 2FeCl<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe + S → FeS <span class="note">(on heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3Fe + 2O<sub>2</sub> → Fe<sub>3</sub>O<sub>4</sub></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Fe²⁺ / Fe³⁺ Interconversion</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2FeCl<sub>3</sub> + Fe → 3FeCl<sub>2</sub> <span class="note">(Fe reduces Fe³⁺)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2FeCl<sub>3</sub> + H<sub>2</sub>S → 2FeCl<sub>2</sub> + S + 2HCl</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2FeCl<sub>3</sub> + 2KI → 2FeCl<sub>2</sub> + I<sub>2</sub> + 2KCl</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2FeCl<sub>3</sub> + SnCl<sub>2</sub> → 2FeCl<sub>2</sub> + SnCl<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">FeCl<sub>2</sub> + KMnO<sub>4</sub> + H<sub>2</sub>SO<sub>4</sub> → FeCl<sub>3</sub> + MnSO<sub>4</sub> + ... <span class="note">(Fe²⁺ oxidised)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Fe Hydroxides</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">FeCl<sub>2</sub> + 2NaOH → Fe(OH)<sub>2</sub>↓(dirty green) + 2NaCl</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">FeCl<sub>3</sub> + 3NaOH → Fe(OH)<sub>3</sub>↓(reddish-brown) + 3NaCl</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">4Fe(OH)<sub>2</sub> + O<sub>2</sub> + 2H<sub>2</sub>O → 4Fe(OH)<sub>3</sub> <span class="note">(rusting)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Fe(OH)<sub>3</sub> → Fe<sub>2</sub>O<sub>3</sub> + 3H<sub>2</sub>O <span class="note">(on heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe(OH)<sub>2</sub> → FeO + H<sub>2</sub>O <span class="note">(in absence of air)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Confirmatory Tests for Fe</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe²⁺ + K<sub>3</sub>[Fe(CN)<sub>6</sub>] → KFe[Fe(CN)<sub>6</sub>]↓(dark blue, Turnbull's blue)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe³⁺ + K<sub>4</sub>[Fe(CN)<sub>6</sub>] → Fe<sub>4</sub>[Fe(CN)<sub>6</sub>]<sub>3</sub>↓(dark blue, Prussian blue)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe³⁺ + 3SCN<sup>−</sup> → [Fe(SCN)<sub>3</sub>] (blood red) <span class="note">(most imp. Fe³⁺ test)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe + CuSO<sub>4</sub> → FeSO<sub>4</sub> + Cu <span class="note">(displacement)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Borax bead Fe: yellow-brown (ox. flame) / green (red. flame)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Copper (Cu)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Cu with Acids & Oxidants</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu + dil H<sub>2</sub>SO<sub>4</sub> → No reaction</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu + 2H<sub>2</sub>SO<sub>4</sub>(hot, conc) → CuSO<sub>4</sub> + SO<sub>2</sub>↑ + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3Cu + 8HNO<sub>3</sub>(dil) → 3Cu(NO<sub>3</sub>)<sub>2</sub> + 2NO↑ + 4H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu + 4HNO<sub>3</sub>(conc) → Cu(NO<sub>3</sub>)<sub>2</sub> + 2NO<sub>2</sub>↑ + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu + 2FeCl<sub>3</sub> → CuCl<sub>2</sub> + 2FeCl<sub>2</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu + 2AgNO<sub>3</sub> → Cu(NO<sub>3</sub>)<sub>2</sub> + 2Ag</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Cu Oxides</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Cu + O<sub>2</sub> → 2CuO (black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">4Cu + O<sub>2</sub>(limited, 300–500K) → 2Cu<sub>2</sub>O (red)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu<sub>2</sub>O + H<sub>2</sub>SO<sub>4</sub>(dil) → CuSO<sub>4</sub> + Cu + H<sub>2</sub>O <span class="note">(disproportionation)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuO + H<sub>2</sub> → Cu + H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuO + CO → Cu + CO<sub>2</sub></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Cu²⁺ Confirmatory Tests</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuSO<sub>4</sub> + 2NaOH → Cu(OH)<sub>2</sub>↓(blue) + Na<sub>2</sub>SO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu(OH)<sub>2</sub> → CuO(black) + H<sub>2</sub>O <span class="note">(on heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuSO<sub>4</sub> + 4NH<sub>3</sub>(excess) → [Cu(NH<sub>3</sub>)<sub>4</sub>]SO<sub>4</sub>(deep blue) <span class="note">(Schweitzer's reagent)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Cu²⁺ + 4I<sup>−</sup> → Cu<sub>2</sub>I<sub>2</sub>↓(white) + I<sub>2</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu²⁺ + [Fe(CN)<sub>6</sub>]<sup>4−</sup> → Cu<sub>2</sub>[Fe(CN)<sub>6</sub>]↓(chocolate brown)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Borax bead Cu: blue-green (ox. flame) / red (red. flame)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Flame test Cu: blue-green flame (with HCl — emerald green)</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">CuCl (Cuprous Chloride)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2CuCl → Cu + CuCl<sub>2</sub> <span class="note">(disproportionation on dilution)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuSO<sub>4</sub> + Cu + 2NaCl → 2CuCl↓(white) + Na<sub>2</sub>SO<sub>4</sub></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Zinc (Zn)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Zn with Acids & Bases (Amphoteric)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn + H<sub>2</sub>SO<sub>4</sub>(dil) → ZnSO<sub>4</sub> + H<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn + 2HCl(dil) → ZnCl<sub>2</sub> + H<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn + 2NaOH(aq) → Na<sub>2</sub>ZnO<sub>2</sub> + H<sub>2</sub>↑</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">ZnO + 2NaOH → Na<sub>2</sub>ZnO<sub>2</sub> + H<sub>2</sub>O <span class="note">(ZnO amphoteric)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">ZnO + H<sub>2</sub>SO<sub>4</sub> → ZnSO<sub>4</sub> + H<sub>2</sub>O</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Zn(OH)<sub>2</sub> / ZnCO<sub>3</sub></div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">ZnSO<sub>4</sub> + 2NaOH → Zn(OH)<sub>2</sub>↓(white) + Na<sub>2</sub>SO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn(OH)<sub>2</sub> + 2NaOH(excess) → Na<sub>2</sub>[Zn(OH)<sub>4</sub>] <span class="note">(dissolves — amphoteric)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn(OH)<sub>2</sub> → ZnO + H<sub>2</sub>O <span class="note">(on heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">ZnCO<sub>3</sub> → ZnO + CO<sub>2</sub> <span class="note">(on heating)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Zn Confirmatory</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn²⁺ + K<sub>4</sub>[Fe(CN)<sub>6</sub>] → K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub>↓(white/bluish)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">ZnS↓: white ppt with H<sub>2</sub>S in ammoniacal medium <span class="note">(Group IV)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">ZnO (heated on charcoal) → white coating, yellow when hot</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Silver (Ag)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Ag with Acids</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3Ag + 4HNO<sub>3</sub>(dil) → 3AgNO<sub>3</sub> + NO↑ + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ag + 2HNO<sub>3</sub>(conc) → AgNO<sub>3</sub> + NO<sub>2</sub>↑ + H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ag + dil HCl / HBr / H<sub>2</sub>SO<sub>4</sub> → No reaction</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">AgNO<sub>3</sub> Reactions</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2AgNO<sub>3</sub> → 2Ag + 2NO<sub>2</sub> + O<sub>2</sub> <span class="note">(on heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgNO<sub>3</sub> + NaCl → AgCl↓(white, curdy) + NaNO<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgNO<sub>3</sub> + NaBr → AgBr↓(pale yellow) + NaNO<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgNO<sub>3</sub> + KI → AgI↓(yellow) + KNO<sub>3</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgCl + 2NH<sub>3</sub> → [Ag(NH<sub>3</sub>)<sub>2</sub>]Cl (soluble) <span class="note">(soluble in NH<sub>3</sub>)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">AgBr + 2Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> → Na<sub>3</sub>[Ag(S<sub>2</sub>O<sub>3</sub>)<sub>2</sub>] + NaBr <span class="note">(photography fixing)</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Tollens' Reagent (Silver Mirror)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">RCHO + 2[Ag(NH<sub>3</sub>)<sub>2</sub>]<sup>+</sup> + 2OH<sup>−</sup> → RCOO<sup>−</sup> + 2Ag↓(mirror) + 4NH<sub>3</sub> + H<sub>2</sub>O</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Cobalt (Co) & Nickel (Ni)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Cobalt</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Co²⁺ + 4SCN<sup>−</sup> → [Co(SCN)<sub>4</sub>]²⁻ (blue, in amyl alcohol) <span class="note">(confirmatory Co)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Co(OH)<sub>2</sub>(pink) → Co<sub>2</sub>O<sub>3</sub>(black) on oxidation in air</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CoSO<sub>4</sub> + 2NaOH → Co(OH)<sub>2</sub>↓(pink) + Na<sub>2</sub>SO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Borax bead Co: blue (ox. and red. flames)</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Nickel</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ni + CO(330K) → [Ni(CO)<sub>4</sub>] <span class="note">(Mond process, tetracarbonylnickel)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">[Ni(CO)<sub>4</sub>](450–470K) → Ni(pure) + 4CO <span class="note">(decomposition for pure Ni)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ni²⁺ + 2DMG → [Ni(DMG)<sub>2</sub>]↓(rose red) <span class="note">(dimethylglyoxime, confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">NiSO<sub>4</sub> + 2NaOH → Ni(OH)<sub>2</sub>↓(pale green) + Na<sub>2</sub>SO<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Borax bead Ni: brown (ox. flame)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Mercury (Hg)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Hg Reactions</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Hg + 4HNO<sub>3</sub>(conc, excess) → Hg(NO<sub>3</sub>)<sub>2</sub> + 2NO<sub>2</sub> + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">6Hg + 8HNO<sub>3</sub>(dil) → 3Hg<sub>2</sub>(NO<sub>3</sub>)<sub>2</sub> + 2NO + 4H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Hg<sub>2</sub>Cl<sub>2</sub> + 2NH<sub>3</sub> → Hg + HgNH<sub>2</sub>Cl(white) + NH<sub>4</sub>Cl <span class="note">(turns grey/black — Hg²²⁺ confirmatory)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">HgCl<sub>2</sub> + 2NH<sub>3</sub> → HgNH<sub>2</sub>Cl↓(white) + NH<sub>4</sub>Cl</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2HgCl<sub>2</sub> + SnCl<sub>2</sub> → Hg<sub>2</sub>Cl<sub>2</sub>↓(white) + SnCl<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Hg<sub>2</sub>Cl<sub>2</sub> + SnCl<sub>2</sub>(excess) → 2Hg↓(grey-black) + SnCl<sub>4</sub></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Hg(NO<sub>3</sub>)<sub>2</sub> → 2HgO + 4NO<sub>2</sub> + O<sub>2</sub> <span class="note">(on heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2HgO → 2Hg + O<sub>2</sub> <span class="note">(on heating, ~773K)</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Lead (Pb)</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Pb Reactions</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb + 4HNO<sub>3</sub>(conc) → Pb(NO<sub>3</sub>)<sub>2</sub> + 2NO<sub>2</sub> + 2H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3Pb + 8HNO<sub>3</sub>(dil) → 3Pb(NO<sub>3</sub>)<sub>2</sub> + 2NO + 4H<sub>2</sub>O</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb + H<sub>2</sub>SO<sub>4</sub>(dil) → PbSO<sub>4</sub>↓ + H<sub>2</sub> <span class="note">(insoluble layer passivates)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb²⁺ + 2I<sup>−</sup> → PbI<sub>2</sub>↓(golden yellow)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb²⁺ + CrO<sub>4</sub><sup>2−</sup> → PbCrO<sub>4</sub>↓(yellow)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb²⁺ + H<sub>2</sub>S → PbS↓(black)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb(NO<sub>3</sub>)<sub>2</sub> → PbO + NO<sub>2</sub> + O<sub>2</sub> <span class="note">(on heating)</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">2Pb + O<sub>2</sub> → 2PbO(litharge, yellow)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">3PbO + O<sub>2</sub> → Pb<sub>3</sub>O<sub>4</sub> (red lead, minium)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb(CH<sub>3</sub>COO)<sub>2</sub>(lead acetate) + H<sub>2</sub>S → PbS↓(black) <span class="note">(H₂S confirmatory)</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">General d-Block / Miscellaneous</div>
+
+  <div class="subsection">
+    <div class="subsection-title">Potassium Ferricyanide & Ferrocyanide</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe²⁺ + [Fe(CN)<sub>6</sub>]³⁻ → KFe[Fe(CN)<sub>6</sub>]↓ (Turnbull's blue) <span class="tag">Fe²⁺</span></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe³⁺ + [Fe(CN)<sub>6</sub>]⁴⁻ → Fe<sub>4</sub>[Fe(CN)<sub>6</sub>]<sub>3</sub>↓ (Prussian blue) <span class="tag">Fe³⁺</span></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Borax Bead Summary</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu → blue-green (ox) / red (red)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe → yellow-brown (ox) / green (red)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Co → blue (both flames)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Mn → amethyst/violet (ox)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cr → green (both flames)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ni → brown (ox)</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Charcoal Cavity Test</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb, Zn, Sn, Sb, As → white coating on charcoal</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu → black coating (ox) → red coating (red)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">PbS → garlic/sulfurous smell → white coating</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Flame Test (for d-block adjacent)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Cu → blue-green (without HCl) / emerald green (with HCl)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Pb → pale blue/whitish</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Zn → no characteristic flame</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Important Complexes (JEE)</div>
+
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">CuSO<sub>4</sub> + 4NH<sub>3</sub> → [Cu(NH<sub>3</sub>)<sub>4</sub>]SO<sub>4</sub> (deep blue, square planar, d⁹)</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Ni(CO)<sub>4</sub> — tetrahedral, d¹⁰, diamagnetic</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">Fe(CO)<sub>5</sub> — trigonal bipyramidal, d⁸, formed at 473K/200atm</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">[Cr(H<sub>2</sub>O)<sub>6</sub>]³⁺ — violet, 3 unpaired electrons</div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">[Fe(CN)<sub>6</sub>]⁴⁻ — yellow, strong field, low spin, 0 unpaired e<sup>−</sup></div></div>
+    <div class="rxn"><input type="checkbox"><div class="rxn-text">[Fe(CN)<sub>6</sub>]³⁻ — red, 1 unpaired e<sup>−</sup></div></div>
+  </div>
+</div>
+
+<button class="reset-btn" onclick="resetAll()">reset all</button>
+
+<script>
+  const boxes = document.querySelectorAll('input[type="checkbox"]');
+  const pbar = document.getElementById('pbar');
+  const plabel = document.getElementById('plabel');
+
+  function updateProgress() {
+    const total = boxes.length;
+    const done = [...boxes].filter(b => b.checked).length;
+    const pct = total ? (done / total * 100) : 0;
+    pbar.style.width = pct + '%';
+    plabel.textContent = done + ' / ' + total + ' done';
+  }
+
+  boxes.forEach(cb => {
+    const rxn = cb.closest('.rxn');
+    cb.addEventListener('change', () => {
+      rxn.classList.toggle('done', cb.checked);
+      updateProgress();
+      saveState();
+    });
+    rxn.addEventListener('click', e => {
+      if (e.target !== cb) { cb.checked = !cb.checked; cb.dispatchEvent(new Event('change')); }
+    });
+  });
+
+  function saveState() {
+    const state = [...boxes].map(b => b.checked);
+    localStorage.setItem('dblock_rxn', JSON.stringify(state));
+  }
+
+  function loadState() {
+    try {
+      const state = JSON.parse(localStorage.getItem('dblock_rxn') || '[]');
+      boxes.forEach((cb, i) => {
+        if (state[i]) { cb.checked = true; cb.closest('.rxn').classList.add('done'); }
+      });
+    } catch(e) {}
+  }
+
+  function resetAll() {
+    boxes.forEach(cb => { cb.checked = false; cb.closest('.rxn').classList.remove('done'); });
+    updateProgress();
+    saveState();
+  }
+
+  loadState();
+  updateProgress();
+</script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE Advanced Inorganic Chemistry Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --surface: #0d0f12;
+    --card: #12151a;
+    --border: #242a35;
+    --text: #dde3ec;
+    --muted: #8a96a8;
+    
+    /* Module Accents */
+    --c-sblock: #e8a020;
+    --c-pblock: #00e5ff;
+    --c-dblock: #7eb8f7;
+    --c-salt: #f7c07e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    position: relative;
+  }
+
+  /* Scanline Overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.02);
+  }
+
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(28px, 6vw, 48px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* Grid Layout */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  /* Card Styling */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 30px 24px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--border);
+    transition: background 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    background: #151920;
+  }
+
+  /* Specific Card Accents */
+  .card-sblock:hover { border-color: var(--c-sblock); box-shadow: 0 8px 30px rgba(232, 160, 32, 0.1); }
+  .card-sblock:hover::before { background: var(--c-sblock); }
+  .card-sblock .card-icon { color: var(--c-sblock); }
+
+  .card-pblock:hover { border-color: var(--c-pblock); box-shadow: 0 8px 30px rgba(0, 229, 255, 0.1); }
+  .card-pblock:hover::before { background: var(--c-pblock); }
+  .card-pblock .card-icon { color: var(--c-pblock); }
+
+  .card-dblock:hover { border-color: var(--c-dblock); box-shadow: 0 8px 30px rgba(126, 184, 247, 0.1); }
+  .card-dblock:hover::before { background: var(--c-dblock); }
+  .card-dblock .card-icon { color: var(--c-dblock); }
+
+  .card-salt:hover { border-color: var(--c-salt); box-shadow: 0 8px 30px rgba(247, 192, 126, 0.1); }
+  .card-salt:hover::before { background: var(--c-salt); }
+  .card-salt .card-icon { color: var(--c-salt); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 4px 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    color: var(--muted);
+  }
+
+  .card-icon {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  .card h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+  }
+
+  .card p {
+    font-size: 16px;
+    color: var(--muted);
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    margin-top: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+  }
+
+  .card:hover .card-footer {
+    color: #fff;
+  }
+
+  .card-footer span {
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 40px 16px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">JEE Advanced Mastery</div>
+    <h1>Inorganic Reactions<br>Megacopy Hub</h1>
+    <div class="subtitle">SYSTEMATIC TRACKING & REVISION DASHBOARD</div>
+  </header>
+
+  <div class="grid">
+    
+    <a href="inorganic_megacopy_part1_sblock.html" class="card card-sblock">
+      <div class="card-header">
+        <span class="card-tag">PART 01</span>
+        <span class="card-icon">S</span>
+      </div>
+      <h2>S-Block & General</h2>
+      <p>Group 1 & 2 metals, Haber, Ostwald, Contact, and other crucial industrial processes.</p>
+      <div class="card-footer">
+        LAUNCH MODULE <span>→</span>
+      </div>
+    </a>
+
+    <a href="pblock_reactions_part2.html" class="card card-pblock">
+      <div class="card-header">
+        <span class="card-tag">PART 02</span>
+        <span class="card-icon">P</span>
+      </div>
+      <h2>P-Block Megacopy</h2>
+      <p>Complete coverage of Groups 13 through 18, including Boron, Halogens, and Noble Gases.</p>
+      <div class="card-footer">
+        LAUNCH MODULE <span>→</span>
+      </div>
+    </a>
+
+    <a href="dblock_reactions.html" class="card card-dblock">
+      <div class="card-header">
+        <span class="card-tag">PART 03</span>
+        <span class="card-icon">D</span>
+      </div>
+      <h2>D-Block Reactions</h2>
+      <p>Transition metals, KMnO₄/K₂Cr₂O₇ properties, heating effects, and coordination complexes.</p>
+      <div class="card-footer">
+        LAUNCH MODULE <span>→</span>
+      </div>
+    </a>
+
+    <a href="salt_analysis.html" class="card card-salt">
+      <div class="card-header">
+        <span class="card-tag">PART 04</span>
+        <span class="card-icon">⌬</span>
+      </div>
+      <h2>Salt Analysis</h2>
+      <p>Cation and anion group separation, confirmatory tests, flame tests, and borax bead tests.</p>
+      <div class="card-footer">
+        LAUNCH MODULE <span>→</span>
+      </div>
+    </a>
+
+  </div>
+
+</body>
+</html>

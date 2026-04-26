@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Inorganic Megacopy · Part 1 · s-Block + General</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07080a;
+  --surface:#0d0f12;
+  --card:#111418;
+  --border:#1c2028;
+  --border2:#252c38;
+  --gold:#e8a020;
+  --gold2:#f5c842;
+  --gold-dim:rgba(232,160,32,0.10);
+  --gold-glow:rgba(232,160,32,0.06);
+  --cyan:#22d3ee;
+  --cyan-dim:rgba(34,211,238,0.10);
+  --rose:#fb7185;
+  --rose-dim:rgba(251,113,133,0.10);
+  --violet:#a78bfa;
+  --violet-dim:rgba(167,139,250,0.10);
+  --green:#4ade80;
+  --green-dim:rgba(74,222,128,0.10);
+  --orange:#fb923c;
+  --orange-dim:rgba(251,146,60,0.10);
+  --text:#dde3ec;
+  --text2:#8a96a8;
+  --text3:#555f72;
+  --faint:#13171d;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Barlow Condensed',sans-serif;
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.4;
+}
+
+/* ── scanline overlay ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:100;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+}
+
+.layout{display:flex;min-height:100vh;}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:240px;min-width:240px;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  position:fixed;top:0;left:0;bottom:0;
+  overflow-y:auto;z-index:50;
+  padding:0 0 2rem;
+}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-track{background:transparent;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);}
+
+.sb-brand{
+  padding:1.25rem 1.25rem 1rem;
+  border-bottom:1px solid var(--border);
+  margin-bottom:.5rem;
+}
+.sb-part{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--gold);letter-spacing:2px;
+  display:block;margin-bottom:4px;
+}
+.sb-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:15px;font-weight:700;color:var(--text);
+  line-height:1.2;
+}
+
+.sb-section{padding:.5rem 0;}
+.sb-head{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:2px;
+  color:var(--text3);
+  padding:.4rem 1.25rem;
+  text-transform:uppercase;
+}
+.sb-link{
+  display:block;
+  padding:.35rem 1.25rem;
+  font-size:13px;font-weight:500;
+  color:var(--text2);
+  text-decoration:none;
+  transition:all .12s;
+  border-left:2px solid transparent;
+}
+.sb-link:hover{color:var(--gold);border-left-color:var(--gold);background:var(--gold-dim);}
+.sb-link.active{color:var(--gold);border-left-color:var(--gold);background:var(--gold-dim);}
+
+.sb-search{
+  padding:.75rem 1rem;
+  margin:0 .75rem .5rem;
+}
+.sb-search input{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--border2);
+  border-radius:6px;
+  padding:6px 10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--text);
+  outline:none;
+}
+.sb-search input::placeholder{color:var(--text3);}
+.sb-search input:focus{border-color:var(--gold);}
+
+/* ── MAIN ── */
+.main{
+  margin-left:240px;
+  flex:1;padding:2.5rem 2.5rem 5rem;
+  max-width:1000px;
+}
+
+/* ── TOP HEADER ── */
+.top-header{
+  margin-bottom:2.5rem;
+  padding-bottom:1.5rem;
+  border-bottom:1px solid var(--border);
+}
+.breadcrumb{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--text3);letter-spacing:1.5px;
+  margin-bottom:1rem;
+}
+.breadcrumb span{color:var(--gold);}
+.page-title{
+  font-family:'Libre Baskerville',serif;
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:700;color:var(--text);
+  line-height:1.1;margin-bottom:.4rem;
+}
+.page-title em{font-style:italic;color:var(--gold);}
+.page-sub{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--text3);letter-spacing:.5px;
+}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
+.pill{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;padding:3px 10px;border-radius:3px;
+  letter-spacing:.5px;font-weight:500;
+}
+.pill-g1{background:rgba(232,160,32,.15);color:var(--gold);}
+.pill-g2{background:var(--cyan-dim);color:var(--cyan);}
+.pill-gi{background:var(--violet-dim);color:var(--violet);}
+
+/* ── CHAPTER HEADER ── */
+.ch-header{
+  display:flex;align-items:center;gap:1rem;
+  margin:3rem 0 1.5rem;
+  padding:1rem 1.25rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:4px solid var(--gold);
+  border-radius:0 8px 8px 0;
+}
+.ch-header.cyan{border-left-color:var(--cyan);}
+.ch-header.violet{border-left-color:var(--violet);}
+.ch-header.rose{border-left-color:var(--rose);}
+.ch-header.green{border-left-color:var(--green);}
+.ch-header.orange{border-left-color:var(--orange);}
+
+.ch-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--text3);
+  min-width:40px;
+}
+.ch-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:19px;font-weight:700;letter-spacing:.5px;
+  color:var(--text);flex:1;
+}
+.ch-count{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--text3);
+}
+
+/* ── SUBSECTION ── */
+.sub-head{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:2px;
+  color:var(--text3);
+  text-transform:uppercase;
+  margin:1.5rem 0 .65rem;
+  padding-left:4px;
+  border-left:2px solid var(--border2);
+}
+
+/* ── REACTION ROW ── */
+.rxn-block{
+  margin-bottom:.4rem;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:var(--card);
+  overflow:hidden;
+  transition:border-color .15s;
+}
+.rxn-block:hover{border-color:var(--border2);}
+.rxn-block.highlight{border-color:rgba(232,160,32,.3);background:var(--gold-glow);}
+
+.rxn-inner{
+  display:flex;align-items:flex-start;gap:0;
+}
+.rxn-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--text3);
+  padding:.55rem .6rem;
+  min-width:38px;text-align:right;
+  border-right:1px solid var(--border);
+  background:var(--faint);
+  line-height:1.6;
+  user-select:none;
+}
+.rxn-body{
+  flex:1;padding:.5rem .75rem;
+}
+.rxn-eq{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;font-weight:500;
+  color:var(--text);
+  line-height:1.6;
+  letter-spacing:.2px;
+}
+
+/* color-coded arrows by type */
+.rxn-eq .arr{color:var(--gold);}
+.rxn-eq .cond{
+  font-size:10px;color:var(--text3);
+  background:var(--faint);
+  padding:1px 5px;border-radius:3px;
+  font-weight:400;
+}
+.rxn-eq .prod{color:var(--gold2);}
+.rxn-eq .spec{color:var(--cyan);}  /* special product / state */
+.rxn-eq .warn{color:var(--rose);}  /* key/tricky */
+.rxn-eq .cat{color:var(--violet);} /* catalyst */
+
+.rxn-note{
+  font-size:12px;color:var(--text2);
+  margin-top:3px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:400;
+  font-style:italic;
+  line-height:1.4;
+}
+.rxn-note .key{
+  color:var(--rose);font-style:normal;font-weight:600;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  padding:1px 5px;background:var(--rose-dim);border-radius:3px;
+  margin-right:4px;
+}
+.rxn-note .tip{
+  color:var(--cyan);font-style:normal;font-weight:600;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  padding:1px 5px;background:var(--cyan-dim);border-radius:3px;
+  margin-right:4px;
+}
+.rxn-note .imp{
+  color:var(--gold);font-style:normal;font-weight:600;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  padding:1px 5px;background:var(--gold-dim);border-radius:3px;
+  margin-right:4px;
+}
+
+/* type badge on right */
+.rxn-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.5px;
+  padding:.5rem .5rem;
+  border-left:1px solid var(--border);
+  writing-mode:vertical-lr;
+  text-align:center;
+  color:var(--text3);
+  background:var(--faint);
+  user-select:none;
+}
+.rxn-tag.t-decomp{color:var(--rose);background:var(--rose-dim);}
+.rxn-tag.t-redox{color:var(--cyan);background:var(--cyan-dim);}
+.rxn-tag.t-acid{color:var(--violet);background:var(--violet-dim);}
+.rxn-tag.t-synth{color:var(--green);background:var(--green-dim);}
+.rxn-tag.t-indus{color:var(--gold);background:var(--gold-dim);}
+.rxn-tag.t-disp{color:var(--orange);background:var(--orange-dim);}
+
+/* ── NOTICE BOX ── */
+.notice{
+  padding:.75rem 1rem;
+  border-radius:6px;
+  margin:.75rem 0;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:14px;
+  line-height:1.5;
+}
+.notice.gold{background:var(--gold-dim);border:1px solid rgba(232,160,32,.3);color:var(--gold2);}
+.notice.rose{background:var(--rose-dim);border:1px solid rgba(251,113,133,.3);color:var(--rose);}
+.notice.cyan{background:var(--cyan-dim);border:1px solid rgba(34,211,238,.3);color:var(--cyan);}
+.notice .nt{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1px;margin-right:6px;}
+
+/* ── TWO COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
+
+/* ── COUNTER ── */
+.rxn-counter{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--text3);
+  float:right;margin-top:-1.2rem;
+}
+
+/* ── LEGEND ── */
+.legend{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  padding:.75rem 1rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:6px;
+  margin-bottom:2rem;
+}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);}
+.leg-dot{width:10px;height:10px;border-radius:2px;}
+.ld-d{background:var(--rose);}
+.ld-r{background:var(--cyan);}
+.ld-a{background:var(--violet);}
+.ld-s{background:var(--green);}
+.ld-i{background:var(--gold);}
+.ld-dp{background:var(--orange);}
+
+/* ── HIDDEN (search) ── */
+.rxn-block.hidden{display:none;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+/* ── STICKY PROGRESS ── */
+.sticky-bar{
+  position:sticky;top:0;z-index:40;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 0;
+  margin-bottom:1rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.sbar-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--text3);letter-spacing:1px;
+  white-space:nowrap;
+}
+.sbar-track{flex:1;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.sbar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0%;transition:width .3s;}
+.sbar-count{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gold);white-space:nowrap;}
+
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main{margin-left:0;padding:1.25rem 1rem 4rem;}
+  .two-col{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-brand">
+    <span class="sb-part">PART 01 / 04</span>
+    <div class="sb-title">Inorganic<br/>Reactions<br/>Megacopy</div>
+  </div>
+  <div class="sb-search">
+    <input type="text" id="search-input" placeholder="search reactions..." oninput="filterRxns(this.value)"/>
+  </div>
+  <div class="sb-section">
+    <div class="sb-head">s-Block · Group 1</div>
+    <a class="sb-link" href="#g1-o2">With O₂ / Oxygen</a>
+    <a class="sb-link" href="#g1-h2o">With H₂O / Water</a>
+    <a class="sb-link" href="#g1-n2">With N₂ / H₂ / NH₃</a>
+    <a class="sb-link" href="#g1-halogen">With Halogens</a>
+    <a class="sb-link" href="#g1-thermal">Thermal Decomp.</a>
+    <a class="sb-link" href="#g1-naoh">NaOH Reactions</a>
+    <a class="sb-link" href="#g1-na2o2">Na₂O₂ Reactions</a>
+    <a class="sb-link" href="#g1-ko2">KO₂ Reactions</a>
+    <a class="sb-link" href="#g1-solvay">Solvay Process</a>
+  </div>
+  <div class="sb-section">
+    <div class="sb-head">s-Block · Group 2</div>
+    <a class="sb-link" href="#g2-h2o">With H₂O / Steam</a>
+    <a class="sb-link" href="#g2-o2">With O₂</a>
+    <a class="sb-link" href="#g2-n2">With N₂ / H₂</a>
+    <a class="sb-link" href="#g2-be">Beryllium (Anomalous)</a>
+    <a class="sb-link" href="#g2-mg">Magnesium Reactions</a>
+    <a class="sb-link" href="#g2-ca">Calcium Compounds</a>
+    <a class="sb-link" href="#g2-ba">Barium Reactions</a>
+    <a class="sb-link" href="#g2-thermal">Thermal Decomp.</a>
+  </div>
+  <div class="sb-section">
+    <div class="sb-head">General Inorganic</div>
+    <a class="sb-link" href="#gi-haber">Haber Process</a>
+    <a class="sb-link" href="#gi-ostwald">Ostwald Process</a>
+    <a class="sb-link" href="#gi-contact">Contact Process</a>
+    <a class="sb-link" href="#gi-deacon">Deacon / Chlor-alkali</a>
+    <a class="sb-link" href="#gi-thermite">Thermite & Redox</a>
+    <a class="sb-link" href="#gi-water">Water Gas Reactions</a>
+    <a class="sb-link" href="#gi-disp">Disproportionation</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <div class="sticky-bar">
+    <span class="sbar-label">PROGRESS</span>
+    <div class="sbar-track"><div class="sbar-fill" id="sbar"></div></div>
+    <span class="sbar-count" id="sbar-count">0 / 0</span>
+  </div>
+
+  <!-- TOP HEADER -->
+  <div class="top-header">
+    <div class="breadcrumb">JEE ADVANCED · INORGANIC CHEMISTRY · <span>PART 1 OF 4</span></div>
+    <h1 class="page-title">s-Block + <em>General</em><br/>Reaction Megacopy</h1>
+    <p class="page-sub">// all reactions sequential · jee advanced level · group 1 · group 2 · industrial processes</p>
+    <div class="pills">
+      <span class="pill pill-g1">GROUP 1 — ALKALI METALS</span>
+      <span class="pill pill-g2">GROUP 2 — ALKALINE EARTH METALS</span>
+      <span class="pill pill-gi">GENERAL INORGANIC CHEMISTRY</span>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:1px;align-self:center;">TYPE:</span>
+    <div class="leg-item"><div class="leg-dot ld-d"></div>Decomposition</div>
+    <div class="leg-item"><div class="leg-dot ld-r"></div>Redox</div>
+    <div class="leg-item"><div class="leg-dot ld-a"></div>Acid-Base</div>
+    <div class="leg-item"><div class="leg-dot ld-s"></div>Synthesis</div>
+    <div class="leg-item"><div class="leg-dot ld-i"></div>Industrial</div>
+    <div class="leg-item"><div class="leg-dot ld-dp"></div>Disproportionation</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       s-BLOCK : GROUP 1 — ALKALI METALS
+  ═══════════════════════════════════════ -->
+  <div class="ch-header" id="group1">
+    <span class="ch-num">§ 01</span>
+    <span class="ch-name">s-Block · Group 1 — Alkali Metals (Li, Na, K, Rb, Cs)</span>
+    <span class="ch-count">~35 RXNs</span>
+  </div>
+
+  <!-- WITH O2 -->
+  <div class="sub-head" id="g1-o2">WITH DIOXYGEN / O₂</div>
+  <div class="notice gold"><span class="nt">TREND</span> Li → oxide only | Na → peroxide (Na₂O₂) | K, Rb, Cs → superoxide (MO₂). Reactivity with O₂ increases down the group.</div>
+
+  <div class="rxn-block" data-text="li o2 oxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R1</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4Li  +  O₂  <span class="arr">→</span>  <span class="prod">2Li₂O</span>  <span class="cond">limited O₂, room temp</span></div>
+        <div class="rxn-note"><span class="key">ANOMALOUS</span> Li forms normal oxide only — too small to accommodate O₂²⁻ or O₂⁻ in lattice</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na o2 peroxide na2o2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R2</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Na  +  O₂  <span class="arr">→</span>  <span class="prod">Na₂O₂</span>  <span class="cond">excess O₂</span></div>
+        <div class="rxn-note"><span class="imp">JEE FREQ</span> Na burns in excess O₂ to give sodium peroxide (not Na₂O). Na₂O₂ is pale yellow, diamagnetic</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na o2 oxide limited">
+    <div class="rxn-inner">
+      <div class="rxn-num">R3</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4Na  +  O₂  <span class="arr">→</span>  <span class="prod">2Na₂O</span>  <span class="cond">limited O₂, careful burning</span></div>
+        <div class="rxn-note">Sodium oxide — white solid; obtained only under very controlled conditions</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="k o2 superoxide ko2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R4</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">K  +  O₂  <span class="arr">→</span>  <span class="warn">KO₂</span>  <span class="cond">excess O₂</span></div>
+        <div class="rxn-note"><span class="key">SUPEROXIDE</span> KO₂ is paramagnetic (O₂⁻ has one unpaired e⁻). Same for RbO₂, CsO₂</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="rb cs superoxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R5</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Rb  +  O₂  <span class="arr">→</span>  RbO₂  &nbsp;|&nbsp;  Cs  +  O₂  <span class="arr">→</span>  CsO₂</div>
+        <div class="rxn-note">Both form superoxides as primary product with excess O₂</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <!-- WITH WATER -->
+  <div class="sub-head" id="g1-h2o">WITH WATER / H₂O</div>
+  <div class="notice rose"><span class="nt">DANGER</span> Reactivity increases dramatically: Li (slow, controlled) → Na (vigorous) → K (bursts into flame) → Rb, Cs (explosive). All reactions exothermic; H₂ gas evolved.</div>
+
+  <div class="rxn-block" data-text="li water lioh h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R6</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Li  +  2H₂O  <span class="arr">→</span>  <span class="prod">2LiOH</span>  +  <span class="spec">H₂↑</span></div>
+        <div class="rxn-note">Slowest reaction among alkali metals; does not catch fire. LiOH has lowest solubility among group 1 hydroxides</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na water naoh h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R7</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Na  +  2H₂O  <span class="arr">→</span>  <span class="prod">2NaOH</span>  +  <span class="spec">H₂↑</span></div>
+        <div class="rxn-note"><span class="imp">CLASSIC</span> Vigorous; Na floats and moves. H₂ may ignite. NaOH solution is strongly alkaline</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="k water koh h2 fire">
+    <div class="rxn-inner">
+      <div class="rxn-num">R8</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2K  +  2H₂O  <span class="arr">→</span>  <span class="prod">2KOH</span>  +  <span class="spec">H₂↑</span>  <span class="warn">← catches fire (lilac flame)</span></div>
+        <div class="rxn-note">H₂ ignites spontaneously. K burns with characteristic lilac/violet flame</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="rb cs water explosive">
+    <div class="rxn-inner">
+      <div class="rxn-num">R9</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Rb/Cs  +  2H₂O  <span class="arr">→</span>  <span class="prod">2Rb/CsOH</span>  +  <span class="spec">H₂↑</span>  <span class="warn">← EXPLOSIVE</span></div>
+        <div class="rxn-note"><span class="key">EXTREME</span> Violent/explosive reactions. Cs reacts most vigorously of all stable alkali metals</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- WITH N2, H2, NH3 -->
+  <div class="sub-head" id="g1-n2">WITH N₂ · H₂ · LIQUID NH₃</div>
+
+  <div class="rxn-block" data-text="li n2 nitride li3n">
+    <div class="rxn-inner">
+      <div class="rxn-num">R10</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">6Li  +  N₂  <span class="arr">→</span>  <span class="warn">2Li₃N</span>  <span class="cond">room temp</span></div>
+        <div class="rxn-note"><span class="key">ANOMALOUS</span> ONLY alkali metal to react with N₂ directly at room temperature — due to small ionic radius and high charge density, similar to Mg. Li₃N is a good ionic conductor</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="li3n h2o hydrolysis">
+    <div class="rxn-inner">
+      <div class="rxn-num">R11</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Li₃N  +  3H₂O  <span class="arr">→</span>  <span class="prod">3LiOH</span>  +  <span class="spec">NH₃↑</span></div>
+        <div class="rxn-note">Hydrolysis of lithium nitride gives ammonia — used to detect Li₃N</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na h2 sodium hydride nah">
+    <div class="rxn-inner">
+      <div class="rxn-num">R12</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Na  +  H₂  <span class="arr">→</span>  <span class="prod">2NaH</span>  <span class="cond">300 °C, pressure</span></div>
+        <div class="rxn-note">Sodium hydride — ionic hydride; strong base and reducing agent. NaH + H₂O → NaOH + H₂↑</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="li h2 lithium hydride lih">
+    <div class="rxn-inner">
+      <div class="rxn-num">R13</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Li  +  H₂  <span class="arr">→</span>  <span class="prod">2LiH</span>  <span class="cond">300–500 °C</span></div>
+        <div class="rxn-note">Most stable alkali metal hydride. LiH is used in nuclear fusion as H source</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na liquid ammonia sodamide nanh2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R14</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Na  +  2NH₃(liq)  <span class="arr">→</span>  <span class="prod">2NaNH₂</span>  +  <span class="spec">H₂↑</span>  <span class="cond">Fe³⁺ catalyst, slow</span></div>
+        <div class="rxn-note"><span class="imp">SODAMIDE</span> NaNH₂ (sodium amide) is a very strong base (pKₐ of NH₃ ≈ 38). Used in organic synthesis</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na liquid ammonia blue solution">
+    <div class="rxn-inner">
+      <div class="rxn-num">R15</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Na  +  NH₃(liq)  <span class="arr">→</span>  <span class="warn">Na⁺(NH₃)  +  e⁻(NH₃)</span>  <span class="cond">dilute, blue</span></div>
+        <div class="rxn-note"><span class="key">AMMONIATED e⁻</span> Dilute solution of Na in liquid NH₃ is BLUE (paramagnetic, good conductor). Concentrated solution is bronze-coloured</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- WITH HALOGENS -->
+  <div class="sub-head" id="g1-halogen">WITH HALOGENS</div>
+
+  <div class="rxn-block" data-text="na cl2 nacl halogen">
+    <div class="rxn-inner">
+      <div class="rxn-num">R16</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2M  +  X₂  <span class="arr">→</span>  <span class="prod">2MX</span>  <span class="cond">M = Li,Na,K,Rb,Cs; X = F,Cl,Br,I</span></div>
+        <div class="rxn-note">All alkali metals react vigorously with all halogens to form ionic halides MX</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na cl2 nacl vigorous">
+    <div class="rxn-inner">
+      <div class="rxn-num">R17</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Na  +  Cl₂  <span class="arr">→</span>  <span class="prod">2NaCl</span>  <span class="cond">vigorous, bright yellow flame</span></div>
+        <div class="rxn-note"><span class="imp">JEE FREQ</span> Reaction is highly exothermic; Na catches fire in Cl₂. Product is white crystalline salt</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- THERMAL DECOMPOSITION -->
+  <div class="sub-head" id="g1-thermal">THERMAL DECOMPOSITION — NITRATES, CARBONATES, HYDROXIDES</div>
+  <div class="notice cyan"><span class="nt">TREND</span> Stability of carbonates and hydroxides increases down the group (smaller cation = more polarising = less stable). Li is anomalous — behaves like Mg (diagonal relationship).</div>
+
+  <div class="rxn-block" data-text="nano3 thermal nitrite o2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R18</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NaNO₃  <span class="arr">→</span>  <span class="prod">2NaNO₂</span>  +  <span class="spec">O₂↑</span>  <span class="cond">~380 °C</span></div>
+        <div class="rxn-note"><span class="imp">CONTRAST</span> Na/K/Rb/Cs nitrates give NITRITE + O₂ on heating — unlike Li and Group 2 which give oxide + NO₂ + O₂</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="lino3 lithium nitrate oxide no2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R19</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4LiNO₃  <span class="arr">→</span>  <span class="warn">2Li₂O</span>  +  <span class="spec">4NO₂↑</span>  +  <span class="spec">O₂↑</span>  <span class="cond">Δ</span></div>
+        <div class="rxn-note"><span class="key">ANOMALOUS</span> Li nitrate decomposes like Mg(NO₃)₂ (gives oxide, not nitrite). Diagonal relationship with Mg</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="li2co3 lithium carbonate decompose">
+    <div class="rxn-inner">
+      <div class="rxn-num">R20</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Li₂CO₃  <span class="arr">→</span>  <span class="prod">Li₂O</span>  +  <span class="spec">CO₂↑</span>  <span class="cond">Δ, ~700 °C</span></div>
+        <div class="rxn-note"><span class="key">ANOMALOUS</span> ONLY Li₂CO₃ decomposes among Group 1 carbonates. Na₂CO₃, K₂CO₃ etc. are thermally stable up to melting point</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="lioh lithium hydroxide decomposes">
+    <div class="rxn-inner">
+      <div class="rxn-num">R21</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2LiOH  <span class="arr">→</span>  <span class="prod">Li₂O</span>  +  <span class="spec">H₂O</span>  <span class="cond">Δ</span></div>
+        <div class="rxn-note"><span class="key">ANOMALOUS</span> LiOH is the least stable Group 1 hydroxide and decomposes on heating. NaOH, KOH do NOT decompose easily</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <!-- NaOH REACTIONS -->
+  <div class="sub-head" id="g1-naoh">REACTIONS OF NaOH</div>
+
+  <div class="rxn-block" data-text="naoh co2 excess nahco3">
+    <div class="rxn-inner">
+      <div class="rxn-num">R22</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">NaOH  +  CO₂(excess)  <span class="arr">→</span>  <span class="prod">NaHCO₃</span></div>
+        <div class="rxn-note">Excess CO₂ → bicarbonate. Limited CO₂ + 2NaOH → Na₂CO₃ + H₂O</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="naoh so2 na2so3">
+    <div class="rxn-inner">
+      <div class="rxn-num">R23</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NaOH  +  SO₂  <span class="arr">→</span>  <span class="prod">Na₂SO₃</span>  +  H₂O  &nbsp;|&nbsp;  NaOH + SO₂(excess) → <span class="prod">NaHSO₃</span></div>
+        <div class="rxn-note">Analogous to CO₂ reactions. Excess SO₂ gives bisulphite</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="naoh cl2 cold nacl naocl">
+    <div class="rxn-inner">
+      <div class="rxn-num">R24</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NaOH  +  Cl₂  <span class="arr">→</span>  <span class="prod">NaCl  +  NaOCl</span>  +  H₂O  <span class="cond">cold, dilute</span></div>
+        <div class="rxn-note"><span class="imp">JEE FREQ</span> Cold/dilute NaOH + Cl₂ → hypochlorite (NaOCl). Hot/conc → NaCl + NaClO₃ (chlorate) + H₂O</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="naoh cl2 hot naclo3 chlorate">
+    <div class="rxn-inner">
+      <div class="rxn-num">R25</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">6NaOH  +  3Cl₂  <span class="arr">→</span>  <span class="warn">NaClO₃</span>  +  5NaCl  +  3H₂O  <span class="cond">hot, conc</span></div>
+        <div class="rxn-note"><span class="key">HOT vs COLD</span> Hot NaOH gives chlorate. This distinction is frequently tested</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="naoh aluminium al amphoteric">
+    <div class="rxn-inner">
+      <div class="rxn-num">R26</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Al  +  2NaOH  +  2H₂O  <span class="arr">→</span>  <span class="prod">2NaAlO₂</span>  +  <span class="spec">3H₂↑</span></div>
+        <div class="rxn-note">Al is amphoteric; dissolves in both acids and bases. NaAlO₂ = sodium aluminate</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- Na2O2 REACTIONS -->
+  <div class="sub-head" id="g1-na2o2">Na₂O₂ — SODIUM PEROXIDE REACTIONS</div>
+  <div class="notice gold"><span class="nt">STRUCTURE</span> Na₂O₂ contains the peroxide ion O₂²⁻ (O—O single bond). It is a strong oxidising agent and acts as an O₂ source in enclosed spaces.</div>
+
+  <div class="rxn-block" data-text="na2o2 water h2o naoh h2o2 o2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R27</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Na₂O₂  +  2H₂O  <span class="arr">→</span>  <span class="prod">4NaOH</span>  +  <span class="warn">O₂↑</span>  <span class="cond">[H₂O₂ formed first, then decomposes]</span></div>
+        <div class="rxn-note"><span class="imp">2-STEP</span> Na₂O₂ + H₂O → NaOH + H₂O₂ (step 1); 2H₂O₂ → 2H₂O + O₂ (step 2). H₂O₂ decomposes due to basic medium</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na2o2 dilute h2so4 h2o2 hydrogen peroxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R28</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Na₂O₂  +  H₂SO₄(dil)  <span class="arr">→</span>  <span class="prod">Na₂SO₄</span>  +  <span class="warn">H₂O₂</span></div>
+        <div class="rxn-note"><span class="tip">PREP</span> Laboratory preparation of H₂O₂. Dilute acid stabilises H₂O₂ — prevents decomposition in acidic medium</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na2o2 co2 na2co3 o2 submarine">
+    <div class="rxn-inner">
+      <div class="rxn-num">R29</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Na₂O₂  +  2CO₂  <span class="arr">→</span>  <span class="prod">2Na₂CO₃</span>  +  <span class="warn">O₂↑</span></div>
+        <div class="rxn-note"><span class="key">SUBMARINE</span> Na₂O₂ absorbs exhaled CO₂ and releases O₂ — used in submarines and breathing masks. Self-contained O₂ supply</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na2o2 so2 na2so4">
+    <div class="rxn-inner">
+      <div class="rxn-num">R30</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Na₂O₂  +  SO₂  <span class="arr">→</span>  <span class="prod">Na₂SO₄</span></div>
+        <div class="rxn-note">Na₂O₂ oxidises SO₂ to SO₄²⁻. Analogous to reaction with CO₂ but no O₂ released</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na2o2 co carbon na2co3">
+    <div class="rxn-inner">
+      <div class="rxn-num">R31</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Na₂O₂  +  CO  <span class="arr">→</span>  <span class="prod">Na₂CO₃</span></div>
+        <div class="rxn-note">Na₂O₂ oxidises CO to CO₂, then CO₂ reacts with excess Na₂O₂ → Na₂CO₃</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- KO2 REACTIONS -->
+  <div class="sub-head" id="g1-ko2">KO₂ — POTASSIUM SUPEROXIDE REACTIONS</div>
+
+  <div class="rxn-block" data-text="ko2 water koh o2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R32</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4KO₂  +  2H₂O  <span class="arr">→</span>  <span class="prod">4KOH</span>  +  <span class="warn">3O₂↑</span></div>
+        <div class="rxn-note"><span class="imp">MORE O₂</span> KO₂ releases more O₂ per mole than Na₂O₂. KO₂ is preferred in modern breathing apparatus</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="ko2 co2 k2co3 o2 breathing mask">
+    <div class="rxn-inner">
+      <div class="rxn-num">R33</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4KO₂  +  2CO₂  <span class="arr">→</span>  <span class="prod">2K₂CO₃</span>  +  <span class="warn">3O₂↑</span></div>
+        <div class="rxn-note"><span class="key">BREATHING MASK</span> KO₂ removes CO₂ and replenishes O₂ simultaneously. Used in fire-fighting and space suits</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- SOLVAY PROCESS -->
+  <div class="sub-head" id="g1-solvay">SOLVAY PROCESS — Na₂CO₃ PRODUCTION & RELATED REACTIONS</div>
+  <div class="notice gold"><span class="nt">INDUSTRIAL</span> Solvay process: NaCl (brine) + NH₃ + CO₂ → NaHCO₃ → Na₂CO₃. Most important industrial process for alkali carbonates.</div>
+
+  <div class="rxn-block" data-text="solvay nahco3 nacl nh3 co2 h2o">
+    <div class="rxn-inner">
+      <div class="rxn-num">R34</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">NaCl  +  NH₃  +  CO₂  +  H₂O  <span class="arr">→</span>  <span class="warn">NaHCO₃↓</span>  +  NH₄Cl</div>
+        <div class="rxn-note"><span class="imp">STEP 1</span> NaHCO₃ precipitates because it is least soluble. NH₄Cl stays in solution</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="nahco3 heat na2co3 h2o co2 calcination">
+    <div class="rxn-inner">
+      <div class="rxn-num">R35</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NaHCO₃  <span class="arr">→</span>  <span class="prod">Na₂CO₃</span>  +  <span class="spec">H₂O</span>  +  <span class="spec">CO₂↑</span>  <span class="cond">Δ, calcination</span></div>
+        <div class="rxn-note"><span class="imp">STEP 2</span> Heating NaHCO₃ gives washing soda (Na₂CO₃). CO₂ recycled back to Step 1</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="solvay nh4cl caoh2 nh3 recovery">
+    <div class="rxn-inner">
+      <div class="rxn-num">R36</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NH₄Cl  +  Ca(OH)₂  <span class="arr">→</span>  <span class="prod">CaCl₂</span>  +  <span class="warn">2NH₃↑</span>  +  2H₂O  <span class="cond">Δ</span></div>
+        <div class="rxn-note"><span class="tip">NH₃ RECOVERY</span> NH₃ is recovered and recycled. CaCl₂ is byproduct. Solvay process uses limestone: CaCO₃ → CaO → Ca(OH)₂</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="na2co3 h2o co2 nahco3">
+    <div class="rxn-inner">
+      <div class="rxn-num">R37</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Na₂CO₃  +  H₂O  +  CO₂  <span class="arr">→</span>  <span class="prod">2NaHCO₃</span></div>
+        <div class="rxn-note">Reverse reaction — Na₂CO₃ (washing soda) reacts with CO₂/H₂O to give baking soda NaHCO₃</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="chlor alkali electrolysis nacl naoh cl2 h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R38</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NaCl  +  2H₂O  <span class="arr">→<span class="cond">electrolysis</span></span>  <span class="prod">2NaOH</span>  +  <span class="spec">Cl₂↑</span>  +  <span class="spec">H₂↑</span></div>
+        <div class="rxn-note"><span class="key">CHLOR-ALKALI</span> At cathode: 2H₂O + 2e⁻ → H₂ + 2OH⁻. At anode: 2Cl⁻ → Cl₂ + 2e⁻. All three products are industrially important</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       s-BLOCK : GROUP 2 — ALKALINE EARTH
+  ═══════════════════════════════════════ -->
+  <div class="ch-header cyan" id="group2">
+    <span class="ch-num">§ 02</span>
+    <span class="ch-name">s-Block · Group 2 — Alkaline Earth Metals (Be, Mg, Ca, Sr, Ba)</span>
+    <span class="ch-count">~38 RXNs</span>
+  </div>
+
+  <!-- WITH WATER/STEAM -->
+  <div class="sub-head" id="g2-h2o">WITH WATER AND STEAM</div>
+  <div class="notice cyan"><span class="nt">TREND</span> Be — no reaction with water. Mg — reacts only with steam. Ca/Sr/Ba — react with cold water. Reactivity increases down group.</div>
+
+  <div class="rxn-block" data-text="be water no reaction passive oxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R39</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Be  +  H₂O  <span class="arr">→</span>  <span class="warn">No Reaction</span>  <span class="cond">passivated by BeO layer</span></div>
+        <div class="rxn-note"><span class="key">PASSIVE</span> Be is protected by a thin, adherent BeO film — doesn't react with water or steam under normal conditions</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="mg steam mgo h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R40</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Mg  +  H₂O(steam)  <span class="arr">→</span>  <span class="prod">MgO</span>  +  <span class="spec">H₂↑</span>  <span class="cond">red heat</span></div>
+        <div class="rxn-note"><span class="imp">STEAM ONLY</span> Mg reacts with steam but NOT cold water (slow surface oxide passivation). Brilliant white flame if Mg burns in steam</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="ca cold water caoh2 h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R41</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Ca  +  2H₂O  <span class="arr">→</span>  <span class="prod">Ca(OH)₂</span>  +  <span class="spec">H₂↑</span>  <span class="cond">cold water, steady</span></div>
+        <div class="rxn-note">Ca reacts steadily with cold water. Ca(OH)₂ is slightly soluble (lime water). Sr and Ba react more vigorously</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="sr ba water hydroxide h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R42</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Ba  +  2H₂O  <span class="arr">→</span>  <span class="prod">Ba(OH)₂</span>  +  <span class="spec">H₂↑</span>  <span class="cond">vigorous</span></div>
+        <div class="rxn-note">Ba(OH)₂ is the most soluble Group 2 hydroxide. Ba reacts most vigorously with water among group 2</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- WITH O2 -->
+  <div class="sub-head" id="g2-o2">WITH DIOXYGEN / O₂</div>
+
+  <div class="rxn-block" data-text="mg o2 mgo burns white">
+    <div class="rxn-inner">
+      <div class="rxn-num">R43</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Mg  +  O₂  <span class="arr">→</span>  <span class="prod">2MgO</span>  <span class="cond">brilliant white flame</span></div>
+        <div class="rxn-note"><span class="imp">JEE FREQ</span> Mg also reacts with N₂ simultaneously: 3Mg + N₂ → Mg₃N₂. Real product of Mg burning in air is mixture of MgO and Mg₃N₂</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="ca o2 cao calcium oxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R44</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Ca  +  O₂  <span class="arr">→</span>  <span class="prod">2CaO</span></div>
+        <div class="rxn-note">All Group 2 metals burn in O₂ to form normal oxides MO (except Ba)</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="ba o2 bao2 barium peroxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R45</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Ba  +  O₂(excess)  <span class="arr">→</span>  <span class="warn">2BaO₂</span>  <span class="cond">at ~600 °C</span></div>
+        <div class="rxn-note"><span class="key">UNIQUE</span> Ba forms barium peroxide (BaO₂) — only Group 2 metal to do so in excess O₂. BaO₂ decomposes back to BaO + O₂ above 800°C</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- WITH N2, H2 -->
+  <div class="sub-head" id="g2-n2">WITH N₂ AND H₂</div>
+
+  <div class="rxn-block" data-text="mg n2 mg3n2 magnesium nitride">
+    <div class="rxn-inner">
+      <div class="rxn-num">R46</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">3Mg  +  N₂  <span class="arr">→</span>  <span class="prod">Mg₃N₂</span>  <span class="cond">when Mg burns in air</span></div>
+        <div class="rxn-note"><span class="imp">JEE FREQ</span> Mg₃N₂ is yellow-green. Hydrolysis: Mg₃N₂ + 6H₂O → 3Mg(OH)₂ + 2NH₃. Explains why burning Mg has ammonia smell</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="ca n2 ca3n2 calcium nitride">
+    <div class="rxn-inner">
+      <div class="rxn-num">R47</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">3Ca  +  N₂  <span class="arr">→</span>  <span class="prod">Ca₃N₂</span>  <span class="cond">Δ</span></div>
+        <div class="rxn-note">All alkaline earth metals form nitrides M₃N₂ when heated in N₂</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="mg3n2 h2o hydrolysis mgoh2 nh3">
+    <div class="rxn-inner">
+      <div class="rxn-num">R48</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Mg₃N₂  +  6H₂O  <span class="arr">→</span>  <span class="prod">3Mg(OH)₂</span>  +  <span class="spec">2NH₃↑</span></div>
+        <div class="rxn-note">Nitride hydrolysis always gives the metal hydroxide + ammonia. Useful in detecting nitrides</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="ca h2 cah2 calcium hydride">
+    <div class="rxn-inner">
+      <div class="rxn-num">R49</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Ca  +  H₂  <span class="arr">→</span>  <span class="prod">CaH₂</span>  <span class="cond">Δ</span>  &nbsp;|&nbsp;  CaH₂ + 2H₂O → Ca(OH)₂ + <span class="spec">2H₂↑</span></div>
+        <div class="rxn-note">CaH₂ (calcium hydride) is a portable H₂ source — used in field hydrogen generation for balloons</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <!-- BERYLLIUM ANOMALOUS -->
+  <div class="sub-head" id="g2-be">BERYLLIUM — ANOMALOUS BEHAVIOUR (Diagonal Relationship with Al)</div>
+  <div class="notice rose"><span class="nt">ANOMALOUS</span> Be resembles Al (diagonal relationship): both are amphoteric, form covalent compounds, form alums, BeF₂·Al₂O₃ analogy, BeO ↔ Al₂O₃ amphoteric, BeCl₂ Lewis acid like AlCl₃.</div>
+
+  <div class="rxn-block" data-text="be naoh sodium hydroxide beo2 sodium beryllate h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R50</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Be  +  2NaOH(conc)  <span class="arr">→</span>  <span class="prod">Na₂BeO₂</span>  +  <span class="spec">H₂↑</span></div>
+        <div class="rxn-note"><span class="key">AMPHOTERIC</span> Be dissolves in conc NaOH — ONLY Group 2 metal to do so. Analogous to Al + NaOH. Na₂BeO₂ = sodium beryllate</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="beo naoh sodium beryllate amphoteric">
+    <div class="rxn-inner">
+      <div class="rxn-num">R51</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">BeO  +  2NaOH  <span class="arr">→</span>  <span class="prod">Na₂BeO₂</span>  +  H₂O</div>
+        <div class="rxn-note">BeO is amphoteric like Al₂O₃. Also reacts with HCl: BeO + 2HCl → BeCl₂ + H₂O</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="becl2 lewis acid electron deficient dimer">
+    <div class="rxn-inner">
+      <div class="rxn-num">R52</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">BeCl₂  →  <span class="warn">(BeCl₂)₂</span>  <span class="cond">dimerises (solid state); or BeCl₂ + 2Cl⁻ → [BeCl₄]²⁻</span></div>
+        <div class="rxn-note"><span class="key">LEWIS ACID</span> BeCl₂ has empty p orbital on Be (sp hybridised, 2 bond pairs). Acts as Lewis acid like AlCl₃. Forms tetrahedral [BeCl₄]²⁻ with excess Cl⁻</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="becl2 nacl tetrachloroberyllate">
+    <div class="rxn-inner">
+      <div class="rxn-num">R53</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">BeCl₂  +  2NaCl  <span class="arr">→</span>  <span class="prod">Na₂[BeCl₄]</span></div>
+        <div class="rxn-note">Tetrachloroberyllate — Be achieves octet via dative bonds from Cl⁻. Be in sp³ in this complex (tetrahedral)</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <!-- MAGNESIUM REACTIONS -->
+  <div class="sub-head" id="g2-mg">MAGNESIUM — SPECIAL REACTIONS</div>
+
+  <div class="rxn-block" data-text="mg co2 mgo c magnesium burning co2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R54</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Mg  +  CO₂  <span class="arr">→</span>  <span class="warn">2MgO  +  C</span>  <span class="cond">burning Mg in CO₂</span></div>
+        <div class="rxn-note"><span class="key">CANNOT EXTINGUISH</span> Burning Mg cannot be doused with CO₂ — it continues burning. C (soot) deposited. Also: 3Mg + N₂ → Mg₃N₂ in air</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="mg h2o steam magnesium hydroxide">
+    <div class="rxn-inner">
+      <div name="rxn-num">R55</div>
+      <div class="rxn-num">R55</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">MgCl₂·6H₂O  <span class="arr">→</span>  <span class="warn">Mg(OH)Cl</span>  +  5H₂O  +  HCl  <span class="cond">Δ</span></div>
+        <div class="rxn-note"><span class="imp">HYDROLYSIS</span> MgCl₂·6H₂O cannot give anhydrous MgCl₂ on heating — it hydrolyses. To get anhydrous MgCl₂, dehydrate in HCl atmosphere</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <!-- CALCIUM COMPOUNDS -->
+  <div class="sub-head" id="g2-ca">CALCIUM — KEY REACTIONS AND COMPOUNDS</div>
+
+  <div class="rxn-block" data-text="caco3 heat cao co2 calcination lime kiln">
+    <div class="rxn-inner">
+      <div class="rxn-num">R56</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaCO₃  <span class="arr">→</span>  <span class="prod">CaO</span>  +  <span class="spec">CO₂↑</span>  <span class="cond">~840 °C, endothermic</span></div>
+        <div class="rxn-note"><span class="imp">INDUSTRIAL</span> Calcination of limestone. CaO = quicklime. Basis of cement and steel manufacture. Equilibrium: high T shifts decomposition right</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="cao h2o caoh2 slaked lime quicklime exothermic">
+    <div class="rxn-inner">
+      <div class="rxn-num">R57</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaO  +  H₂O  <span class="arr">→</span>  <span class="prod">Ca(OH)₂</span>  +  heat  <span class="cond">highly exothermic</span></div>
+        <div class="rxn-note"><span class="key">SLAKING</span> CaO (quicklime) + H₂O → Ca(OH)₂ (slaked lime). Enough heat generated to cause steam; used in self-heating cans</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="caoh2 co2 caco3 limewater test turbid">
+    <div class="rxn-inner">
+      <div class="rxn-num">R58</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Ca(OH)₂  +  CO₂  <span class="arr">→</span>  <span class="warn">CaCO₃↓</span>  +  H₂O  <span class="cond">limewater turns milky</span></div>
+        <div class="rxn-note"><span class="imp">JEE CLASSIC</span> Confirmatory test for CO₂. Limewater turns milky → turbid (CaCO₃ ppt). Excess CO₂ clears the turbidity</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="caco3 co2 h2o cahco3 temporary hardness dissolve">
+    <div class="rxn-inner">
+      <div class="rxn-num">R59</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaCO₃↓  +  CO₂  +  H₂O  <span class="arr">→</span>  <span class="prod">Ca(HCO₃)₂</span>  <span class="cond">excess CO₂</span></div>
+        <div class="rxn-note"><span class="tip">EXPLAINS</span> Why milkiness disappears with excess CO₂. Ca(HCO₃)₂ = soluble. This is TEMPORARY HARDNESS of water</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="caoh2 cl2 bleaching powder caocl2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R60</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Ca(OH)₂  +  Cl₂  <span class="arr">→</span>  <span class="warn">CaOCl₂</span>  +  H₂O  <span class="cond">dry slaked lime + Cl₂, 40 °C</span></div>
+        <div class="rxn-note"><span class="imp">BLEACHING POWDER</span> CaOCl₂ = Ca(OCl)Cl. Contains OCl⁻ as active species. Not a true mixture — it's a mixed salt of hypochlorous and hydrochloric acids</div>
+      </div>
+      <div class="rxn-tag t-synth">SYNTH</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="caocl2 hcl cl2 bleaching powder acid">
+    <div class="rxn-inner">
+      <div class="rxn-num">R61</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaOCl₂  +  2HCl  <span class="arr">→</span>  <span class="prod">CaCl₂</span>  +  <span class="spec">Cl₂↑</span>  +  H₂O</div>
+        <div class="rxn-note"><span class="tip">BLEACHING ACTION</span> Bleaching powder + acid liberates Cl₂. Also: CaOCl₂ + CO₂ + H₂O → CaCO₃ + Cl₂ + H₂O (releases Cl₂ in air over time)</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="caocl2 h2so4 cl2 sulphuric acid">
+    <div class="rxn-inner">
+      <div class="rxn-num">R62</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaOCl₂  +  H₂SO₄(dil)  <span class="arr">→</span>  <span class="prod">CaSO₄</span>  +  <span class="spec">Cl₂↑</span>  +  H₂O</div>
+        <div class="rxn-note">Dilute H₂SO₄ displaces Cl₂ from bleaching powder — lab method for Cl₂ generation</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="plaster of paris caso4 hemihydrate water setting">
+    <div class="rxn-inner">
+      <div class="rxn-num">R63</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2(CaSO₄·2H₂O)  <span class="arr">→</span>  <span class="warn">(CaSO₄)₂·H₂O</span>  +  3H₂O  <span class="cond">~120 °C</span></div>
+        <div class="rxn-note"><span class="imp">PLASTER OF PARIS</span> Gypsum (2H₂O) → Plaster of Paris (½H₂O). Setting: (CaSO₄)₂·H₂O + 3H₂O → 2(CaSO₄·2H₂O). Interlocking crystals cause hardening</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="cao co2 caco3 reverse calcination">
+    <div class="rxn-inner">
+      <div class="rxn-num">R64</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaO  +  CO₂  <span class="arr">→</span>  <span class="prod">CaCO₃</span>  <span class="cond">low temp</span></div>
+        <div class="rxn-note">Reverse of calcination — occurs at lower temperature. Equilibrium position determines which direction proceeds</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="cao h2so4 caso4 neutralisation">
+    <div class="rxn-inner">
+      <div class="rxn-num">R65</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaO  +  H₂SO₄  <span class="arr">→</span>  <span class="prod">CaSO₄</span>  +  H₂O  &nbsp;|&nbsp;  CaO + 2HCl → CaCl₂ + H₂O</div>
+        <div class="rxn-note">CaO is a basic oxide — neutralises acids. Used as flue gas scrubber (CaO + SO₂ → CaSO₃)</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="caoh2 so2 caso3 flue gas">
+    <div class="rxn-inner">
+      <div class="rxn-num">R66</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Ca(OH)₂  +  SO₂  <span class="arr">→</span>  <span class="prod">CaSO₃</span>  +  H₂O</div>
+        <div class="rxn-note"><span class="key">DESULPHURISATION</span> Lime scrubbing — removes SO₂ from industrial emissions. CaSO₃ can be oxidised to CaSO₄ (gypsum)</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <!-- BARIUM -->
+  <div class="sub-head" id="g2-ba">BARIUM — KEY REACTIONS</div>
+
+  <div class="rxn-block" data-text="bao2 h2so4 baso4 h2o2 hydrogen peroxide prep">
+    <div class="rxn-inner">
+      <div class="rxn-num">R67</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">BaO₂  +  H₂SO₄(dil)  <span class="arr">→</span>  <span class="prod">BaSO₄↓</span>  +  <span class="warn">H₂O₂</span></div>
+        <div class="rxn-note"><span class="imp">CLASSIC PREP</span> Historically important preparation of H₂O₂ (Thénard's method). BaSO₄ precipitates, driving reaction forward. H₂O₂ obtained in filtrate</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="bao2 co2 baco3 o2 high temp">
+    <div class="rxn-inner">
+      <div class="rxn-num">R68</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2BaO₂  <span class="arr">→</span>  <span class="prod">2BaO  +  O₂</span>  <span class="cond">&gt;800 °C</span></div>
+        <div class="rxn-note">BaO₂ decomposes at high temperature — basis of Brin's process for O₂ (reversible: 2BaO + O₂ ⇌ 2BaO₂)</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="baoh2 h2so4 baso4 insoluble">
+    <div class="rxn-inner">
+      <div class="rxn-num">R69</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Ba²⁺  +  SO₄²⁻  <span class="arr">→</span>  <span class="warn">BaSO₄↓</span>  <span class="cond">white ppt, insoluble in dil. HCl</span></div>
+        <div class="rxn-note"><span class="imp">JEE SALT ANALYSIS</span> Confirmatory test for Ba²⁺ and SO₄²⁻. BaSO₄ is insoluble in dilute acids — distinguishes from BaCO₃, BaSO₃ (which dissolve in HCl)</div>
+      </div>
+      <div class="rxn-tag t-acid">ACID-B</div>
+    </div>
+  </div>
+
+  <!-- THERMAL DECOMPOSITION GROUP 2 -->
+  <div class="sub-head" id="g2-thermal">THERMAL DECOMPOSITION — GROUP 2 NITRATES, CARBONATES, SULPHATES</div>
+  <div class="notice gold"><span class="nt">TREND</span> Stability increases DOWN the group. BaCO₃ most stable; MgCO₃ least stable. Polarising power of cation decreases down group (larger cation = less charge density = more stable anion).</div>
+
+  <div class="rxn-block" data-text="mgco3 cao mgo co2 decompose">
+    <div class="rxn-inner">
+      <div class="rxn-num">R70</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">MgCO₃  <span class="arr">→</span>  <span class="prod">MgO  +  CO₂↑</span>  <span class="cond">~350 °C (lowest temp)</span></div>
+        <div class="rxn-note">MgCO₃ decomposes at lowest temperature — Mg²⁺ has highest charge density, most polarising, least stable carbonate</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="caco3 limestone cao co2 calcination">
+    <div class="rxn-inner">
+      <div class="rxn-num">R71</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CaCO₃  <span class="arr">→</span>  <span class="prod">CaO  +  CO₂↑</span>  <span class="cond">~840 °C</span></div>
+        <div class="rxn-note">Standard calcination; industrially crucial. BaCO₃ decomposes at ~1350°C (most stable). Stability: MgCO₃ ≪ CaCO₃ &lt; SrCO₃ &lt; BaCO₃</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="mg no3 mgo no2 o2 nitrate decomposition">
+    <div class="rxn-inner">
+      <div class="rxn-num">R72</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2Mg(NO₃)₂  <span class="arr">→</span>  <span class="prod">2MgO</span>  +  <span class="spec">4NO₂↑</span>  +  <span class="spec">O₂↑</span>  <span class="cond">Δ</span></div>
+        <div class="rxn-note"><span class="imp">ALL GROUP 2</span> ALL Group 2 nitrates and Li nitrate give oxide + NO₂ + O₂. Contrasts with Na/K/Rb/Cs nitrates → nitrite + O₂</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="ca no3 ca ba nitrate decompose no2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R73</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2M(NO₃)₂  <span class="arr">→</span>  <span class="prod">2MO</span>  +  <span class="spec">4NO₂↑</span>  +  <span class="spec">O₂↑</span>  <span class="cond">M = Ca, Sr, Ba</span></div>
+        <div class="rxn-note">General reaction for all Group 2 metal nitrates. Higher temperatures needed going down the group</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="mgso4 mgo so3 sulphate thermal decomposition">
+    <div class="rxn-inner">
+      <div class="rxn-num">R74</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">MgSO₄  <span class="arr">→</span>  <span class="prod">MgO  +  SO₃↑</span>  <span class="cond">very high T &gt;1000°C</span></div>
+        <div class="rxn-note">Sulphates are thermally very stable. BaSO₄ does NOT decompose at any laboratory temperature — used as a standard for thermal stability tests</div>
+      </div>
+      <div class="rxn-tag t-decomp">DECOMP</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       GENERAL INORGANIC CHEMISTRY
+  ═══════════════════════════════════════ -->
+  <div class="ch-header violet" id="gen-inorganic">
+    <span class="ch-num">§ 03</span>
+    <span class="ch-name">General Inorganic Chemistry — Industrial &amp; Key Processes</span>
+    <span class="ch-count">~25 RXNs</span>
+  </div>
+
+  <!-- HABER PROCESS -->
+  <div class="sub-head" id="gi-haber">HABER PROCESS — AMMONIA SYNTHESIS</div>
+
+  <div class="rxn-block" data-text="haber process n2 h2 nh3 ammonia fe catalyst">
+    <div class="rxn-inner">
+      <div class="rxn-num">R75</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">N₂  +  3H₂  <span class="arr">⇌</span>  <span class="prod">2NH₃</span>  <span class="cond">450–500 °C, 200 atm, Fe/Al₂O₃/K₂O</span>  ΔH = −92 kJ/mol</div>
+        <div class="rxn-note"><span class="imp">INDUSTRIAL</span> Exothermic + decrease in moles → favour low T, high P (Le Chatelier). 450°C is a compromise between yield and rate. Promoters: K₂O (electronic), Al₂O₃ (structural)</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <!-- OSTWALD PROCESS -->
+  <div class="sub-head" id="gi-ostwald">OSTWALD PROCESS — NITRIC ACID (HNO₃)</div>
+
+  <div class="rxn-block" data-text="ostwald process nh3 o2 no pt catalyst 800">
+    <div class="rxn-inner">
+      <div class="rxn-num">R76</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4NH₃  +  5O₂  <span class="arr">→</span>  <span class="prod">4NO</span>  +  6H₂O  <span class="cond"><span class="cat">Pt-Rh gauze</span>, 800–900 °C</span>  ΔH = −907 kJ</div>
+        <div class="rxn-note"><span class="imp">STEP 1 — CATALYTIC OXIDATION</span> NH₃ oxidised to NO. Catalyst: Pt-Rh alloy gauze. Reaction is highly exothermic and fast</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="no o2 no2 oxidation nitrogen dioxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R77</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NO  +  O₂  <span class="arr">→</span>  <span class="prod">2NO₂</span>  <span class="cond">uncatalysed, cooling</span></div>
+        <div class="rxn-note"><span class="imp">STEP 2</span> Gas cooled; NO oxidised spontaneously to NO₂. Rate ∝ [NO]²[O₂] — third-order reaction. Rate increases at lower T (unusual)</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="no2 h2o hno3 no nitric acid">
+    <div class="rxn-inner">
+      <div class="rxn-num">R78</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">3NO₂  +  H₂O  <span class="arr">→</span>  <span class="prod">2HNO₃</span>  +  <span class="spec">NO↑</span></div>
+        <div class="rxn-note"><span class="imp">STEP 3</span> NO₂ absorbed in water. NO produced is recycled back. Final product ~68% HNO₃; concentrated further by distillation</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="no2 o2 h2o hno3 improved">
+    <div class="rxn-inner">
+      <div class="rxn-num">R79</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4NO₂  +  O₂  +  2H₂O  <span class="arr">→</span>  <span class="prod">4HNO₃</span>  <span class="cond">excess O₂ avoids NO loss</span></div>
+        <div class="rxn-note">Improved absorption with excess O₂ — all NO₂ converted to HNO₃ without releasing NO</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <!-- CONTACT PROCESS -->
+  <div class="sub-head" id="gi-contact">CONTACT PROCESS — SULPHURIC ACID (H₂SO₄)</div>
+
+  <div class="rxn-block" data-text="s o2 so2 sulphur burning">
+    <div class="rxn-inner">
+      <div class="rxn-num">R80</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">S  +  O₂  <span class="arr">→</span>  <span class="prod">SO₂</span>  <span class="cond">burning sulphur / roasting pyrite FeS₂</span></div>
+        <div class="rxn-note"><span class="imp">STEP 1</span> SO₂ also obtained: 4FeS₂ + 11O₂ → 2Fe₂O₃ + 8SO₂ (roasting of iron pyrite)</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="so2 o2 so3 v2o5 catalyst contact process">
+    <div class="rxn-inner">
+      <div class="rxn-num">R81</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2SO₂  +  O₂  <span class="arr">⇌</span>  <span class="prod">2SO₃</span>  <span class="cond"><span class="cat">V₂O₅</span>, 450–550 °C, 1–2 atm</span>  ΔH = −197 kJ</div>
+        <div class="rxn-note"><span class="imp">STEP 2 — KEY</span> Exothermic + Δn&lt;0 → favour low T, high P. But V₂O₅ active only above 400°C — compromise at 450°C. Yield ~99.7%</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="so3 h2so4 oleum h2s2o7 pyrosulfuric acid">
+    <div class="rxn-inner">
+      <div class="rxn-num">R82</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">SO₃  +  H₂SO₄  <span class="arr">→</span>  <span class="warn">H₂S₂O₇</span>  (oleum/fuming H₂SO₄)</div>
+        <div class="rxn-note"><span class="imp">STEP 3</span> SO₃ NOT absorbed directly in water (forms acid mist). Absorbed in conc. H₂SO₄ to give oleum (H₂S₂O₇ = pyrosulphuric acid)</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="oleum h2s2o7 water h2so4 dilution">
+    <div class="rxn-inner">
+      <div class="rxn-num">R83</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">H₂S₂O₇  +  H₂O  <span class="arr">→</span>  <span class="prod">2H₂SO₄</span></div>
+        <div class="rxn-note"><span class="imp">STEP 4</span> Oleum diluted with water to give conc. H₂SO₄ (98%). Adding SO₃ to water directly would cause explosion</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <!-- DEACON / CHLOR-ALKALI -->
+  <div class="sub-head" id="gi-deacon">DEACON'S PROCESS + CHLORINE PREPARATION</div>
+
+  <div class="rxn-block" data-text="deacon hcl o2 cl2 cucl2 catalyst">
+    <div class="rxn-inner">
+      <div class="rxn-num">R84</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4HCl  +  O₂  <span class="arr">→</span>  <span class="prod">2Cl₂</span>  +  2H₂O  <span class="cond"><span class="cat">CuCl₂</span>, 400–500 °C</span></div>
+        <div class="rxn-note"><span class="tip">DEACON'S PROCESS</span> Industrial preparation of Cl₂ from HCl (by-product of organic chemistry). Exothermic, equilibrium favoured at lower T</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="mno2 hcl cl2 laboratory preparation manganese dioxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R85</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">MnO₂  +  4HCl(conc)  <span class="arr">→</span>  <span class="warn">MnCl₂</span>  +  <span class="spec">Cl₂↑</span>  +  2H₂O  <span class="cond">Δ</span></div>
+        <div class="rxn-note"><span class="imp">LAB PREP Cl₂</span> MnO₂ oxidises HCl to Cl₂. Mn: +4 → +2. Also: 2KMnO₄ + 16HCl → 2MnCl₂ + 2KCl + 5Cl₂ + 8H₂O</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- THERMITE & REDOX -->
+  <div class="sub-head" id="gi-thermite">THERMITE REACTION &amp; REDUCTION OF METAL OXIDES</div>
+
+  <div class="rxn-block" data-text="thermite fe2o3 al aluminium iron aluminium oxide aluminothermy">
+    <div class="rxn-inner">
+      <div class="rxn-num">R86</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Fe₂O₃  +  2Al  <span class="arr">→</span>  <span class="warn">Al₂O₃  +  2Fe</span>  <span class="cond">ignited by Mg ribbon, T&gt;3000°C</span></div>
+        <div class="rxn-note"><span class="imp">THERMITE</span> Aluminothermy — Al has higher affinity for O₂ than Fe. Temperature high enough to produce molten iron. Used in welding rail tracks</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="cr2o3 al aluminium chromium aluminothermy">
+    <div class="rxn-inner">
+      <div class="rxn-num">R87</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Cr₂O₃  +  2Al  <span class="arr">→</span>  <span class="prod">Al₂O₃  +  2Cr</span></div>
+        <div class="rxn-note">Aluminothermy for chromium. Same principle — Al is a better reducing agent than Cr for metal oxide reduction</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="fe2o3 co iron blast furnace">
+    <div class="rxn-inner">
+      <div class="rxn-num">R88</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Fe₂O₃  +  3CO  <span class="arr">→</span>  <span class="prod">2Fe  +  3CO₂</span>  <span class="cond">blast furnace, ~700–800 °C</span></div>
+        <div class="rxn-note"><span class="imp">IRON EXTRACTION</span> CO reduces Fe₂O₃. Multiple reactions: Fe₂O₃ → Fe₃O₄ → FeO → Fe as CO/CO₂ ratio changes with height in furnace</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="cuo c copper carbon reduction">
+    <div class="rxn-inner">
+      <div class="rxn-num">R89</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2CuO  +  C  <span class="arr">→</span>  <span class="prod">2Cu  +  CO₂</span>  <span class="cond">Δ, ~700 °C</span></div>
+        <div class="rxn-note">Carbon reduces CuO (Ellingham diagram: C line crosses Cu line at ~700°C). Above this temperature C is thermodynamically a better reducing agent</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="zno c zinc reduction coke">
+    <div class="rxn-inner">
+      <div class="rxn-num">R90</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">ZnO  +  C  <span class="arr">→</span>  <span class="prod">Zn  +  CO</span>  <span class="cond">&gt;1000 °C</span></div>
+        <div class="rxn-note">Coke reduces ZnO. CO is product (not CO₂) at high temperatures — explained by Ellingham diagram (2C+O₂→2CO has negative slope)</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- WATER GAS -->
+  <div class="sub-head" id="gi-water">WATER GAS · PRODUCER GAS · SYNTHESIS GAS</div>
+
+  <div class="rxn-block" data-text="water gas c h2o steam co h2 1000">
+    <div class="rxn-inner">
+      <div class="rxn-num">R91</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">C  +  H₂O(steam)  <span class="arr">→</span>  <span class="prod">CO  +  H₂</span>  <span class="cond">~1000 °C, endothermic</span></div>
+        <div class="rxn-note"><span class="imp">WATER GAS</span> CO + H₂ mixture. Used as fuel and for H₂ production. Endothermic — needs continuous heat input</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="water gas shift co h2o co2 h2">
+    <div class="rxn-inner">
+      <div class="rxn-num">R92</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">CO  +  H₂O(steam)  <span class="arr">⇌</span>  <span class="prod">CO₂  +  H₂</span>  <span class="cond">Fe catalyst, 400 °C</span></div>
+        <div class="rxn-note"><span class="tip">WATER-GAS SHIFT</span> Increases H₂ yield. CO₂ removed by scrubbing. Produces pure H₂ for Haber process</div>
+      </div>
+      <div class="rxn-tag t-indus">INDUS</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="producer gas c o2 n2 co n2 air">
+    <div class="rxn-inner">
+      <div class="rxn-num">R93</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2C  +  O₂  +  4N₂(air)  <span class="arr">→</span>  <span class="prod">2CO  +  4N₂</span>  <span class="cond">producer gas = CO + N₂ mixture</span></div>
+        <div class="rxn-note"><span class="tip">PRODUCER GAS</span> Passing air through red-hot coke. Low calorific value fuel. Used for industrial heating</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+  <!-- DISPROPORTIONATION -->
+  <div class="sub-head" id="gi-disp">IMPORTANT DISPROPORTIONATION REACTIONS</div>
+  <div class="notice rose"><span class="nt">DISPROPORTIONATION</span> A single species undergoes simultaneous oxidation AND reduction — it acts as both oxidising and reducing agent.</div>
+
+  <div class="rxn-block" data-text="h2o2 disproportionation water oxygen">
+    <div class="rxn-inner">
+      <div class="rxn-num">R94</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2H₂O₂  <span class="arr">→</span>  <span class="prod">2H₂O  +  O₂↑</span>  <span class="cond">MnO₂ catalyst or base</span></div>
+        <div class="rxn-note"><span class="imp">CLASSIC</span> H₂O₂: O is −1 → one goes to 0 (O₂), other to −2 (H₂O). MnO₂, KI, blood, catalase all catalyse this</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="cl2 water hcl hocl disproportionation chlorine">
+    <div class="rxn-inner">
+      <div class="rxn-num">R95</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">Cl₂  +  H₂O  <span class="arr">⇌</span>  <span class="prod">HCl  +  HOCl</span>  <span class="cond">Cl: 0 → −1 and +1</span></div>
+        <div class="rxn-note"><span class="imp">CHLORINE WATER</span> Cl₂ disproportionates in water. HOCl (hypochlorous acid) is the bleaching agent — unstable in light (HOCl → HCl + O, nascent oxygen bleaches)</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="cl2 hot naoh disproportionation chlorate naclo3">
+    <div class="rxn-inner">
+      <div class="rxn-num">R96</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">3Cl₂  +  6NaOH(hot,conc)  <span class="arr">→</span>  <span class="warn">NaClO₃</span>  +  5NaCl  +  3H₂O  <span class="cond">Cl: 0 → +5 and −1</span></div>
+        <div class="rxn-note"><span class="key">HOT vs COLD</span> In hot conc NaOH, Cl disproportionates to +5 and −1. In cold dilute: Cl → +1 (NaOCl) and −1 (NaCl)</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="p4 naoh phosphine ph3 nah2po2 disproportionation white phosphorus">
+    <div class="rxn-inner">
+      <div class="rxn-num">R97</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">P₄  +  3NaOH  +  3H₂O  <span class="arr">→</span>  <span class="warn">PH₃↑</span>  +  <span class="prod">3NaH₂PO₂</span>  <span class="cond">P: 0 → −3 and +1</span></div>
+        <div class="rxn-note"><span class="imp">JEE FREQ</span> White phosphorus disproportionates in NaOH — P (0) → PH₃ (−3) and NaH₂PO₂ sodium hypophosphite (+1). PH₃ is highly toxic</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="no2 water hno3 hno2 disproportionation nitrogen dioxide">
+    <div class="rxn-inner">
+      <div class="rxn-num">R98</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">2NO₂  +  H₂O  <span class="arr">→</span>  <span class="prod">HNO₃</span>  +  <span class="prod">HNO₂</span>  <span class="cond">N: +4 → +5 and +3</span></div>
+        <div class="rxn-note">NO₂ disproportionates in cold water. In hot water/with excess O₂, all NO₂ → HNO₃</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="h3po3 phosphorous acid disproportionation h3po4 ph3">
+    <div class="rxn-inner">
+      <div class="rxn-num">R99</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">4H₃PO₃  <span class="arr">→</span>  <span class="prod">3H₃PO₄</span>  +  <span class="warn">PH₃↑</span>  <span class="cond">Δ, P: +3 → +5 and −3</span></div>
+        <div class="rxn-note"><span class="key">JEE TRAP</span> Phosphorous acid (H₃PO₃) is dibasic (2 P–OH groups, 1 P–H group). It disproportionates on heating. PH₃ identified by smell/garlic odour</div>
+      </div>
+      <div class="rxn-tag t-disp">DISP</div>
+    </div>
+  </div>
+
+  <div class="rxn-block" data-text="f2 water hf hof disproportionation fluorine">
+    <div class="rxn-inner">
+      <div class="rxn-num">R100</div>
+      <div class="rxn-body">
+        <div class="rxn-eq">F₂  +  H₂O  <span class="arr">→</span>  <span class="warn">HF  +  HOF</span>  <span class="cond">(hypofluorous acid)</span></div>
+        <div class="rxn-note"><span class="key">UNIQUE F₂</span> F₂ does NOT disproportionate like Cl₂ — F is always −1. HOF is formed instead (F is +1 in HOF). HOF is extremely unstable. Only F₂ does this</div>
+      </div>
+      <div class="rxn-tag t-redox">REDOX</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// Reaction counter
+function countAndInit(){
+  const blocks = document.querySelectorAll('.rxn-block');
+  document.getElementById('sbar-count').textContent = `0 / ${blocks.length}`;
+}
+
+// Search/filter
+function filterRxns(q){
+  const blocks = document.querySelectorAll('.rxn-block');
+  const term = q.toLowerCase().trim();
+  let vis = 0;
+  blocks.forEach(b=>{
+    const txt = (b.dataset.text||'') + ' ' + b.textContent.toLowerCase();
+    if(!term || txt.includes(term)){
+      b.classList.remove('hidden');
+      vis++;
+    } else {
+      b.classList.add('hidden');
+    }
+  });
+  const total = document.querySelectorAll('.rxn-block').length;
+  document.getElementById('sbar-count').textContent = term ? `${vis} / ${total}` : `${total} / ${total}`;
+  document.getElementById('sbar').style.width = term ? `${(vis/total)*100}%` : '100%';
+}
+
+// Scroll progress
+window.addEventListener('scroll',()=>{
+  const main = document.querySelector('.main');
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  const pct = Math.min(100,(scrolled/total)*100);
+  document.getElementById('sbar').style.width = pct + '%';
+});
+
+// Sidebar active link
+const links = document.querySelectorAll('.sb-link');
+window.addEventListener('scroll',()=>{
+  const sections = document.querySelectorAll('[id]');
+  let current = '';
+  sections.forEach(s=>{
+    if(window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  links.forEach(l=>{
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+},{passive:true});
+
+countAndInit();
+document.getElementById('sbar').style.width='0%';
+setTimeout(()=>{
+  const total = document.querySelectorAll('.rxn-block').length;
+  document.getElementById('sbar-count').textContent = `${total} / ${total}`;
+  document.getElementById('sbar').style.width='100%';
+},300);
+</script>
+</body>
+</html>

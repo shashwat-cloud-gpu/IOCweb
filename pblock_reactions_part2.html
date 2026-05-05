@@ -1753,6 +1753,33 @@
 <footer style="text-align: center; padding: 24px 20px; margin-top: auto; font-family: 'JetBrains Mono', monospace, system-ui, sans-serif; font-size: 12px; color: #8a96a8; border-top: 1px solid #242a35; width: 100%;">
   &copy; 2026 Shashwat and Shiv. All rights reserved.
 </footer>
+<script>
+  // Disable right-click
+  document.addEventListener('contextmenu', event => event.preventDefault());
 
+  // Disable keyboard shortcuts
+  document.onkeydown = function(e) {
+    // Disable F12
+    if(e.keyCode == 123) {
+      return false;
+    }
+    // Disable Ctrl+Shift+I (Inspect)
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+      return false;
+    }
+    // Disable Ctrl+Shift+J (Console)
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+      return false;
+    }
+    // Disable Ctrl+U (View Source)
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+      return false;
+    }
+    // Disable Ctrl+S (Save Page)
+    if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
+      return false;
+    }
+  }
+</script>
 </body>
 </html>

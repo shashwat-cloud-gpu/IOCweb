@@ -1,20 +1,51 @@
-
 <style>
+:root {
+  /* Standard web-safe sans-serif font stack to match most main websites */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Dark mode color palette */
+  --color-background-primary: #000000;
+  --color-background-secondary: #141414;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #aaaaaa;
+  --color-text-tertiary: #777777;
+  --color-border-primary: #555555;
+  --color-border-secondary: #333333;
+  --color-border-tertiary: #222222;
+  --border-radius-md: 6px;
+  --border-radius-lg: 10px;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans);color:var(--color-text-primary);background:transparent}
+body{font-family:var(--font-sans);color:var(--color-text-primary);background:#000000; padding: 20px;}
 h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-.header{padding:1.5rem 0 1rem}
+
+.back-link {
+  color: #1D9E75;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 12px;
+  transition: color 0.15s;
+}
+.back-link:hover {
+  color: #27c997;
+  text-decoration: underline;
+}
+
+.header{padding: 0.5rem 0 1rem}
 .title{font-size:22px;font-weight:500;color:var(--color-text-primary)}
 .subtitle{font-size:13px;color:var(--color-text-secondary);margin-top:4px}
 .controls{display:flex;gap:10px;margin:1rem 0;flex-wrap:wrap;align-items:center}
-#search{flex:1;min-width:180px;padding:7px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-primary);color:var(--color-text-primary)}
+#search{flex:1;min-width:180px;padding:7px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary)}
+#search:focus {outline: none; border-color: #1D9E75;}
 .cats{display:flex;gap:6px;flex-wrap:wrap;margin:0.5rem 0 1rem}
 .cat-btn{padding:5px 12px;border:0.5px solid var(--color-border-secondary);border-radius:20px;font-size:12px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary);white-space:nowrap;transition:all 0.15s}
 .cat-btn:hover{border-color:var(--color-border-primary);color:var(--color-text-primary)}
 .cat-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
 .stats{font-size:12px;color:var(--color-text-tertiary);margin-bottom:0.75rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:12px}
-.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;cursor:pointer;transition:border-color 0.15s}
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;cursor:pointer;transition:border-color 0.15s}
 .card:hover{border-color:var(--color-border-secondary)}
 .card.open{border-color:var(--color-border-primary)}
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
@@ -26,19 +57,21 @@ h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,
 .field{margin-bottom:10px}
 .field-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px}
 .field-val{font-size:13px;color:var(--color-text-primary);line-height:1.6}
-.chip{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;margin:2px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
-.pos{color:#1D9E75;font-weight:500}
+.chip{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;margin:2px;background:var(--color-background-primary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+.pos{color:#27c997;font-weight:500}
 .neg{color:var(--color-text-secondary)}
-.exc{font-size:12px;color:#D85A30;background:rgba(216,90,48,0.08);border:0.5px solid rgba(216,90,48,0.2);border-radius:6px;padding:6px 10px;margin-top:6px;line-height:1.5}
-.note{font-size:12px;color:var(--color-text-secondary);background:var(--color-background-secondary);border-radius:6px;padding:6px 10px;margin-top:6px;line-height:1.5}
+.exc{font-size:12px;color:#ff8156;background:rgba(216,90,48,0.15);border:0.5px solid rgba(216,90,48,0.3);border-radius:6px;padding:6px 10px;margin-top:6px;line-height:1.5}
+.note{font-size:12px;color:var(--color-text-secondary);background:var(--color-background-primary);border-radius:6px;padding:6px 10px;margin-top:6px;line-height:1.5; border:0.5px solid var(--color-border-tertiary)}
 .chevron{font-size:14px;color:var(--color-text-tertiary);transition:transform 0.2s}
 .card.open .chevron{transform:rotate(180deg)}
 .empty{text-align:center;padding:3rem;color:var(--color-text-tertiary);font-size:14px}
 </style>
+
 <h2 class="sr-only">Comprehensive reference of organic chemistry qualitative tests, organized by category, with reagents, results, exceptions, and notes for each test.</h2>
 <div class="header">
-<div class="title">Organic Chemistry Tests</div>
-<div class="subtitle">Click any card to expand · All tests, reagents, exceptions & special notes</div>
+  <a href="index.html" class="back-link">← Back to Main</a>
+  <div class="title">Organic Chemistry Tests</div>
+  <div class="subtitle">Click any card to expand · All tests, reagents, exceptions & special notes</div>
 </div>
 <div class="controls">
 <input id="search" type="text" placeholder="Search tests, reagents, compounds..." oninput="render()">
@@ -49,20 +82,20 @@ h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,
 
 <script>
 const CAT_COLORS = {
-  "Elemental Analysis": {bg:"#EEEDFE",tc:"#3C3489",dbg:"#26215C",dtc:"#CECBF6"},
-  "Unsaturation": {bg:"#E1F5EE",tc:"#085041",dbg:"#04342C",dtc:"#9FE1CB"},
-  "Alcohols": {bg:"#E6F1FB",tc:"#0C447C",dbg:"#042C53",dtc:"#B5D4F4"},
-  "Phenols": {bg:"#FBEAF0",tc:"#72243E",dbg:"#4B1528",dtc:"#F4C0D1"},
-  "Ald & Ketones": {bg:"#FAEEDA",tc:"#633806",dbg:"#412402",dtc:"#FAC775"},
-  "Carboxylic Acids": {bg:"#EAF3DE",tc:"#27500A",dbg:"#173404",dtc:"#C0DD97"},
-  "Esters": {bg:"#FAECE7",tc:"#712B13",dbg:"#4A1B0C",dtc:"#F5C4B3"},
-  "Amines": {bg:"#FCEBEB",tc:"#791F1F",dbg:"#501313",dtc:"#F7C1C1"},
-  "Carbohydrates": {bg:"#F1EFE8",tc:"#444441",dbg:"#2C2C2A",dtc:"#D3D1C7"},
-  "Proteins & AA": {bg:"#E6F1FB",tc:"#185FA5",dbg:"#042C53",dtc:"#85B7EB"},
-  "Lipids & Fats": {bg:"#FAEEDA",tc:"#854F0B",dbg:"#412402",dtc:"#EF9F27"},
-  "Sulfur Compounds": {bg:"#EAF3DE",tc:"#3B6D11",dbg:"#173404",dtc:"#97C459"},
-  "Nitro Compounds": {bg:"#FCEBEB",tc:"#A32D2D",dbg:"#501313",dtc:"#F09595"},
-  "Halogen Compounds": {bg:"#EEEDFE",tc:"#534AB7",dbg:"#26215C",dtc:"#AFA9EC"},
+  "Elemental Analysis": {dbg:"#26215C",dtc:"#CECBF6"},
+  "Unsaturation": {dbg:"#04342C",dtc:"#9FE1CB"},
+  "Alcohols": {dbg:"#042C53",dtc:"#B5D4F4"},
+  "Phenols": {dbg:"#4B1528",dtc:"#F4C0D1"},
+  "Ald & Ketones": {dbg:"#412402",dtc:"#FAC775"},
+  "Carboxylic Acids": {dbg:"#173404",dtc:"#C0DD97"},
+  "Esters": {dbg:"#4A1B0C",dtc:"#F5C4B3"},
+  "Amines": {dbg:"#501313",dtc:"#F7C1C1"},
+  "Carbohydrates": {dbg:"#2C2C2A",dtc:"#D3D1C7"},
+  "Proteins & AA": {dbg:"#042C53",dtc:"#85B7EB"},
+  "Lipids & Fats": {dbg:"#412402",dtc:"#EF9F27"},
+  "Sulfur Compounds": {dbg:"#173404",dtc:"#97C459"},
+  "Nitro Compounds": {dbg:"#501313",dtc:"#F09595"},
+  "Halogen Compounds": {dbg:"#26215C",dtc:"#AFA9EC"},
 };
 
 const TESTS = [
@@ -159,11 +192,9 @@ const TESTS = [
 let activeCategory = "All";
 
 function badgeStyle(cat){
-  const c = CAT_COLORS[cat]||{bg:"#F1EFE8",tc:"#444441"};
-  const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  return dark
-    ? `background:${c.dbg};color:${c.dtc};`
-    : `background:${c.bg};color:${c.tc};`;
+  // Forced dark theme colors for the black background
+  const c = CAT_COLORS[cat]||{dbg:"#2C2C2A",dtc:"#D3D1C7"};
+  return `background:${c.dbg};color:${c.dtc};`;
 }
 
 function render(){

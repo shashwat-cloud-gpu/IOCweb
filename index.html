@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JEE Advanced Inorganic Chemistry Hub</title>
+<title>JEE Advanced Chemistry Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -19,6 +19,7 @@
     --c-pblock: #00e5ff;
     --c-dblock: #7eb8f7;
     --c-salt: #f7c07e;
+    --c-organic: #4ade80; /* Neon green accent for organic */
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -138,6 +139,10 @@
   .card-salt:hover::before { background: var(--c-salt); }
   .card-salt .card-icon { color: var(--c-salt); }
 
+  .card-organic:hover { border-color: var(--c-organic); box-shadow: 0 8px 30px rgba(74, 222, 128, 0.1); }
+  .card-organic:hover::before { background: var(--c-organic); }
+  .card-organic .card-icon { color: var(--c-organic); }
+
   .card-header {
     display: flex;
     justify-content: space-between;
@@ -205,7 +210,7 @@
 
   <header>
     <div class="badge">JEE Advanced Mastery</div>
-    <h1>Inorganic Reactions<br>Megacopy Hub</h1>
+    <h1>Chemistry Reactions<br>Megacopy Hub</h1>
     <div class="subtitle">SYSTEMATIC TRACKING & REVISION DASHBOARD</div>
   </header>
 
@@ -259,11 +264,19 @@
       </div>
     </a>
 
-  </div>
-</div> <footer style="text-align: center; margin-top: 60px; padding-bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; width: 100%;">
-    &copy; 2026 Shashwat Chaurasia. All rights reserved.<br>
-    <span style="opacity: 0.6; font-size: 10px;">Crafted for JEE Advanced Preparation</span>
-  </footer>
-  </body>
-</html>
+    <a href="organic_chemistry_tests_reference.html" class="card card-organic">
+      <div class="card-header">
+        <span class="card-tag">ORG 01</span>
+        <span class="card-icon">⬡</span>
+      </div>
+      <h2>Organic Chemistry Tests</h2>
+      <p>Comprehensive reference of qualitative tests, reagents, results, exceptions, and special notes.</p>
+      <div class="card-footer">
+        LAUNCH MODULE <span>→</span>
+      </div>
+    </a>
 
+  </div>
+
+</body>
+</html>

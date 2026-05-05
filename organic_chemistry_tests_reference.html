@@ -23,7 +23,7 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans);color:var(--color-text-primary);background:#000000; padding: 20px;}
+body{font-family:var(--font-sans);color:var(--color-text-primary);background:#000000; padding: 20px; min-height: 100vh; display: flex; flex-direction: column;}
 h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 
 .back-link {
@@ -51,16 +51,23 @@ h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,
 .cat-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
 .stats{font-size:14px;color:var(--color-text-tertiary);margin-bottom:1rem}
 
-/* Optimized Grid for Mobile & Desktop */
-.grid{
-  display:grid;
-  grid-template-columns:1fr; /* Default to 1 tile for phones */
-  gap:16px;
-  margin-bottom:40px;
+/* Optimized Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Default: 1 tile for phones */
+  gap: 16px;
+  margin-bottom: 40px;
 }
+
 @media (min-width: 768px) {
-  .grid{
-    grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); /* 2-3 tiles for computer/tablet */
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 tiles for tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr); /* Exactly 4 tiles for computers */
   }
 }
 

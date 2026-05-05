@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organic Chemistry Tests</title>
 <style>
 :root {
   /* Standard web-safe sans-serif font stack to match most main websites */
@@ -23,7 +29,7 @@ h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,
 .back-link {
   color: #1D9E75;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
   display: inline-block;
   margin-bottom: 12px;
   transition: color 0.15s;
@@ -34,38 +40,53 @@ h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,
 }
 
 .header{padding: 0.5rem 0 1rem}
-.title{font-size:22px;font-weight:500;color:var(--color-text-primary)}
-.subtitle{font-size:13px;color:var(--color-text-secondary);margin-top:4px}
+.title{font-size:28px;font-weight:600;color:var(--color-text-primary)}
+.subtitle{font-size:15px;color:var(--color-text-secondary);margin-top:6px}
 .controls{display:flex;gap:10px;margin:1rem 0;flex-wrap:wrap;align-items:center}
-#search{flex:1;min-width:180px;padding:7px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary)}
+#search{flex:1;min-width:180px;padding:10px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;background:var(--color-background-secondary);color:var(--color-text-primary)}
 #search:focus {outline: none; border-color: #1D9E75;}
-.cats{display:flex;gap:6px;flex-wrap:wrap;margin:0.5rem 0 1rem}
-.cat-btn{padding:5px 12px;border:0.5px solid var(--color-border-secondary);border-radius:20px;font-size:12px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary);white-space:nowrap;transition:all 0.15s}
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin:0.5rem 0 1rem}
+.cat-btn{padding:6px 14px;border:0.5px solid var(--color-border-secondary);border-radius:20px;font-size:14px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary);white-space:nowrap;transition:all 0.15s}
 .cat-btn:hover{border-color:var(--color-border-primary);color:var(--color-text-primary)}
 .cat-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
-.stats{font-size:12px;color:var(--color-text-tertiary);margin-bottom:0.75rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:12px}
-.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;cursor:pointer;transition:border-color 0.15s}
+.stats{font-size:14px;color:var(--color-text-tertiary);margin-bottom:1rem}
+
+/* Optimized Grid for Mobile & Desktop */
+.grid{
+  display:grid;
+  grid-template-columns:1fr; /* Default to 1 tile for phones */
+  gap:16px;
+  margin-bottom:40px;
+}
+@media (min-width: 768px) {
+  .grid{
+    grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); /* 2-3 tiles for computer/tablet */
+  }
+}
+
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.2rem;cursor:pointer;transition:border-color 0.15s}
 .card:hover{border-color:var(--color-border-secondary)}
 .card.open{border-color:var(--color-border-primary)}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.card-name{font-size:14px;font-weight:500;color:var(--color-text-primary);line-height:1.4}
-.cat-badge{font-size:10px;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;font-weight:500}
-.card-for{font-size:12px;color:var(--color-text-secondary);margin-top:4px}
-.card-body{display:none;margin-top:12px;border-top:0.5px solid var(--color-border-tertiary);padding-top:12px}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card-name{font-size:18px;font-weight:600;color:var(--color-text-primary);line-height:1.4}
+.cat-badge{font-size:12px;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;font-weight:500}
+.card-for{font-size:14px;color:var(--color-text-secondary);margin-top:6px}
+.card-body{display:none;margin-top:16px;border-top:0.5px solid var(--color-border-tertiary);padding-top:16px}
 .card.open .card-body{display:block}
-.field{margin-bottom:10px}
-.field-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px}
-.field-val{font-size:13px;color:var(--color-text-primary);line-height:1.6}
-.chip{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;margin:2px;background:var(--color-background-primary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+.field{margin-bottom:12px}
+.field-label{font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
+.field-val{font-size:15px;color:var(--color-text-primary);line-height:1.6}
+.chip{display:inline-block;padding:3px 10px;border-radius:4px;font-size:14px;margin:3px;background:var(--color-background-primary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
 .pos{color:#27c997;font-weight:500}
 .neg{color:var(--color-text-secondary)}
-.exc{font-size:12px;color:#ff8156;background:rgba(216,90,48,0.15);border:0.5px solid rgba(216,90,48,0.3);border-radius:6px;padding:6px 10px;margin-top:6px;line-height:1.5}
-.note{font-size:12px;color:var(--color-text-secondary);background:var(--color-background-primary);border-radius:6px;padding:6px 10px;margin-top:6px;line-height:1.5; border:0.5px solid var(--color-border-tertiary)}
-.chevron{font-size:14px;color:var(--color-text-tertiary);transition:transform 0.2s}
+.exc{font-size:14px;color:#ff8156;background:rgba(216,90,48,0.15);border:0.5px solid rgba(216,90,48,0.3);border-radius:6px;padding:8px 12px;margin-top:8px;line-height:1.5}
+.note{font-size:14px;color:var(--color-text-secondary);background:var(--color-background-primary);border-radius:6px;padding:8px 12px;margin-top:8px;line-height:1.5; border:0.5px solid var(--color-border-tertiary)}
+.chevron{font-size:16px;color:var(--color-text-tertiary);transition:transform 0.2s}
 .card.open .chevron{transform:rotate(180deg)}
-.empty{text-align:center;padding:3rem;color:var(--color-text-tertiary);font-size:14px}
+.empty{text-align:center;padding:3rem;color:var(--color-text-tertiary);font-size:15px}
 </style>
+</head>
+<body>
 
 <h2 class="sr-only">Comprehensive reference of organic chemistry qualitative tests, organized by category, with reagents, results, exceptions, and notes for each test.</h2>
 <div class="header">
@@ -280,3 +301,5 @@ render();
     }
   }
 </script>
+</body>
+</html>

@@ -7,9 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #050810;
-    --surface: #0d0f12;
-    --card: #12151a;
+    /* Pitch Black Background */
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --card: #111111;
     --border: #242a35;
     --text: #dde3ec;
     --muted: #8a96a8;
@@ -19,7 +20,8 @@
     --c-pblock: #00e5ff;
     --c-dblock: #7eb8f7;
     --c-salt: #f7c07e;
-    --c-organic: #4ade80; /* Neon green accent for organic */
+    --c-organic: #4ade80; /* Neon Green */
+    --c-everyday: #f472b6; /* Neon Pink */
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +35,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 20px;
+    padding: 60px 20px 0 20px;
     position: relative;
   }
 
@@ -44,7 +46,7 @@
     inset: 0;
     pointer-events: none;
     z-index: -1;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px);
   }
 
   header {
@@ -92,6 +94,7 @@
     gap: 24px;
     width: 100%;
     max-width: 900px;
+    margin-bottom: 60px;
   }
 
   /* Card Styling */
@@ -142,6 +145,10 @@
   .card-organic:hover { border-color: var(--c-organic); box-shadow: 0 8px 30px rgba(74, 222, 128, 0.1); }
   .card-organic:hover::before { background: var(--c-organic); }
   .card-organic .card-icon { color: var(--c-organic); }
+
+  .card-everyday:hover { border-color: var(--c-everyday); box-shadow: 0 8px 30px rgba(244, 114, 182, 0.1); }
+  .card-everyday:hover::before { background: var(--c-everyday); }
+  .card-everyday .card-icon { color: var(--c-everyday); }
 
   .card-header {
     display: flex;
@@ -201,7 +208,7 @@
   }
 
   @media (max-width: 600px) {
-    body { padding: 40px 16px; }
+    body { padding: 40px 16px 0 16px; }
     .grid { grid-template-columns: 1fr; }
   }
 </style>
@@ -276,37 +283,23 @@
       </div>
     </a>
 
-  </div>
-  <footer style="text-align: center; padding: 24px 20px; margin-top: auto; font-family: 'JetBrains Mono', monospace, system-ui, sans-serif; font-size: 12px; color: #8a96a8; border-top: 1px solid #242a35; width: 100%;">
-  &copy; 2026 Shashwat and Shiv. All rights reserved.
-</footer>
-<script>
-  // Disable right-click
-  document.addEventListener('contextmenu', event => event.preventDefault());
+    <a href="chem_everyday_life_jee.html" class="card card-everyday">
+      <div class="card-header">
+        <span class="card-tag">ORG 02</span>
+        <span class="card-icon">⛨</span>
+      </div>
+      <h2>Chem in Everyday Life</h2>
+      <p>Drug-target interactions, analgesics, antibiotics, artificial sweeteners, and cleansing agents.</p>
+      <div class="card-footer">
+        LAUNCH MODULE <span>→</span>
+      </div>
+    </a>
 
-  // Disable keyboard shortcuts
-  document.onkeydown = function(e) {
-    // Disable F12
-    if(e.keyCode == 123) {
-      return false;
-    }
-    // Disable Ctrl+Shift+I (Inspect)
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-      return false;
-    }
-    // Disable Ctrl+Shift+J (Console)
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-      return false;
-    }
-    // Disable Ctrl+U (View Source)
-    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-      return false;
-    }
-    // Disable Ctrl+S (Save Page)
-    if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
-      return false;
-    }
-  }
-</script>
+  </div>
+
+  <footer style="text-align: center; padding: 24px 20px; margin-top: auto; font-family: 'JetBrains Mono', monospace, system-ui, sans-serif; font-size: 12px; color: #8a96a8; border-top: 1px solid #242a35; width: 100%;">
+    &copy; 2026 Shashwat and Shiv. All rights reserved.
+  </footer>
+
 </body>
 </html>

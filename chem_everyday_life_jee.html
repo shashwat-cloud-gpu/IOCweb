@@ -1,0 +1,161 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .wrap { padding: 1.5rem 0.5rem; font-family: var(--font-sans); }
+  .section { margin-bottom: 1.5rem; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+  .sec-header { padding: 0.6rem 1rem; display: flex; align-items: center; gap: 10px; }
+  .sec-title { font-size: 14px; font-weight: 500; }
+  .sec-body { padding: 0.75rem 1rem; background: var(--color-background-primary); }
+  .point { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 0.55rem; font-size: 13.5px; line-height: 1.58; color: var(--color-text-primary); }
+  .point:last-child { margin-bottom: 0; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+  .divider { height: 0.5px; background: var(--color-border-tertiary); margin: 0.55rem 0; }
+  .formula { font-family: var(--font-mono); font-size: 12.5px; background: var(--color-background-secondary); padding: 2px 6px; border-radius: 4px; }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 4px; font-weight: 500; margin-left: 5px; vertical-align: middle; }
+  .tag-hot { background: #FAECE7; color: #993C1D; }
+  .tag-num { background: #EEEDFE; color: #3C3489; }
+  .tag-mem { background: #EAF3DE; color: #27500A; }
+
+  .s1 .sec-header { background: #E6F1FB; } .s1 .sec-title { color: #0C447C; } .s1 .dot { background: #185FA5; }
+  .s2 .sec-header { background: #EEEDFE; } .s2 .sec-title { color: #26215C; } .s2 .dot { background: #534AB7; }
+  .s3 .sec-header { background: #FAEEDA; } .s3 .sec-title { color: #633806; } .s3 .dot { background: #854F0B; }
+  .s4 .sec-header { background: #E1F5EE; } .s4 .sec-title { color: #085041; } .s4 .dot { background: #0F6E56; }
+  .s5 .sec-header { background: #FAECE7; } .s5 .sec-title { color: #4A1B0C; } .s5 .dot { background: #993C1D; }
+  .s6 .sec-header { background: #EAF3DE; } .s6 .sec-title { color: #173404; } .s6 .dot { background: #3B6D11; }
+  .s7 .sec-header { background: #FBEAF0; } .s7 .sec-title { color: #4B1528; } .s7 .dot { background: #993556; }
+
+  @media (prefers-color-scheme: dark) {
+    .s1 .sec-header { background: #0C447C; } .s1 .sec-title { color: #B5D4F4; }
+    .s2 .sec-header { background: #26215C; } .s2 .sec-title { color: #CECBF6; }
+    .s3 .sec-header { background: #633806; } .s3 .sec-title { color: #FAC775; }
+    .s4 .sec-header { background: #085041; } .s4 .sec-title { color: #9FE1CB; }
+    .s5 .sec-header { background: #4A1B0C; } .s5 .sec-title { color: #F5C4B3; }
+    .s6 .sec-header { background: #173404; } .s6 .sec-title { color: #C0DD97; }
+    .s7 .sec-header { background: #4B1528; } .s7 .sec-title { color: #F4C0D1; }
+    .tag-hot { background: #4A1B0C; color: #F5C4B3; }
+    .tag-num { background: #26215C; color: #CECBF6; }
+    .tag-mem { background: #173404; color: #C0DD97; }
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- SECTION 1: Drug-Target Interaction -->
+  <div class="section s1">
+    <div class="sec-header">
+      <i class="ti ti-target" aria-hidden="true" style="font-size:18px;color:#185FA5;"></i>
+      <span class="sec-title">1. Drug–target interaction <span class="tag tag-hot">conceptual — direct questions</span></span>
+    </div>
+    <div class="sec-body">
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Drug</b> — low molecular mass molecule that interacts with a macromolecular target (enzyme/receptor) to produce a biological response.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Target</b> — usually proteins (enzymes or receptors) on cell surface or inside cell.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Enzyme inhibitors:</b> Drug blocks active site (competitive) or allosteric site (non-competitive) → enzyme can't bind substrate.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Receptor agonist:</b> Drug mimics natural messenger, triggers response.<br>
+        <b style="font-weight:500;">Receptor antagonist:</b> Drug blocks receptor, inhibits natural response (most drugs work this way).</span></div>
+      <div class="point"><span class="dot"></span><span>Drug–receptor interaction is mainly through: ionic bonds, H-bonds, van der Waals forces (not covalent — for reversibility).</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Drug Classifications -->
+  <div class="section s2">
+    <div class="sec-header">
+      <i class="ti ti-pill" aria-hidden="true" style="font-size:18px;color:#534AB7;"></i>
+      <span class="sec-title">2. Analgesics — pain relief <span class="tag tag-hot">hot topic</span></span>
+    </div>
+    <div class="sec-body">
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Non-narcotic (non-addictive):</b> Aspirin, Paracetamol, Ibuprofen, Naproxen<br>
+        — reduce fever, mild/moderate pain. Aspirin also has antiplatelet (blood-thinning) action.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Narcotic (addictive/opiates):</b> Morphine, Codeine, Heroin<br>
+        — used for severe pain, cause addiction &amp; CNS depression.</span></div>
+      <div class="point"><span class="dot"></span><span>Aspirin overdose → peptic ulcer. Paracetamol overdose → liver damage.</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Tranquilizers -->
+  <div class="section s3">
+    <div class="sec-header">
+      <i class="ti ti-brain" aria-hidden="true" style="font-size:18px;color:#854F0B;"></i>
+      <span class="sec-title">3. Tranquilizers &amp; antidepressants</span>
+    </div>
+    <div class="sec-body">
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Tranquilizers</b> — reduce anxiety, tension, mental disorders. Act on CNS.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Barbiturates</b> (e.g. Phenobarbitone, Luminal, Seconal) — hypnotic/sedative, habit-forming.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Benzodiazepines</b> (e.g. Valium/Diazepam, Librium/Chlordiazepoxide) — less addictive, widely used for anxiety.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Equanil</b> (Meprobamate) — mild tranquilizer, controls depression &amp; hypertension.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Chlorpromazine, Reserpine</b> — antipsychotic (schizophrenia). Reserpine also lowers BP.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Iproniazid</b> — MAO inhibitor antidepressant (prevents breakdown of serotonin &amp; noradrenaline).</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Antihistamines & Antacids -->
+  <div class="section s4">
+    <div class="sec-header">
+      <i class="ti ti-vaccine" aria-hidden="true" style="font-size:18px;color:#0F6E56;"></i>
+      <span class="sec-title">4. Antihistamines &amp; antacids <span class="tag tag-hot">hot topic</span></span>
+    </div>
+    <div class="sec-body">
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Histamine</b> — causes allergic response, stimulates HCl secretion in stomach.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Antihistamines</b> — block histamine receptors, used for allergy/cold:<br>
+        Brompheniramine (Dimetapp), Terfenadine (Seldane), Diphenhydramine, Cimetidine, Ranitidine.</span></div>
+      <div class="point"><span class="dot"></span><span>Cimetidine &amp; Ranitidine → block H₂ receptors in stomach → reduce HCl secretion (used for ulcers).</span></div>
+      <div class="divider"></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Antacids</b> — neutralise excess stomach acid. Weak bases only (strong bases would cause alkalosis).</span></div>
+      <div class="point"><span class="dot"></span><span>Examples: <span class="formula">NaHCO₃</span>, <span class="formula">Mg(OH)₂</span>, <span class="formula">Al(OH)₃</span>, <span class="formula">CaCO₃</span>, Milk of Magnesia.</span></div>
+      <div class="point"><span class="dot"></span><span>NaHCO₃ gives CO₂ gas (causes rebound acidity) — Mg(OH)₂ preferred (no gas, no constipation).</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Antimicrobials & Antifertility -->
+  <div class="section s5">
+    <div class="sec-header">
+      <i class="ti ti-shield-plus" aria-hidden="true" style="font-size:18px;color:#993C1D;"></i>
+      <span class="sec-title">5. Antimicrobials &amp; antifertility drugs</span>
+    </div>
+    <div class="sec-body">
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Antibiotics</b> — kill or inhibit bacteria. Narrow-spectrum (one type) vs broad-spectrum (many types).</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Penicillin</b> — first antibiotic (Fleming, 1929). Narrow-spectrum. Bactericidal (kills bacteria by damaging cell wall).</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Ampicillin, Amoxycillin</b> — broad-spectrum semi-synthetic penicillins.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Chloramphenicol</b> — broad-spectrum, used for typhoid, meningitis. Bacteriostatic (stops growth).</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Tetracycline, Ofloxacin</b> — broad-spectrum antibiotics.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Sulphonamides</b> (e.g. Sulphapyridine) — earliest antimicrobials. Competitive inhibitors of enzyme making folic acid in bacteria.</span></div>
+      <div class="divider"></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Antifertility drugs</b> — synthetic estrogen + progesterone (oral contraceptives). Norethindrone + Ethynylestradiol = most common combination. <span class="tag tag-mem">remember names</span></span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Artificial Sweeteners -->
+  <div class="section s6">
+    <div class="sec-header">
+      <i class="ti ti-candy" aria-hidden="true" style="font-size:18px;color:#3B6D11;"></i>
+      <span class="sec-title">6. Artificial sweeteners — names only (as per syllabus) <span class="tag tag-mem">pure memory</span></span>
+    </div>
+    <div class="sec-body">
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Saccharin</b> — oldest (1879), 550× sweeter than sugar. Excreted unchanged. Used by diabetics.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Aspartame</b> — 100× sweeter. Used in cold drinks &amp; food. Unstable at high temp (not for cooking).</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Sucralose</b> — 600× sweeter. Derived from sucrose (trichloro derivative). Stable at cooking temp.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Alitame</b> — 2000× sweeter. Hard to control sweetness level in food.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Cyclamate (Sodium cyclamate)</b> — 30× sweeter. Banned in USA (suspected carcinogen).</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: Soaps, Detergents, Cleansing Action -->
+  <div class="section s7">
+    <div class="sec-header">
+      <i class="ti ti-droplets" aria-hidden="true" style="font-size:18px;color:#993556;"></i>
+      <span class="sec-title">7. Soaps, detergents &amp; cleansing action <span class="tag tag-hot">hot topic</span></span>
+    </div>
+    <div class="sec-body">
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Soap</b> — sodium/potassium salt of long-chain fatty acid. Made by saponification of oils/fats with NaOH.</span></div>
+      <div class="point"><span class="dot"></span><span>Soap molecule has: <b style="font-weight:500;">hydrophilic head</b> (–COO⁻Na⁺, ionic) + <b style="font-weight:500;">hydrophobic tail</b> (long hydrocarbon chain).</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Micelle formation</b> — tails point inward (into oil/grease), heads point outward (into water). Grease is trapped inside micelle and washed away. <span class="tag tag-hot">diagram-based Q</span></span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Soaps don't work in hard water</b> — Ca²⁺/Mg²⁺ ions form insoluble scum: <span class="formula">2RCOONa + CaCl₂ → (RCOO)₂Ca↓ + 2NaCl</span></span></div>
+      <div class="divider"></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Detergents</b> — sodium salts of sulphonic acids or sulphate esters. Work in hard water (Ca/Mg salts are soluble).</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Anionic detergent</b> (most common) — e.g. Sodium lauryl sulphate. Hydrophilic: –OSO₃⁻Na⁺</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Cationic detergent</b> — quaternary ammonium salts. Germicidal + fabric softener. E.g. cetyltrimethyl ammonium bromide.</span></div>
+      <div class="point"><span class="dot"></span><span><b style="font-weight:500;">Non-ionic detergent</b> — e.g. liquid dishwash soaps. No ionic charge, forms micelles.</span></div>
+      <div class="point"><span class="dot"></span><span>Detergents with branched hydrocarbon chains → non-biodegradable (cause foam in rivers). Straight chain → biodegradable.</span></div>
+    </div>
+  </div>
+
+</div>
